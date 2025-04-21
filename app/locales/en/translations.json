@@ -1,0 +1,12 @@
+{
+  "common": {
+    "welcome": "Welcome to our application!"
+  },
+  "errors": {
+    "not_found": "The requested page was not found.",
+    "server_error": "An internal server error occurred. Please try again later.",
+    "unauthorized": "You are not authorized to access this page.",
+    "forbidden": "You do not have permission to access this page.",
+    "unexpected": "An unexpected error occurred. Please try again."
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "common": {
+    "welcome": "Bienvenue dans notre application !"
+  },
+  "errors": {
+    "not_found": "La page demandée est introuvable.",
+    "server_error": "Une erreur interne du serveur s'est produite. Veuillez réessayer plus tard.",
+    "unauthorized": "Vous n'êtes pas autorisé à accéder à cette page.",
+    "forbidden": "Vous n'avez pas la permission d'accéder à cette page.",
+    "unexpected": "Une erreur inattendue s'est produite. Veuillez réessayer."
+  }
+}

@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  LayoutDashboard,
-  MonitorDot,
-  ReceiptText,
-  Users,
-  type LucideIcon,
-} from "lucide-react";
+import { Building2, LayoutDashboard, ReceiptText, Users } from "lucide-react";
 
 import {
   SidebarGroup,
@@ -14,46 +8,50 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-
-const items = [
-  {
-    title: "Dashboard",
-    url: "/",
-    icon: LayoutDashboard,
-    isActive: true,
-    roles: ["user", "admin"],
-  },
-  {
-    title: "Invoices",
-    url: "/invoices",
-    icon: ReceiptText,
-    roles: ["user", "admin"],
-  },
-  {
-    title: "Processes",
-    url: "/processes",
-    icon: MonitorDot,
-    roles: ["user", "admin"],
-  },
-  {
-    title: "Users",
-    url: "/users",
-    icon: Users,
-    roles: ["admin"],
-  },
-];
+import { useTranslation } from "react-i18next";
+import { NavLink, useLocation } from "react-router";
 
 export function NavMain() {
+  const { t } = useTranslation();
+  const { pathname } = useLocation();
+
+  const items = [
+    {
+      title: t("menu.requests"),
+      url: "/requests",
+      icon: LayoutDashboard,
+      isActive: true,
+      roles: ["user", "admin"],
+    },
+    {
+      title: t("menu.employees"),
+      url: "/employees",
+      icon: Users,
+      roles: ["user", "admin"],
+    },
+    {
+      title: t("menu.contracts"),
+      url: "/contracts",
+      icon: ReceiptText,
+      roles: ["user", "admin"],
+    },
+    {
+      title: t("menu.departments"),
+      url: "/departments",
+      icon: Building2,
+      roles: ["user", "admin"],
+    },
+  ];
   return (
     <SidebarGroup>
       <SidebarMenu>
         {items.map((item) => (
           <SidebarMenuItem key={item.title}>
-            <SidebarMenuButton asChild>
-              <a href={item.url}>
+            <SidebarMenuButton asChild isActive={pathname.includes(item.url)}>
+              <NavLink to={item.url}>
                 <item.icon />
                 <span>{item.title}</span>
-              </a>
+              </NavLink>
             </SidebarMenuButton>
           </SidebarMenuItem>
         ))}

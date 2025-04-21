@@ -8,5 +8,11 @@
     "unauthorized": "Vous n'êtes pas autorisé à accéder à cette page.",
     "forbidden": "Vous n'avez pas la permission d'accéder à cette page.",
     "unexpected": "Une erreur inattendue s'est produite. Veuillez réessayer."
+  },
+  "menu": {
+    "requests": "Demandes",
+    "employees": "Employés",
+    "contracts": "Contrats",
+    "departments": "Départements"
   }
 }

@@ -1,17 +1,17 @@
 import { Link } from "react-router";
-import type { Route } from "./+types/dashboard";
 import { useTranslation } from "react-i18next";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Separator } from "@radix-ui/react-separator";
+import type { Route } from "./+types/requests";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Dashboard" },
-    { name: "description", content: "Welcome to dashboard!" },
+    { title: "Requests" },
+    { name: "description", content: "Welcome to requests!" },
   ];
 }
 
-export default function Dashboard() {
+export default function Requests() {
   const { t } = useTranslation();
 
   return (
@@ -23,7 +23,7 @@ export default function Dashboard() {
             orientation="vertical"
             className="mr-2 h-4 w-[1px] bg-ring"
           />
-          <h1>Dashboard</h1>
+          <h1>Requests</h1>
         </div>
       </header>
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">

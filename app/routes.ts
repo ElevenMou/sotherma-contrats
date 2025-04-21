@@ -7,6 +7,14 @@ export default [
   // Protected pages
   {
     file: "pages/protected/_layout.tsx",
-    children: [{ file: "pages/protected/dashboard.tsx", path: "dashboard" }],
+    children: [
+      { file: "pages/protected/requests/requests.tsx", path: "requests" },
+      // { file: "pages/protected/employees/employees.tsx", path: "employees" },
+      { file: "pages/protected/contracts/contracts.tsx", path: "contracts" },
+      // {
+      //   file: "pages/protected/departments/departments.tsx",
+      //   path: "departments",
+      // },
+    ],
   },
 ] satisfies RouteConfig;

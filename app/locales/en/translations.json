@@ -8,5 +8,11 @@
     "unauthorized": "You are not authorized to access this page.",
     "forbidden": "You do not have permission to access this page.",
     "unexpected": "An unexpected error occurred. Please try again."
+  },
+  "menu": {
+    "requests": "Requests",
+    "employees": "Employees",
+    "contracts": "Contracts",
+    "departments": "Departments"
   }
 }

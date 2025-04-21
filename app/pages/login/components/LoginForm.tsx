@@ -33,7 +33,7 @@ const LoginForm = () => {
   });
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
+  const callbackUrl = searchParams.get("callbackUrl") || "/requests";
 
   async function onSubmit(values: z.infer<typeof loginUserSchema>) {
     if (false) {

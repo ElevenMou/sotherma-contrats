@@ -8,6 +8,7 @@ import {
 import type { Route } from "../../+types/root";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/ui/sonner";
+import { useEffect } from "react";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -25,6 +26,23 @@ export const links: Route.LinksFunction = () => [
 export function Layout({ children }: { children: React.ReactNode }) {
   const navigation = useNavigation();
   const isNavigating = Boolean(navigation.location);
+
+  async function deferRender() {
+    if (import.meta.env.VITE_ENABLE_BACKEND_MOCK === "true") {
+      const { worker } = await import("@/mocks/browser");
+      return worker.start({
+        serviceWorker: {
+          url: `${import.meta.env.VITE_PUBLIC_HOST}/mockServiceWorker.js`,
+        },
+        onUnhandledRequest: "warn",
+      });
+    }
+    return Promise.resolve();
+  }
+
+  useEffect(() => {
+    deferRender();
+  }, []);
 
   return (
     <html lang="en" suppressHydrationWarning>

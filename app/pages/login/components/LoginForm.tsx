@@ -14,6 +14,11 @@ import { Input } from "@/components/ui/input";
 import Loading from "@/components/layout/Loading";
 import { useNavigate, useSearchParams } from "react-router";
 import { toast } from "sonner";
+import { authHttpRepository } from "@/data/auth/auth.repository";
+import {
+  ACEESS_TOKEN_STORAGE_KEY,
+  REFRESH_TOKEN_STORAGE_KEY,
+} from "@/lib/http/http.service";
 const loginUserSchema = object({
   email: string({ required_error: "Email is required" })
     .min(1, "Email is required")
@@ -36,17 +41,28 @@ const LoginForm = () => {
   const callbackUrl = searchParams.get("callbackUrl") || "/requests";
 
   async function onSubmit(values: z.infer<typeof loginUserSchema>) {
-    if (false) {
-      toast.error("Invalid credentials", {
-        description:
-          "The email or password you entered is incorrect. Please try again.",
+    try {
+      const res = await authHttpRepository.Authenticate({
+        email: values.email,
+        password: values.password,
       });
-    }
-
-    if (true) {
-      console.log("Login successful", callbackUrl);
-
+      if (res) {
+        localStorage.setItem(ACEESS_TOKEN_STORAGE_KEY, res.access_token);
+        localStorage.setItem(REFRESH_TOKEN_STORAGE_KEY, res.refresh_token);
+        toast.success("Login successful", {
+          description: "You have successfully logged in.",
+        });
+      } else {
+        toast.error("Login failed", {
+          description: "Invalid email or password",
+        });
+      }
       navigate(callbackUrl);
+    } catch (error) {
+      console.error("Error during login", error);
+      toast.error("Login failed", {
+        description: "An error occurred while logging in. Please try again.",
+      });
     }
   }
   return (

@@ -1,7 +1,8 @@
 import axios from "axios";
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 
-export const TOKEN_STORAGE_KEY = "authToken";
+export const ACEESS_TOKEN_STORAGE_KEY = "authToken";
+export const REFRESH_TOKEN_STORAGE_KEY = "refreshToken";
 
 /**
  * HttpService class to handle all API requests in the application.
@@ -52,7 +53,7 @@ class HttpService {
     this.client.interceptors.request.use(
       (config) => {
         // Get token from storage if available
-        const token = localStorage.getItem(TOKEN_STORAGE_KEY);
+        const token = localStorage.getItem(ACEESS_TOKEN_STORAGE_KEY);
 
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
@@ -83,7 +84,7 @@ class HttpService {
             case 401:
               // Handle unauthorized access
               console.error("Unauthorized access");
-              this.clearAuthToken();
+              this.clearTokens();
               window.location.href = "/";
               break;
             case 403:
@@ -116,14 +117,15 @@ class HttpService {
    * @param token - The authentication token
    */
   public setAuthToken(token: string): void {
-    localStorage.setItem(TOKEN_STORAGE_KEY, token);
+    localStorage.setItem(ACEESS_TOKEN_STORAGE_KEY, token);
   }
 
   /**
    * Clear auth token
    */
-  public clearAuthToken(): void {
-    localStorage.removeItem(TOKEN_STORAGE_KEY);
+  public clearTokens(): void {
+    localStorage.removeItem(ACEESS_TOKEN_STORAGE_KEY);
+    localStorage.removeItem(REFRESH_TOKEN_STORAGE_KEY);
   }
 
   /**

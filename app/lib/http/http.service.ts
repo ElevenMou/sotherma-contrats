@@ -1,5 +1,3 @@
-// src/services/HttpService.ts
-
 import axios from "axios";
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 
@@ -55,9 +53,15 @@ class HttpService {
       (config) => {
         // Get token from storage if available
         const token = localStorage.getItem(TOKEN_STORAGE_KEY);
+
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
         }
+
+        if (import.meta.env.DEV) {
+          console.log("☁ HTTP Request", config);
+        }
+
         return config;
       },
       (error) => Promise.reject(error)
@@ -65,7 +69,13 @@ class HttpService {
 
     // Response interceptor
     this.client.interceptors.response.use(
-      (response) => response,
+      (response) => {
+        if (import.meta.env.DEV) {
+          console.log("☁ HTTP Response", response);
+        }
+
+        return response;
+      },
       (error) => {
         // Handle common errors (401, 403, 500, etc.)
         if (error.response) {

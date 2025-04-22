@@ -12,6 +12,11 @@ export default defineConfig({
       "@lib": path.resolve(__dirname, "./app/lib"),
       "@components": path.resolve(__dirname, "./app/components"),
       "@pages": path.resolve(__dirname, "./app/pages"),
+      "@hooks": path.resolve(__dirname, "./app/hooks"),
+      "@data": path.resolve(__dirname, "./app/data"),
     },
+  },
+  optimizeDeps: {
+    include: ["msw"],
   },
 });

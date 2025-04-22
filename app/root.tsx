@@ -4,12 +4,33 @@ import { initializeI18next } from "./lib/localization/i18n";
 import { locales } from "./locales";
 import type { Route } from "./+types/root";
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 
 initializeI18next({ resources: locales });
 
 export * from "./lib/router/Layout";
 
 export default function App() {
+  async function deferRender() {
+    if (
+      import.meta.env.DEV &&
+      import.meta.env.VITE_ENABLE_BACKEND_MOCK === "true"
+    ) {
+      const { worker } = await import("@/mocks/browser");
+      return worker.start({
+        serviceWorker: {
+          url: `${import.meta.env.VITE_PUBLIC_HOST}/mockServiceWorker.js`,
+        },
+        onUnhandledRequest: "warn",
+      });
+    }
+    return Promise.resolve();
+  }
+
+  useEffect(() => {
+    deferRender();
+  }, []);
+
   return <Outlet />;
 }
 

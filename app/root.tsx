@@ -6,6 +6,10 @@ import type { Route } from "./+types/root";
 import { useTranslation } from "react-i18next";
 import { routes } from "@/lib/router/routes";
 import { logout } from "./usecases/auth/authUsecase";
+import {
+  ACCESS_TOKEN_STORAGE_KEY,
+  REFRESH_TOKEN_STORAGE_KEY,
+} from "./lib/http/http.service";
 
 initializeI18next({ resources: locales });
 
@@ -30,10 +34,11 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
       if (pathname === routes.login) {
         window.location.replace(routes.requests);
       } else {
+        localStorage.removeItem(ACCESS_TOKEN_STORAGE_KEY);
+        localStorage.removeItem(REFRESH_TOKEN_STORAGE_KEY);
         window.location.replace(
           `${routes.login}?callbackUrl=${pathname}${search}`
         );
-        logout();
       }
 
       return null;

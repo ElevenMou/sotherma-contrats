@@ -9,16 +9,19 @@ const ProtecedAdminLayout = () => {
   const { location } = useNavigation();
   const isNavigating = Boolean(location);
 
-  useEffect(() => {
-    if (userInfo?.profile !== userRoles.admin) {
-      throw new Response("Unauthorized", { status: 401 });
-    }
-  }, [userInfo]);
-
-  if (!userInfo || userInfo?.profile !== userRoles.admin) {
+  if (!userInfo) {
     return (
       <div className="flex items-center justify-center h-svh">
         <Loading />
+      </div>
+    );
+  }
+
+  if (userInfo && userInfo.profile !== userRoles.admin) {
+    return (
+      <div className="flex flex-col items-center justify-center h-svh gap-4">
+        <h1 className="text-2xl font-bold">Access Denied</h1>
+        <p>You do not have permission to access this page.</p>
       </div>
     );
   }

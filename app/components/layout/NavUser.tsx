@@ -19,9 +19,13 @@ import {
 } from "@/components/ui/sidebar";
 import { Button } from "../ui/button";
 import ChangeLanguage from "@/lib/localization/components/ChangeLanguage";
+import { useAuthUsecase } from "@/usecases/auth/authUsecase";
+import { useTranslation } from "react-i18next";
 
 export function NavUser() {
   const { isMobile } = useSidebar();
+  const { logout } = useAuthUsecase();
+  const { t } = useTranslation();
 
   return (
     <SidebarMenu>
@@ -92,12 +96,10 @@ export function NavUser() {
                 variant="ghost"
                 size="sm"
                 className="items-start h-full w-full cursor-pointer px-2 py-1.5 "
-                onClick={() => {
-                  console.log("Signout");
-                }}
+                onClick={logout}
               >
                 <LogOut className="w-4 h-4" />
-                Logout
+                {t("menu.logout")}
               </Button>
             </DropdownMenuItem>
           </DropdownMenuContent>

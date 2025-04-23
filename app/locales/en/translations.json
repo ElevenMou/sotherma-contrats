@@ -1,6 +1,7 @@
 {
   "common": {
-    "welcome": "Welcome to our application!"
+    "welcome": "Welcome to our application!",
+    "language": "Language"
   },
   "errors": {
     "not_found": "The requested page was not found.",
@@ -13,6 +14,21 @@
     "requests": "Requests",
     "employees": "Employees",
     "contracts": "Contracts",
-    "departments": "Departments"
+    "departments": "Departments",
+    "logout": "Logout"
+  },
+  "login": {
+    "title": "Login to your account",
+    "subtitle": "Welcome! Please enter your credentials to log in to your account.",
+    "email": "Email",
+    "password": "Password",
+    "signin": "Sign In",
+    "errors": {
+      "loginFailed": "Login failed.",
+      "invalidCredentials": "Invalid email or password.",
+      "errorOccured": "An error occurred while logging in. Please try again.",
+      "logoutFailed": "Logout failed.",
+      "errorLogout": "An error occurred while logging out. Please try again."
+    }
   }
 }

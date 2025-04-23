@@ -1,13 +1,21 @@
-import { isRouteErrorResponse, Outlet } from "react-router";
+import {
+  isRouteErrorResponse,
+  Outlet,
+  useLocation,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router";
 import "./app.css";
 import { initializeI18next } from "./lib/localization/i18n";
 import { locales } from "./locales";
 import type { Route } from "./+types/root";
 import { useTranslation } from "react-i18next";
+import { routes } from "@lib/router/routes";
 
 initializeI18next({ resources: locales });
 
-export * from "./lib/router/Layout";
+export * from "@lib/router/Layout";
 
 export default function App() {
   return <Outlet />;
@@ -15,6 +23,7 @@ export default function App() {
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   const { t } = useTranslation();
+  const { pathname, search } = useLocation();
 
   let message = "Oops!";
   let details = t("errors.unexpected");
@@ -24,9 +33,18 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
     details = error.statusText || details;
 
     if (error.status === 401) {
-      message = "401";
-      details = t("errors.unauthorized");
-      window.location.replace(`/?callbackUrl=${window.location.pathname}`);
+      if (pathname === routes.login) {
+        console.log("Navigate to requests", routes.requests);
+
+        window.location.replace(routes.requests);
+      } else {
+        console.log("Navigate to login");
+        window.location.replace(
+          `${routes.login}?callbackUrl=${pathname}${search}`
+        );
+      }
+
+      return null;
     }
     if (error.status === 403) {
       message = "403";
@@ -48,14 +66,16 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   }
 
   return (
-    <main className="pt-16 p-4 container mx-auto">
-      <h1>{message}</h1>
-      <p>{details}</p>
-      {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
-          <code>{stack}</code>
-        </pre>
-      )}
+    <main className="p-6 container mx-auto bg-accent min-h-svh min-w-svw flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center mb-4 bg-background rounded-lg shadow-md max-w-lg p-6">
+        <h1 className="mb-4">{message}</h1>
+        <p>{details}</p>
+        {stack && (
+          <pre className="w-full p-4 overflow-x-auto">
+            <code>{stack}</code>
+          </pre>
+        )}
+      </div>
     </main>
   );
 }

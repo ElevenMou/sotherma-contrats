@@ -1,8 +1,8 @@
 import axios from "axios";
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 
-export const ACEESS_TOKEN_STORAGE_KEY = "authToken";
-export const REFRESH_TOKEN_STORAGE_KEY = "refreshToken";
+export const ACCESS_TOKEN_STORAGE_KEY = "a0b1c2d3e4f50607";
+export const REFRESH_TOKEN_STORAGE_KEY = "deadbeefcafebabe";
 
 /**
  * HttpService class to handle all API requests in the application.
@@ -53,7 +53,7 @@ class HttpService {
     this.client.interceptors.request.use(
       (config) => {
         // Get token from storage if available
-        const token = localStorage.getItem(ACEESS_TOKEN_STORAGE_KEY);
+        const token = localStorage.getItem(ACCESS_TOKEN_STORAGE_KEY);
 
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
@@ -117,14 +117,14 @@ class HttpService {
    * @param token - The authentication token
    */
   public setAuthToken(token: string): void {
-    localStorage.setItem(ACEESS_TOKEN_STORAGE_KEY, token);
+    localStorage.setItem(ACCESS_TOKEN_STORAGE_KEY, token);
   }
 
   /**
    * Clear auth token
    */
   public clearTokens(): void {
-    localStorage.removeItem(ACEESS_TOKEN_STORAGE_KEY);
+    localStorage.removeItem(ACCESS_TOKEN_STORAGE_KEY);
     localStorage.removeItem(REFRESH_TOKEN_STORAGE_KEY);
   }
 

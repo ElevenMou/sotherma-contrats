@@ -9,6 +9,7 @@ import type { Route } from "../../+types/root";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/ui/sonner";
 import { useEffect } from "react";
+import Loading from "@/components/layout/Loading";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -54,7 +55,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body suppressHydrationWarning>
         <ThemeProvider attribute="class" storageKey="theme">
-          {isNavigating && <p>Loading...</p>}
+          {isNavigating && (
+            <div className="flex items-center justify-center h-svh">
+              <Loading />
+            </div>
+          )}
           {children}
         </ThemeProvider>
         <ScrollRestoration />

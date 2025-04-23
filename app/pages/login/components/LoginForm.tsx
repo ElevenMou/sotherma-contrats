@@ -12,13 +12,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Loading from "@/components/layout/Loading";
-import { useNavigate, useSearchParams } from "react-router";
-import { toast } from "sonner";
-import { authHttpRepository } from "@/data/auth/auth.repository";
-import {
-  ACEESS_TOKEN_STORAGE_KEY,
-  REFRESH_TOKEN_STORAGE_KEY,
-} from "@/lib/http/http.service";
+import { useAuthUsecase } from "@/usecases/auth/authUsecase";
+
 const loginUserSchema = object({
   email: string({ required_error: "Email is required" })
     .min(1, "Email is required")
@@ -29,6 +24,7 @@ const loginUserSchema = object({
   ),
 });
 const LoginForm = () => {
+  const { authenticate } = useAuthUsecase();
   const form = useForm<z.infer<typeof loginUserSchema>>({
     resolver: zodResolver(loginUserSchema),
     defaultValues: {
@@ -36,34 +32,11 @@ const LoginForm = () => {
       password: "",
     },
   });
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/requests";
 
   async function onSubmit(values: z.infer<typeof loginUserSchema>) {
-    try {
-      const res = await authHttpRepository.Authenticate({
-        email: values.email,
-        password: values.password,
-      });
-      if (res) {
-        localStorage.setItem(ACEESS_TOKEN_STORAGE_KEY, res.access_token);
-        localStorage.setItem(REFRESH_TOKEN_STORAGE_KEY, res.refresh_token);
-        toast.success("Login successful", {
-          description: "You have successfully logged in.",
-        });
-      } else {
-        toast.error("Login failed", {
-          description: "Invalid email or password",
-        });
-      }
-      navigate(callbackUrl);
-    } catch (error) {
-      console.error("Error during login", error);
-      toast.error("Login failed", {
-        description: "An error occurred while logging in. Please try again.",
-      });
-    }
+    await authenticate({
+      request: values,
+    });
   }
   return (
     <Form {...form}>

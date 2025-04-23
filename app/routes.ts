@@ -1,5 +1,5 @@
 import { type RouteConfig, index } from "@react-router/dev/routes";
-import { routes } from "@lib/router/routes";
+import { routes } from "./lib/router/routes";
 
 export default [
   // Public pages

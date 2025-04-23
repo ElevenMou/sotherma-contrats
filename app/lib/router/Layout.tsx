@@ -1,15 +1,9 @@
-import {
-  Links,
-  Meta,
-  Scripts,
-  ScrollRestoration,
-  useNavigation,
-} from "react-router";
+import { Links, Meta, Scripts, ScrollRestoration } from "react-router";
 import type { Route } from "../../+types/root";
 import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/ui/sonner";
 import { useEffect } from "react";
-import Loading from "@/components/layout/Loading";
+import { GlobalProvider } from "@/contexts/GlobalContext";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -25,9 +19,6 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const navigation = useNavigation();
-  const isNavigating = Boolean(navigation.location);
-
   async function deferRender() {
     if (import.meta.env.VITE_ENABLE_BACKEND_MOCK === "true") {
       const { worker } = await import("@/mocks/browser");
@@ -55,12 +46,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body suppressHydrationWarning>
         <ThemeProvider attribute="class" storageKey="theme">
-          {isNavigating && (
-            <div className="flex items-center justify-center h-svh">
-              <Loading />
-            </div>
-          )}
-          {children}
+          <GlobalProvider>{children}</GlobalProvider>
         </ThemeProvider>
         <ScrollRestoration />
         <Scripts />

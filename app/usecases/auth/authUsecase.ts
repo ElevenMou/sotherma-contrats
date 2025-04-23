@@ -9,8 +9,10 @@ import { toast } from "sonner";
 import { useNavigate, useSearchParams } from "react-router";
 import { routes } from "@/lib/router/routes";
 import { useTranslation } from "react-i18next";
+import { useGlobalContext } from "@/contexts/GlobalContext";
 
 export const useAuthUsecase = (): AuthUseCaseInterface => {
+  const globalContext = useGlobalContext();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { t } = useTranslation();
@@ -42,17 +44,11 @@ export const useAuthUsecase = (): AuthUseCaseInterface => {
     }
   };
 
-  const logout = async () => {
-    try {
-      localStorage.removeItem(ACCESS_TOKEN_STORAGE_KEY);
-      localStorage.removeItem(REFRESH_TOKEN_STORAGE_KEY);
-      navigate(routes.login, { replace: true });
-    } catch (error) {
-      toast.error(t("login.errors.logoutFailed"), {
-        description: t("login.errors.errorLogout"),
-      });
-    }
-  };
-
   return { authenticate, logout };
+};
+
+export const logout = async () => {
+  localStorage.removeItem(ACCESS_TOKEN_STORAGE_KEY);
+  localStorage.removeItem(REFRESH_TOKEN_STORAGE_KEY);
+  window.location.replace(`${routes.login}`);
 };

@@ -1,17 +1,11 @@
-import {
-  isRouteErrorResponse,
-  Outlet,
-  useLocation,
-  useNavigate,
-  useParams,
-  useSearchParams,
-} from "react-router";
+import { isRouteErrorResponse, Outlet, useLocation } from "react-router";
 import "./app.css";
 import { initializeI18next } from "./lib/localization/i18n";
 import { locales } from "./locales";
 import type { Route } from "./+types/root";
 import { useTranslation } from "react-i18next";
-import { routes } from "@lib/router/routes";
+import { routes } from "@/lib/router/routes";
+import { logout } from "./usecases/auth/authUsecase";
 
 initializeI18next({ resources: locales });
 
@@ -34,14 +28,12 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 
     if (error.status === 401) {
       if (pathname === routes.login) {
-        console.log("Navigate to requests", routes.requests);
-
         window.location.replace(routes.requests);
       } else {
-        console.log("Navigate to login");
         window.location.replace(
           `${routes.login}?callbackUrl=${pathname}${search}`
         );
+        logout();
       }
 
       return null;

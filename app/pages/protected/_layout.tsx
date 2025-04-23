@@ -36,8 +36,10 @@ const ProtecedLayout = ({ loaderData }: Route.ComponentProps) => {
 
   useEffect(() => {
     if (!loaderData) return;
+    console.log("loaderData", loaderData);
+
     setUserInfo(loaderData);
-  }, []);
+  }, [isNavigating]);
 
   return (
     <SidebarProvider>

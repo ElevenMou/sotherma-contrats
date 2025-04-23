@@ -26,7 +26,8 @@ export const AuthRepositoryMock = [
 
   http.get(`${baseUrl}${endpoints.userInfo}`, async () => {
     const responseDto: UserInfoModel = {
-      name: "Moussa Saidi",
+      firstName: "Moussa",
+      lastName: "Saidi",
       email: "moussa.saidi.01@gmail.com",
       profile: userRoles.admin,
     };

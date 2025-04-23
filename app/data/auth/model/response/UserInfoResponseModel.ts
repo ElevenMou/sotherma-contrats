@@ -1,7 +1,8 @@
 import type { EnumToType } from "@/lib/utils";
 
 export interface UserInfoModel {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   profile: UserRole;
 }

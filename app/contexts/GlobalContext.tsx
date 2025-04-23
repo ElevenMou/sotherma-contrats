@@ -18,7 +18,7 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
       userInfo,
       setUserInfo,
     }),
-    []
+    [userInfo]
   );
 
   return (

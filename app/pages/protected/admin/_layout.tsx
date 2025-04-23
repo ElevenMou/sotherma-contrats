@@ -2,7 +2,7 @@ import { Outlet, useNavigation } from "react-router";
 import Loading from "@/components/layout/Loading";
 import { useGlobalContext } from "@/contexts/GlobalContext";
 import { useEffect } from "react";
-import { userRoles } from "@/data/auth/model/response/UserInfoResponseModel";
+import { userRoles } from "@/data/users/model/response/CurrentUserInfoResponseModel";
 
 const ProtecedAdminLayout = () => {
   const { userInfo } = useGlobalContext();

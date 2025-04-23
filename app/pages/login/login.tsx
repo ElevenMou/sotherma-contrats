@@ -9,6 +9,7 @@ import {
 } from "@/lib/http/http.service";
 import { useNavigation } from "react-router";
 import { authHttpRepository } from "@/data/auth/auth.repository";
+import { userHttpRepository } from "@/data/users/user.repository";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -22,7 +23,7 @@ export async function clientLoader({}: Route.LoaderArgs) {
 
   if (accessToken) {
     try {
-      const res = await authHttpRepository.GetUserInfo();
+      const res = await userHttpRepository.GetCurrentUserInfo();
 
       if (res) {
         throw new Response("Unauthorized", { status: 401 });

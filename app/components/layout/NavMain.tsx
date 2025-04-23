@@ -14,7 +14,7 @@ import { useGlobalContext } from "@/contexts/GlobalContext";
 import {
   userRoles,
   type UserRole,
-} from "@/data/auth/model/response/UserInfoResponseModel";
+} from "@/data/users/model/response/CurrentUserInfoResponseModel";
 import { useEffect } from "react";
 
 interface NavItem {

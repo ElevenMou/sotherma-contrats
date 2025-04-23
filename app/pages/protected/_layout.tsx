@@ -7,6 +7,7 @@ import Loading from "@/components/layout/Loading";
 import { useGlobalContext } from "@/contexts/GlobalContext";
 import { useEffect } from "react";
 import { authHttpRepository } from "@/data/auth/auth.repository";
+import { userHttpRepository } from "@/data/users/user.repository";
 
 export async function clientLoader({}: Route.LoaderArgs) {
   const accessToken = localStorage.getItem(ACCESS_TOKEN_STORAGE_KEY);
@@ -14,7 +15,7 @@ export async function clientLoader({}: Route.LoaderArgs) {
     throw new Response("Unauthorized", { status: 401 });
   }
   try {
-    const res = await authHttpRepository.GetUserInfo();
+    const res = await userHttpRepository.GetCurrentUserInfo();
     return res;
   } catch (error) {
     throw new Response("Unauthorized", { status: 401 });
@@ -36,8 +37,6 @@ const ProtecedLayout = ({ loaderData }: Route.ComponentProps) => {
 
   useEffect(() => {
     if (!loaderData) return;
-    console.log("loaderData", loaderData);
-
     setUserInfo(loaderData);
   }, [isNavigating]);
 

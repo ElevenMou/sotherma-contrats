@@ -1,11 +1,10 @@
 import type { AuthenticateRequestModel } from "./model/request/AuthenticateRequestModel";
 import type { AuthenticateResponseModel } from "./model/response/AuthenticateResponseModel";
-import type { UserInfoModel } from "./model/response/UserInfoResponseModel";
+import type { CurrentUserInfoModel } from "../users/model/response/CurrentUserInfoResponseModel";
 
 export interface IAuthRepository {
   Authenticate(
     body: AuthenticateRequestModel
   ): Promise<AuthenticateResponseModel>;
 
-  GetUserInfo(): Promise<UserInfoModel>;
 }

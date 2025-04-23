@@ -1,9 +1,9 @@
-import type { UserInfoModel } from "@/data/auth/model/response/UserInfoResponseModel";
+import type { CurrentUserInfoModel } from "@/data/users/model/response/CurrentUserInfoResponseModel";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 export interface GlobalContextModel {
-  userInfo: UserInfoModel | null;
-  setUserInfo: React.Dispatch<React.SetStateAction<UserInfoModel | null>>;
+  userInfo: CurrentUserInfoModel | null;
+  setUserInfo: React.Dispatch<React.SetStateAction<CurrentUserInfoModel | null>>;
 }
 
 export const GlobalContext = createContext<GlobalContextModel | null>(null);
@@ -11,7 +11,7 @@ export const GlobalContext = createContext<GlobalContextModel | null>(null);
 export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [userInfo, setUserInfo] = useState<UserInfoModel | null>(null);
+  const [userInfo, setUserInfo] = useState<CurrentUserInfoModel | null>(null);
 
   const value = useMemo(
     () => ({

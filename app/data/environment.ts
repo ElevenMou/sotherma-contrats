@@ -4,6 +4,7 @@ export const getEnvironment = () => {
       base: "auth",
       endpoints: {
         authenticate: "/authenticate",
+        userInfo: "/me",
       },
     },
   };

@@ -1,9 +1,11 @@
 import type { CurrentUserInfoModel } from "@/data/users/model/response/CurrentUserInfoResponseModel";
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useContext, useMemo, useState } from "react";
 
 export interface GlobalContextModel {
   userInfo: CurrentUserInfoModel | null;
-  setUserInfo: React.Dispatch<React.SetStateAction<CurrentUserInfoModel | null>>;
+  setUserInfo: React.Dispatch<
+    React.SetStateAction<CurrentUserInfoModel | null>
+  >;
 }
 
 export const GlobalContext = createContext<GlobalContextModel | null>(null);

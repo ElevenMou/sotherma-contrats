@@ -17,6 +17,12 @@
     "departments": "Departments",
     "logout": "Logout"
   },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next",
+    "to": "to",
+    "of": "of"
+  },
   "login": {
     "title": "Login to your account",
     "subtitle": "Welcome! Please enter your credentials to log in to your account.",
@@ -30,5 +36,17 @@
       "logoutFailed": "Logout failed.",
       "errorLogout": "An error occurred while logging out. Please try again."
     }
+  },
+  "employees": {
+    "title": "Employees",
+    "add_employee": "Add Employee",
+    "edit_employee": "Edit Employee",
+    "delete_employee": "Delete Employee",
+    "employee_id": "Employee ID",
+    "employee_lastname": "Last Name",
+    "employee_firstname": "First Name",
+    "employee_email": "Email",
+    "employee_site": "Site",
+    "employee_department": "Department"
   }
 }

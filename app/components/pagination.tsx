@@ -1,19 +1,22 @@
 import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
+import { useTranslation } from "react-i18next";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const Pagination = ({
   totalItems,
   itemsPerPage = 15,
   currentPage: externalCurrentPage,
   onPageChange = () => {},
-  label = "results",
+  label,
 }: {
   totalItems: number;
   itemsPerPage?: number;
   currentPage: number;
   onPageChange: (page: number) => void;
-  label?: string;
+  label: string;
 }) => {
+  const { t } = useTranslation();
   const [internalCurrentPage, setInternalCurrentPage] =
     useState(externalCurrentPage);
   const totalPages = Math.ceil(totalItems / itemsPerPage);
@@ -60,25 +63,29 @@ const Pagination = ({
   return totalPages > 1 ? (
     <div className="flex justify-between items-center mt-5 md:flex-row flex-col gap-3">
       <span>
-        {internalCurrentPage * itemsPerPage - itemsPerPage + 1} to{" "}
-        {Math.min(internalCurrentPage * itemsPerPage, totalItems)} of{" "}
-        {totalItems} results
+        {`${internalCurrentPage * itemsPerPage - itemsPerPage + 1} ${t(
+          "pagination.to"
+        )} ${Math.min(internalCurrentPage * itemsPerPage, totalItems)} ${t(
+          "pagination.of"
+        )} ${totalItems} ${label}`}
       </span>
       <div className="flex gap-3 items-center">
         <Button
           variant="default"
           disabled={internalCurrentPage === 1}
           onClick={() => handlePageChange(internalCurrentPage - 1)}
+          aria-label={t("pagination.previous")}
         >
-          &#x2039;
+          <ChevronLeft className="h-4 w-4" />
         </Button>
         <div className="flex gap-2">{renderPageButtons()}</div>
         <Button
           variant="default"
           disabled={internalCurrentPage === totalPages}
           onClick={() => handlePageChange(internalCurrentPage + 1)}
+          aria-label={t("pagination.next")}
         >
-          &#x203a;
+          <ChevronRight className="h-4 w-4" />
         </Button>
       </div>
     </div>

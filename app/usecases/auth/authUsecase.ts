@@ -9,10 +9,8 @@ import { toast } from "sonner";
 import { useNavigate, useSearchParams } from "react-router";
 import { routes } from "@/lib/router/routes";
 import { useTranslation } from "react-i18next";
-import { useGlobalContext } from "@/contexts/GlobalContext";
 
 export const useAuthUsecase = (): AuthUseCaseInterface => {
-  const globalContext = useGlobalContext();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { t } = useTranslation();

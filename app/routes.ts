@@ -22,6 +22,10 @@ export default [
             path: routes.employees,
           },
           {
+            file: "pages/protected/admin/employee-details/employee-details.tsx",
+            path: routes.employeeDetails,
+          },
+          {
             file: "pages/protected/admin/departments/departments.tsx",
             path: routes.departments,
           },

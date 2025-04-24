@@ -60,7 +60,12 @@ class HttpService {
         }
 
         if (import.meta.env.DEV) {
-          console.log("☁ HTTP Request", config);
+          console.log(
+            "☁ HTTP Request",
+            config.method,
+            config.url,
+            config.data ? config.data : ""
+          );
         }
 
         return config;
@@ -72,7 +77,7 @@ class HttpService {
     this.client.interceptors.response.use(
       (response) => {
         if (import.meta.env.DEV) {
-          console.log("☁ HTTP Response", response);
+          console.log("☁ HTTP Response", response.data, response.status);
         }
 
         return response;

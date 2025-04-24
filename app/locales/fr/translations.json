@@ -17,6 +17,12 @@
     "departments": "Départements",
     "logout": "Déconnexion"
   },
+  "pagination": {
+    "previous": "Précédent",
+    "next": "Suivant",
+    "to": "à",
+    "of": "de"
+  },
   "login": {
     "title": "Connectez-vous à votre compte",
     "subtitle": "Bienvenue! Veuillez saisir vos identifiants pour vous connecter à votre compte.",
@@ -30,5 +36,17 @@
       "logoutFailed": "Échec de la déconnexion.",
       "errorLogout": "Une erreur s'est produite lors de la déconnexion. Veuillez réessayer."
     }
+  },
+  "employees": {
+    "title": "Employés",
+    "add_employee": "Ajouter un employé",
+    "edit_employee": "Modifier l'employé",
+    "delete_employee": "Supprimer l'employé",
+    "employee_id": "Matricule",
+    "employee_lastname": "Nom",
+    "employee_firstname": "Prénom",
+    "employee_email": "Email",
+    "employee_site": "Site",
+    "employee_department": "Département"
   }
 }

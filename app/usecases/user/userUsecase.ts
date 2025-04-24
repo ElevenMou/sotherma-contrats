@@ -1,12 +1,14 @@
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 import type {
+  GetUserDetailsView,
   GetUsersListView,
   UserUseCaseInterface,
 } from "./userUsecase.interface";
 import type { GetUsersListRequestModel } from "@/data/users/model/request/GetUsersListRequestModel";
 import { userHttpRepository } from "@/data/users/user.repository";
 import { useEmployeesContext } from "@/pages/protected/admin/employees/contexts/EmployeesProvider";
+import type { GetUserDetailsRequestModel } from "@/data/users/model/request/GetUserDetailsRequestModel";
 
 export const useUserUsecase = (): UserUseCaseInterface => {
   const { t } = useTranslation();
@@ -26,18 +28,45 @@ export const useUserUsecase = (): UserUseCaseInterface => {
         ctx.setEmployees(res.usersList);
         ctx.setTotalCount(res.totalCount);
       } else {
-        toast.error(t("login.errors.loginFailed"), {
-          description: t("login.errors.invalidCredentials"),
+        toast.error(t("employees.errors.listFetch.title"), {
+          description: t("employees.errors.listFetch.description"),
         });
       }
     } catch (error) {
-      toast.error(t("login.errors.loginFailed"), {
-        description: t("login.errors.errorOccured"),
+      toast.error(t("employees.errors.listFetch.title"), {
+        description: t("employees.errors.listFetch.description"),
       });
     } finally {
       view.setLoading(false);
     }
   };
 
-  return { getUsersList };
+  const getUserDetails = async ({
+    request,
+    view,
+  }: {
+    request: GetUserDetailsRequestModel;
+    view: GetUserDetailsView;
+  }) => {
+    try {
+      view.setLoading(true);
+      const res = await userHttpRepository.GetUserDetails(request);
+      if (res) {
+        view.setUserDetails(res);
+      } else {
+        toast.error(t("employees.errors.userDetails.title"), {
+          description: t("employees.errors.userDetails.description"),
+        });
+      }
+    } catch (error) {
+      view.onError();
+      toast.error(t("employees.errors.userDetails.title"), {
+        description: t("employees.errors.userDetails.description"),
+      });
+    } finally {
+      view.setLoading(false);
+    }
+  };
+
+  return { getUsersList, getUserDetails };
 };

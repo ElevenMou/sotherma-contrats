@@ -11,6 +11,7 @@ export const getEnvironment = () => {
       endpoints: {
         userInfo: "/current_user_details",
         usersList: "/getList?startIndex=<startIndex>&maxRecords=<maxRecords>",
+        userDetails: "/details?guid=<guid>",
       },
     },
   };

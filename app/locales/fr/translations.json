@@ -47,6 +47,16 @@
     "employee_firstname": "Prénom",
     "employee_email": "Email",
     "employee_site": "Site",
-    "employee_department": "Département"
+    "employee_department": "Département",
+    "errors": {
+      "listFetch": {
+        "title": "Erreur de récupération",
+        "description": "Erreur lors de la récupération de la liste des employés."
+      },
+      "userDetails": {
+        "title": "Erreur de récupération",
+        "description": "Erreur lors de la récupération des détails de l'employé."
+      }
+    }
   }
 }

@@ -5,7 +5,6 @@ import EmployeesList from "./components/EmployeesList";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router";
-import { EmployeesProvider } from "./contexts/EmployeesProvider";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -17,7 +16,7 @@ export function meta({}: Route.MetaArgs) {
 export default function Employees() {
   const { t } = useTranslation();
   return (
-    <EmployeesProvider>
+    <>
       <header className="flex h-16 shrink-0 items-center gap-2">
         <div className="flex items-center gap-2 px-4 w-full">
           <SidebarTrigger className="-ml-1" />
@@ -36,6 +35,6 @@ export default function Employees() {
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
         <EmployeesList />
       </div>
-    </EmployeesProvider>
+    </>
   );
 }

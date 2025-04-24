@@ -47,6 +47,16 @@
     "employee_firstname": "First Name",
     "employee_email": "Email",
     "employee_site": "Site",
-    "employee_department": "Department"
+    "employee_department": "Department",
+    "errors": {
+      "listFetch": {
+        "title": "Fetch Error",
+        "description": "Error fetching the list of employees."
+      },
+      "userDetails": {
+        "title": "Fetch Error",
+        "description": "Error fetching employee details."
+      }
+    }
   }
 }

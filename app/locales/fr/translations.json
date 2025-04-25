@@ -1,7 +1,11 @@
 {
   "common": {
     "welcome": "Bienvenue dans notre application !",
-    "language": "Langue"
+    "language": "Langue",
+    "back": "Retour",
+    "isRequired": "est requis.",
+    "isInvalid": "est invalide.",
+    "save": "Enregistrer"
   },
   "errors": {
     "not_found": "La page demandée est introuvable.",

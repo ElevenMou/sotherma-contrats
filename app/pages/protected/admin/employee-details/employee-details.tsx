@@ -7,6 +7,10 @@ import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import type { GetUserDetailsResponseModel } from "@/data/users/model/response/GetUserDetailsResponseModel";
 import { useUserUsecase } from "@/usecases/user/userUsecase";
+import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
+import Loading from "@/components/layout/Loading";
+import EmployeeForm from "./components/EmployeeForm";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -17,7 +21,7 @@ export function meta({}: Route.MetaArgs) {
 
 export default function EmployeeDetails({ params }: Route.ComponentProps) {
   const { t } = useTranslation();
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const { getUserDetails } = useUserUsecase();
 
   const [employeeDetails, setEmployeeDetails] =
@@ -44,41 +48,41 @@ export default function EmployeeDetails({ params }: Route.ComponentProps) {
       fetchEmployeeDetails();
     } else {
       setEmployeeDetails(null);
+      setLoading(false);
     }
   }, [params.id]);
   return (
     <>
       <header className="flex h-16 shrink-0 items-center gap-2">
         <div className="flex items-center gap-2 px-4">
-          <Link to={routes.employees}>
-            <ArrowLeftCircle className="h-6 w-6" />
-          </Link>
+          <Button asChild variant="ghost" size="icon" title={t("common.back")}>
+            <Link to={routes.employees}>
+              <ArrowLeftCircle className="size-5" />
+            </Link>
+          </Button>
           <Separator
             orientation="vertical"
             className="mr-2 h-4 w-[1px] bg-ring"
           />
           <h1>
-            {params.id === "create"
-              ? t("employees.add_employee")
-              : `${employeeDetails?.firstName} ${employeeDetails?.lastName}`}
+            {params.id === "create" ? (
+              t("employees.add_employee")
+            ) : loading ? (
+              <Skeleton className="h-8 w-40" />
+            ) : (
+              `${employeeDetails?.firstName} ${employeeDetails?.lastName}`
+            )}
           </h1>
         </div>
       </header>
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
         {loading && (
           <div className="flex h-full w-full items-center justify-center">
-            <div className="h-8 w-8 animate-spin rounded-full border-4 border-solid border-primary border-t-transparent" />
+            <Loading />
           </div>
         )}
 
-        {!loading &&
-          employeeDetails &&
-          Object.values(employeeDetails).map((value, index) => (
-            <div key={index} className="flex items-center gap-2 p-2 border-b">
-              <strong>{Object.keys(employeeDetails)[index]}:</strong>
-              <span>{value}</span>
-            </div>
-          ))}
+        {!loading && <EmployeeForm employeeDetails={employeeDetails} />}
       </div>
     </>
   );

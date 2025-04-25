@@ -14,6 +14,12 @@ export const getEnvironment = () => {
         userDetails: "/details?guid=<guid>",
       },
     },
+    DepartmentsAPI: {
+      base: "department",
+      endpoints: {
+        departmentsList: "/getAllDepartments",
+      },
+    },
   };
 };
 

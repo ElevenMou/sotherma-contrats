@@ -1,7 +1,11 @@
 {
   "common": {
     "welcome": "Welcome to our application!",
-    "language": "Language"
+    "language": "Language",
+    "back": "Back",
+    "isRequired": "is required.",
+    "isInvalid": "is invalid.",
+    "save": "Save"
   },
   "errors": {
     "not_found": "The requested page was not found.",

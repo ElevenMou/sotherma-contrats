@@ -5,13 +5,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import type { DepartmentModel } from "@/data/departments/model/response/DepartmentModel";
-import { useDepartmentUseCase } from "@/usecases/department/departmentUsecase";
+import type { SiteModel } from "@/data/sites/model/response/SiteModel";
+import { useSiteUseCase } from "@/usecases/site/siteUsecase";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Skeleton } from "../ui/skeleton";
 
-const DepartmentsSelect = ({
+const SitesSelect = ({
   value,
   disabled,
   defaultValue,
@@ -23,9 +23,9 @@ const DepartmentsSelect = ({
   onChange: (value: string) => void;
 }) => {
   const { t } = useTranslation();
-  const { getAllDepartments } = useDepartmentUseCase();
+  const { getAllSites } = useSiteUseCase();
 
-  const [departments, setDepartments] = useState<DepartmentModel[]>([]);
+  const [sites, setSites] = useState<SiteModel[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   const handleChangeLanguage = (selectedLanguage: string) => {
@@ -33,28 +33,26 @@ const DepartmentsSelect = ({
   };
 
   useEffect(() => {
-    const fetchDepartments = async () => {
-      await getAllDepartments({
+    const fetchSites = async () => {
+      await getAllSites({
         view: {
-          setDepartments,
+          setSites,
           setLoading,
         },
       });
     };
 
-    fetchDepartments();
+    fetchSites();
   }, []);
 
   useEffect(() => {
     if (defaultValue) {
-      const selectedSite = departments.find(
-        (department) => department.name === defaultValue
-      );
+      const selectedSite = sites.find((site) => site.name === defaultValue);
       if (selectedSite) {
         onChange(selectedSite.id);
       }
     }
-  }, [departments]);
+  }, [sites]);
 
   return (
     <>
@@ -63,19 +61,19 @@ const DepartmentsSelect = ({
         <Select
           onValueChange={handleChangeLanguage}
           disabled={disabled}
-          defaultValue={departments
-            .find((department) => department.name === String(defaultValue))
+          defaultValue={sites
+            .find((site) => site.name === String(defaultValue))
             ?.id?.toString()}
           i18nIsDynamicList={true}
-          name="department"
+          name="site"
         >
           <SelectTrigger className="w-full">
-            <SelectValue placeholder={t("employees.employee_department")} />
+            <SelectValue placeholder={t("employees.employee_site")} />
           </SelectTrigger>
           <SelectContent>
-            {departments.map((department) => (
-              <SelectItem key={department.id} value={String(department.id)}>
-                {department.name}
+            {sites.map((site) => (
+              <SelectItem key={site.id} value={String(site.id)}>
+                {site.name}
               </SelectItem>
             ))}
           </SelectContent>
@@ -85,4 +83,4 @@ const DepartmentsSelect = ({
   );
 };
 
-export default DepartmentsSelect;
+export default SitesSelect;

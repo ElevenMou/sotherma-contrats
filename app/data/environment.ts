@@ -20,6 +20,12 @@ export const getEnvironment = () => {
         departmentsList: "/getAllDepartments",
       },
     },
+    SitesAPI: {
+      base: "site",
+      endpoints: {
+        sitesList: "/getAllSites",
+      },
+    },
   };
 };
 

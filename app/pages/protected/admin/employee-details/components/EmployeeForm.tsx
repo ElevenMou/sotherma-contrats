@@ -15,6 +15,7 @@ import Loading from "@/components/layout/Loading";
 import type { GetUserDetailsResponseModel } from "@/data/users/model/response/GetUserDetailsResponseModel";
 import { useTranslation } from "react-i18next";
 import DepartmentsSelect from "@/components/form/DepartmentSelect";
+import SitesSelect from "@/components/form/SiteSelect";
 
 const EmployeeForm = ({
   employeeDetails,
@@ -140,7 +141,10 @@ const EmployeeForm = ({
             <FormItem>
               <FormLabel>{t("employees.employee_department")}</FormLabel>
               <FormControl>
-                <DepartmentsSelect {...field} />
+                <DepartmentsSelect
+                  defaultValue={employeeDetails?.department}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -154,7 +158,7 @@ const EmployeeForm = ({
             <FormItem>
               <FormLabel>{t("employees.employee_site")}</FormLabel>
               <FormControl>
-                <Input placeholder={t("employees.employee_site")} {...field} />
+                <SitesSelect defaultValue={employeeDetails?.site} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

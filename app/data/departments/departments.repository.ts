@@ -22,4 +22,4 @@ class DepartmentHttpRepository implements IDepartmentRepository {
   }
 }
 
-export const userHttpRepository = new DepartmentHttpRepository();
+export const departmentHttpRepository = new DepartmentHttpRepository();

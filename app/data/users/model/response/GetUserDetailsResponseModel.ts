@@ -1,5 +1,5 @@
 export interface GetUserDetailsResponseModel {
-  guid: string;
+  guid?: string;
   firstName: string;
   lastName: string;
   email: string;

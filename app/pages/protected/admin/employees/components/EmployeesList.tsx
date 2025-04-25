@@ -21,7 +21,7 @@ const EmployeesList = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { getUsersList } = useUserUsecase();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { employees, totalCount } = useEmployeesContext();
   const [startIndex, setStartIndex] = useState(0);
 

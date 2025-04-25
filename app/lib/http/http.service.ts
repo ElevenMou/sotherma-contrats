@@ -1,5 +1,6 @@
 import axios from "axios";
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import { LOCALE_STORAGE_KEY } from "../localization/i18n";
 
 export const ACCESS_TOKEN_STORAGE_KEY = "a0b1c2d3e4f50607";
 export const REFRESH_TOKEN_STORAGE_KEY = "deadbeefcafebabe";
@@ -54,7 +55,9 @@ class HttpService {
       (config) => {
         // Get token from storage if available
         const token = localStorage.getItem(ACCESS_TOKEN_STORAGE_KEY);
+        const locale = localStorage.getItem(LOCALE_STORAGE_KEY) || "fr";
 
+        config.headers.locale = locale;
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
         }

@@ -8,7 +8,7 @@ export const defaultNS = "translations";
 export const localeUrlParam = "locale";
 export const defaultLanguage = "fr";
 
-export const LOCALE_STORAGE_KEY = "i18nextLng";
+export const LOCALE_STORAGE_KEY = "locale";
 
 export const initializeI18next = (config?: InitOptions) => {
   // Get language from localStorage if it exists

@@ -7,6 +7,7 @@ import type {
 import { useRequestsContext } from "@/pages/protected/requests/contexts/RequestsProvider";
 import type { ListPaginationRequestModel } from "@/data/utils/ListPaginationRequestModel";
 import { requestHttpRepository } from "@/data/requests/request.repository";
+import type { ChangeRequestStatusModel } from "@/data/requests/model/request/ChangeRequestStatusModel";
 
 export const useRequestUsecase = (): RequestUseCaseInterface => {
   const { t } = useTranslation();
@@ -56,5 +57,47 @@ export const useRequestUsecase = (): RequestUseCaseInterface => {
     }
   };
 
-  return { getRequestsList, getRequestsListToValidate };
+  const acceptRequest = async ({
+    request,
+  }: {
+    request: ChangeRequestStatusModel;
+  }) => {
+    try {
+      await requestHttpRepository.AcceptRequest(request.requestGuid);
+      toast.error(t("requests.success.rejectRequest.title"), {
+        description: t("requests.success.rejectRequest.description"),
+      });
+    } catch (error) {
+      toast.error(t("requests.errors.acceptRequest.title"), {
+        description: t("requests.errors.acceptRequest.description"),
+      });
+    }
+  };
+
+  const rejectRequest = async ({
+    request,
+  }: {
+    request: ChangeRequestStatusModel;
+  }) => {
+    try {
+      await requestHttpRepository.RejectRequest(
+        request.requestGuid,
+        request.reason || ""
+      );
+      toast.error(t("requests.success.rejectRequest.title"), {
+        description: t("requests.success.rejectRequest.description"),
+      });
+    } catch (error) {
+      toast.error(t("requests.errors.rejectRequest.title"), {
+        description: t("requests.errors.rejectRequest.description"),
+      });
+    }
+  };
+
+  return {
+    getRequestsList,
+    getRequestsListToValidate,
+    acceptRequest,
+    rejectRequest,
+  };
 };

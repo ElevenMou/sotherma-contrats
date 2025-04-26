@@ -55,9 +55,9 @@ class HttpService {
       (config) => {
         // Get token from storage if available
         const token = localStorage.getItem(ACCESS_TOKEN_STORAGE_KEY);
-        const locale = localStorage.getItem(LOCALE_STORAGE_KEY) || "fr";
+        // const locale = localStorage.getItem(LOCALE_STORAGE_KEY) || "fr";
 
-        config.headers.locale = locale;
+        // config.headers.locale = locale;
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
         }

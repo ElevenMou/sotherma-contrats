@@ -95,7 +95,13 @@
     "contractType": "Contract Type",
     "justification": "Justification",
     "requesterFullName": "Requester Name",
-
+    "reject": "Reject",
+    "accept": "Accept",
+    "reason": "Reason",
+    "confirmReject": {
+      "title": "Confirm Reject",
+      "description": "Are you sure you want to reject this request?"
+    },
     "errors": {
       "listFetch": {
         "title": "Fetch Error",
@@ -108,12 +114,28 @@
       "saveRequest": {
         "title": "Save Error",
         "description": "Error saving request details."
+      },
+      "rejectRequest": {
+        "title": "Reject Error",
+        "description": "Error rejecting the request."
+      },
+      "acceptRequest": {
+        "title": "Accept Error",
+        "description": "Error accepting the request."
       }
     },
     "success": {
       "saveRequest": {
         "title": "Success",
         "description": "Request details saved successfully."
+      },
+      "rejectRequest": {
+        "title": "Success",
+        "description": "Request rejected successfully."
+      },
+      "acceptRequest": {
+        "title": "Success",
+        "description": "Request accepted successfully."
       }
     }
   }

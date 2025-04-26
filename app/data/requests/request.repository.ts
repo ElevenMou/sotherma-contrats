@@ -22,9 +22,9 @@ class RequestHttpRepository implements IRequestRepository {
     });
 
     try {
-      return httpService.get<ListResponseModel<RequestListItemModel, "requestList">>(
-        url
-      );
+      return httpService.get<
+        ListResponseModel<RequestListItemModel, "requestList">
+      >(url);
     } catch (error) {
       throw error;
     }
@@ -39,9 +39,27 @@ class RequestHttpRepository implements IRequestRepository {
     });
 
     try {
-      return httpService.get<ListResponseModel<RequestListItemModel, "requestList">>(
-        url
-      );
+      return httpService.get<
+        ListResponseModel<RequestListItemModel, "requestList">
+      >(url);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async AcceptRequest(requestGuid: string): Promise<void> {
+    const url = `${base}${endpoints.acceptRequest}`;
+    try {
+      await httpService.post(url, { requestGuid });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async RejectRequest(requestGuid: string, reason: string): Promise<void> {
+    const url = `${base}${endpoints.rejectRequest}`;
+    try {
+      await httpService.post(url, { requestGuid, reason });
     } catch (error) {
       throw error;
     }

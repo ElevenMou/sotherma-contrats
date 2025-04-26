@@ -11,25 +11,20 @@ import {
 import { useRequestUsecase } from "@/usecases/request/requestUsecase";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router";
 import { useRequestsContext } from "../contexts/RequestsProvider";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { Check, X } from "lucide-react";
+import RejectRequest from "./RejectRequest";
 
 const MAX_RECORDS = 13;
 
 const RequestsList = () => {
-  const navigate = useNavigate();
   const { t } = useTranslation();
-  const { getRequestsListToValidate } = useRequestUsecase();
+  const { getRequestsListToValidate, acceptRequest } = useRequestUsecase();
   const [loading, setLoading] = useState(true);
   const { requestsToValidate, requestsToValidateCount } = useRequestsContext();
   const [startIndex, setStartIndex] = useState(0);
-
-  const handlePageChange = (page: number) => {
-    setStartIndex((page - 1) * MAX_RECORDS);
-  };
 
   const fetchUsers = async () => {
     setLoading(true);
@@ -42,6 +37,23 @@ const RequestsList = () => {
         setLoading,
       },
     });
+  };
+
+  const handleAcceptRequest = (requestId: string) => {
+    acceptRequest({
+      request: {
+        requestGuid: requestId,
+      },
+    });
+    fetchUsers();
+  };
+
+  const handleRejectRequest = (requestId: string) => {
+    alert("Reject request: " + requestId);
+  };
+
+  const handlePageChange = (page: number) => {
+    setStartIndex((page - 1) * MAX_RECORDS);
   };
 
   useEffect(() => {
@@ -87,10 +99,13 @@ const RequestsList = () => {
               <TableCell>{request.status}</TableCell>
               <TableCell>{request.requesterFullName}</TableCell>
               <TableCell className="w-[100px]">
-                <Button size="icon" variant="destructive">
-                  <X className="h-4 w-4" />
-                </Button>
-                <Button size="icon" variant="default" className="ml-2">
+                <RejectRequest requestId={request.guid} />
+                <Button
+                  size="icon"
+                  variant="default"
+                  className="ml-2"
+                  onClick={() => handleAcceptRequest(request.guid)}
+                >
                   <Check className="h-4 w-4" />
                 </Button>
               </TableCell>

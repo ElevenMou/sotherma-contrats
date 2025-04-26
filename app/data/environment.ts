@@ -34,6 +34,8 @@ export const getEnvironment = () => {
           "/getListByUser?startIndex=<startIndex>&maxRecords=<maxRecords>",
         listToValidate:
           "/getListToValidateByUser?startIndex=<startIndex>&maxRecords=<maxRecords>",
+        acceptRequest: "/accept",
+        rejectRequest: "/reject",
       },
     },
   };

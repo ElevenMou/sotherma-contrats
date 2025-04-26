@@ -72,6 +72,7 @@ const EmployeesList = () => {
           ))}
 
         {!loading &&
+          employees?.length > 0 &&
           employees.map((employee) => (
             <TableRow
               key={employee.code}

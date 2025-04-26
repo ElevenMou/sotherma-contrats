@@ -18,10 +18,11 @@ export const RequestRepositoryMock = [
 
     const requestList = requests.slice(startIndex, startIndex + maxRecords);
 
-    const responseDto: ListResponseModel<RequestListItemModel, "requestList"> = {
-      totalCount,
-      requestList,
-    };
+    const responseDto: ListResponseModel<RequestListItemModel, "requestList"> =
+      {
+        totalCount,
+        requestList,
+      };
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
@@ -39,14 +40,27 @@ export const RequestRepositoryMock = [
 
     const requestList = requests.slice(startIndex, startIndex + maxRecords);
 
-    const responseDto: ListResponseModel<RequestListItemModel, "requestList"> = {
-      totalCount,
-      requestList,
-    };
+    const responseDto: ListResponseModel<RequestListItemModel, "requestList"> =
+      {
+        totalCount,
+        requestList,
+      };
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     return HttpResponse.json(responseDto, {
+      status: 200,
+    });
+  }),
+
+  http.post(`${baseUrl}${endpoints.acceptRequest}`, async () => {
+    return HttpResponse.json("Accepted", {
+      status: 200,
+    });
+  }),
+
+  http.post(`${baseUrl}${endpoints.rejectRequest}`, async () => {
+    return HttpResponse.json("Rejected", {
       status: 200,
     });
   }),

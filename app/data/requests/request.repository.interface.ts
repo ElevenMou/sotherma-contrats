@@ -4,12 +4,13 @@ import type { RequestListItemModel } from "./model/response/RequestModel";
 
 export interface IRequestRepository {
   GetListByUser(
-    request: ListPaginationRequestModel,
-    userId: string
+    request: ListPaginationRequestModel
   ): Promise<ListResponseModel<RequestListItemModel, "requestList">>;
 
   GetListToValidateByUser(
-    request: ListPaginationRequestModel,
-    userId: string
+    request: ListPaginationRequestModel
   ): Promise<ListResponseModel<RequestListItemModel, "requestList">>;
+
+  AcceptRequest(requestGuid: string): Promise<void>;
+  RejectRequest(requestGuid: string, reason: string): Promise<void>;
 }

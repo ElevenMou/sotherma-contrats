@@ -6,7 +6,6 @@ import { ACCESS_TOKEN_STORAGE_KEY } from "@/lib/http/http.service";
 import Loading from "@/components/layout/Loading";
 import { useGlobalContext } from "@/contexts/GlobalContext";
 import { useEffect } from "react";
-import { authHttpRepository } from "@/data/auth/auth.repository";
 import { userHttpRepository } from "@/data/users/user.repository";
 import { RequestsProvider } from "./requests/contexts/RequestsProvider";
 

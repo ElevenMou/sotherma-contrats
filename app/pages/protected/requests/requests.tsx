@@ -39,7 +39,8 @@ export default function Requests() {
         </div>
       </header>
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-        {userInfo?.profile !== userRoles.requester && (
+        {(userInfo?.profile !== userRoles.requester &&
+          userInfo?.profile !== userRoles.hr) && (
           <Tabs
             defaultValue="account"
             value={activeTab}
@@ -60,7 +61,8 @@ export default function Requests() {
           </Tabs>
         )}
 
-        {userInfo?.profile === userRoles.requester && <MyRequestsList />}
+        {(userInfo?.profile === userRoles.requester ||
+          userInfo?.profile === userRoles.hr) && <MyRequestsList />}
       </div>
     </>
   );

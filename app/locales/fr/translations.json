@@ -95,6 +95,13 @@
     "contractType": "Type de contrat",
     "justification": "Justification",
     "requesterFullName": "Nom du demandeur",
+    "reject": "Rejeter",
+    "accept": "Accepter",
+    "reason": "Raison",
+    "confirmReject":{
+      "title": "Confirmer le rejet",
+      "description": "Êtes-vous sûr de vouloir rejeter cette demande ?"
+    },
     "errors": {
       "listFetch": {
         "title": "Erreur de récupération",
@@ -107,12 +114,28 @@
       "saveRequest": {
         "title": "Erreur de sauvegarde",
         "description": "Erreur lors de la sauvegarde des détails de la demande."
+      },
+      "rejectRequest": {
+        "title": "Erreur de rejet",
+        "description": "Erreur lors du rejet de la demande."
+      },
+      "acceptRequest": {
+        "title": "Erreur d'acceptation",
+        "description": "Erreur lors de l'acceptation de la demande."
       }
     },
     "success": {
       "saveRequest": {
         "title": "Succès",
         "description": "La demande a été enregistrée avec succès."
+      },
+      "rejectRequest": {
+        "title": "Succès",
+        "description": "La demande a été rejetée avec succès."
+      },
+      "acceptRequest": {
+        "title": "Succès",
+        "description": "La demande a été acceptée avec succès."
       }
     }
   }

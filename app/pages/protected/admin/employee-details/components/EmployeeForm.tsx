@@ -12,18 +12,20 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Loading from "@/components/layout/Loading";
-import type { GetUserDetailsResponseModel } from "@/data/users/model/response/GetUserDetailsResponseModel";
+import type { UserDetailsModel } from "@/data/users/model/response/UserDetailsModel";
 import { useTranslation } from "react-i18next";
 import DepartmentsSelect from "@/components/form/DepartmentSelect";
 import SitesSelect from "@/components/form/SiteSelect";
 import RoleSelect from "@/components/form/RoleSelect";
+import { useUserUsecase } from "@/usecases/user/userUsecase";
 
 const EmployeeForm = ({
   employeeDetails,
 }: {
-  employeeDetails: GetUserDetailsResponseModel | null;
+  employeeDetails: UserDetailsModel | null;
 }) => {
   const { t } = useTranslation();
+  const { saveUserDetails } = useUserUsecase();
 
   const employeeDetailsSchema = object({
     code: string().min(
@@ -55,7 +57,7 @@ const EmployeeForm = ({
       .email(`${t("employees.employee_email")} ${t("common.isInvalid")}`),
     profile: string().min(1, `Role ${t("common.isRequired")}`),
   }).refine((data) => {
-    const userDetails: Omit<GetUserDetailsResponseModel, "guid"> = {
+    const userDetails: Omit<UserDetailsModel, "guid"> = {
       code: "",
       firstName: "",
       lastName: "",
@@ -81,7 +83,17 @@ const EmployeeForm = ({
   });
 
   async function onSubmit(values: z.infer<typeof employeeDetailsSchema>) {
-    console.log("Form submitted with values:", values);
+    const userDetails: UserDetailsModel = {
+      guid: employeeDetails?.guid || "",
+      code: values.code,
+      firstName: values.firstName,
+      lastName: values.lastName,
+      department: values.department,
+      site: values.site,
+      email: values.email,
+      profile: values.profile,
+    };
+    await saveUserDetails({ request: userDetails });
   }
 
   return (

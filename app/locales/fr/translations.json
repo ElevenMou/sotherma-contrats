@@ -60,6 +60,16 @@
       "userDetails": {
         "title": "Erreur de récupération",
         "description": "Erreur lors de la récupération des détails de l'employé."
+      },
+      "saveUser": {
+        "title": "Erreur de sauvegarde",
+        "description": "Erreur lors de la sauvegarde des détails de l'employé."
+      }
+    },
+    "success": {
+      "saveUser": {
+        "title": "Succès",
+        "description": "L'employé a été enregistré avec succès."
       }
     }
   }

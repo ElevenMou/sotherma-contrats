@@ -12,6 +12,7 @@ export const getEnvironment = () => {
         userInfo: "/current_user_details",
         usersList: "/getList?startIndex=<startIndex>&maxRecords=<maxRecords>",
         userDetails: "/details?guid=<guid>",
+        save: "/save",
       },
     },
     DepartmentsAPI: {

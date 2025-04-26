@@ -1,10 +1,10 @@
-import type { GetUserDetailsResponseModel } from "@/data/users/model/response/GetUserDetailsResponseModel";
+import type { UserDetailsModel } from "@/data/users/model/response/UserDetailsModel";
 import { createContext, useContext, useMemo, useState } from "react";
 
 export interface EmployeesContextModel {
-  employees: Array<GetUserDetailsResponseModel>;
+  employees: Array<UserDetailsModel>;
   setEmployees: React.Dispatch<
-    React.SetStateAction<Array<GetUserDetailsResponseModel>>
+    React.SetStateAction<Array<UserDetailsModel>>
   >;
 
   totalCount: number;
@@ -19,7 +19,7 @@ export const EmployeesProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [employees, setEmployees] = useState<
-    Array<GetUserDetailsResponseModel>
+    Array<UserDetailsModel>
   >([]);
   const [totalCount, setTotalCount] = useState<number>(0);
 

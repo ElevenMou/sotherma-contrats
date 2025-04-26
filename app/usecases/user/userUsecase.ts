@@ -9,6 +9,7 @@ import type { GetUsersListRequestModel } from "@/data/users/model/request/GetUse
 import { userHttpRepository } from "@/data/users/user.repository";
 import { useEmployeesContext } from "@/pages/protected/admin/employees/contexts/EmployeesProvider";
 import type { GetUserDetailsRequestModel } from "@/data/users/model/request/GetUserDetailsRequestModel";
+import type { UserDetailsModel } from "@/data/users/model/response/UserDetailsModel";
 
 export const useUserUsecase = (): UserUseCaseInterface => {
   const { t } = useTranslation();
@@ -68,5 +69,28 @@ export const useUserUsecase = (): UserUseCaseInterface => {
     }
   };
 
-  return { getUsersList, getUserDetails };
+  const saveUserDetails = async ({
+    request,
+  }: {
+    request: UserDetailsModel;
+  }) => {
+    try {
+      const res = await userHttpRepository.SaveUserDetails(request);
+      if (res) {
+        toast.success(t("employees.success.saveUser.title"), {
+          description: t("employees.success.saveUser.description"),
+        });
+      } else {
+        toast.error(t("employees.errors.saveUser.title"), {
+          description: t("employees.errors.saveUser.description"),
+        });
+      }
+    } catch (error) {
+      toast.error(t("employees.errors.saveUser.title"), {
+        description: t("employees.errors.saveUser.description"),
+      });
+    }
+  };
+
+  return { getUsersList, getUserDetails, saveUserDetails };
 };

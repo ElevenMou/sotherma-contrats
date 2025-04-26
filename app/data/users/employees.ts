@@ -1,6 +1,6 @@
-import type { GetUserDetailsResponseModel } from "./model/response/GetUserDetailsResponseModel";
+import type { UserDetailsModel } from "./model/response/UserDetailsModel";
 
-export const employees: Array<GetUserDetailsResponseModel> = [
+export const employees: Array<UserDetailsModel> = [
   {
     code: "123466",
     department: "IT",

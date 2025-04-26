@@ -5,7 +5,7 @@ import type { CurrentUserInfoModel } from "./model/response/CurrentUserInfoRespo
 import type { GetUsersListRequestModel } from "./model/request/GetUsersListRequestModel";
 import type { GetUsersListResponseModel } from "./model/response/GetUsersListResponseModel";
 import type { GetUserDetailsRequestModel } from "./model/request/GetUserDetailsRequestModel";
-import type { GetUserDetailsResponseModel } from "./model/response/GetUserDetailsResponseModel";
+import type { UserDetailsModel } from "./model/response/UserDetailsModel";
 
 // HttpService instance
 const httpService = HttpService.getInstance();
@@ -42,13 +42,22 @@ class UserHttpRepository implements IUserRepository {
 
   GetUserDetails(
     request: GetUserDetailsRequestModel
-  ): Promise<GetUserDetailsResponseModel> {
+  ): Promise<UserDetailsModel> {
     const url = generateUrl(`${base}${endpoints.userDetails}`, {
       guid: request.guid,
     });
 
     try {
-      return httpService.get<GetUserDetailsResponseModel>(url);
+      return httpService.get<UserDetailsModel>(url);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  SaveUserDetails(request: UserDetailsModel): Promise<string> {
+    const url = `${base}${endpoints.save}`;
+    try {
+      return httpService.post<string>(url, request);
     } catch (error) {
       throw error;
     }

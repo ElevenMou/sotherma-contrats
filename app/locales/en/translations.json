@@ -60,6 +60,16 @@
       "userDetails": {
         "title": "Fetch Error",
         "description": "Error fetching employee details."
+      },
+      "saveUser": {
+        "title": "Save Error",
+        "description": "Error saving employee details."
+      }
+    },
+    "success": {
+      "saveUser": {
+        "title": "Success",
+        "description": "Employee details saved successfully."
       }
     }
   }

@@ -1,4 +1,4 @@
-export interface GetUserDetailsResponseModel {
+export interface UserDetailsModel {
   guid?: string;
   firstName: string;
   lastName: string;

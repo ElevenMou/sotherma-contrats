@@ -1,7 +1,7 @@
 import type { GetUserDetailsRequestModel } from "./model/request/GetUserDetailsRequestModel";
 import type { GetUsersListRequestModel } from "./model/request/GetUsersListRequestModel";
 import type { CurrentUserInfoModel } from "./model/response/CurrentUserInfoResponseModel";
-import type { GetUserDetailsResponseModel } from "./model/response/GetUserDetailsResponseModel";
+import type { UserDetailsModel } from "./model/response/UserDetailsModel";
 import type { GetUsersListResponseModel } from "./model/response/GetUsersListResponseModel";
 
 export interface IUserRepository {
@@ -11,5 +11,6 @@ export interface IUserRepository {
   ): Promise<GetUsersListResponseModel>;
   GetUserDetails(
     request: GetUserDetailsRequestModel
-  ): Promise<GetUserDetailsResponseModel>;
+  ): Promise<UserDetailsModel>;
+  SaveUserDetails(request: UserDetailsModel): Promise<string>;
 }

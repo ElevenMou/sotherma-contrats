@@ -5,7 +5,7 @@ import {
   type CurrentUserInfoModel,
 } from "./model/response/CurrentUserInfoResponseModel";
 import type { GetUsersListResponseModel } from "./model/response/GetUsersListResponseModel";
-import type { GetUserDetailsResponseModel } from "./model/response/GetUserDetailsResponseModel";
+import type { UserDetailsModel } from "./model/response/UserDetailsModel";
 import { employees } from "./employees";
 
 const { UserAPI } = getEnvironment();
@@ -62,11 +62,19 @@ export const UserRepositoryMock = [
       return HttpResponse.json({ message: "User not found" }, { status: 404 });
     }
 
-    const responseDto: GetUserDetailsResponseModel = user;
+    const responseDto: UserDetailsModel = user;
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     return HttpResponse.json(responseDto, {
+      status: 200,
+    });
+  }),
+
+  http.post(`${baseUrl}${endpoints.save}`, async ({}) => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    return HttpResponse.json("success", {
       status: 200,
     });
   }),

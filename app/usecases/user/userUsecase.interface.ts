@@ -1,6 +1,6 @@
 import type { GetUserDetailsRequestModel } from "@/data/users/model/request/GetUserDetailsRequestModel";
 import type { GetUsersListRequestModel } from "@/data/users/model/request/GetUsersListRequestModel";
-import type { GetUserDetailsResponseModel } from "@/data/users/model/response/GetUserDetailsResponseModel";
+import type { UserDetailsModel } from "@/data/users/model/response/UserDetailsModel";
 import type React from "react";
 
 export interface GetUsersListView {
@@ -9,9 +9,7 @@ export interface GetUsersListView {
 
 export interface GetUserDetailsView {
   setLoading: (loading: boolean) => void;
-  setUserDetails: React.Dispatch<
-    React.SetStateAction<GetUserDetailsResponseModel | null>
-  >;
+  setUserDetails: React.Dispatch<React.SetStateAction<UserDetailsModel | null>>;
   onError: () => void;
 }
 
@@ -30,5 +28,11 @@ export interface UserUseCaseInterface {
   }: {
     request: GetUserDetailsRequestModel;
     view: GetUserDetailsView;
+  }) => Promise<void>;
+
+  saveUserDetails: ({
+    request,
+  }: {
+    request: UserDetailsModel;
   }) => Promise<void>;
 }

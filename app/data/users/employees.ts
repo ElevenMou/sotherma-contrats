@@ -8,7 +8,7 @@ export const employees: Array<GetUserDetailsResponseModel> = [
     firstName: "Liam",
     email: "liam.nguyen@gmail.com",
     site: "San Diego",
-    profile: "User",
+    profile: "requester",
     guid: "1234667890",
   },
   {
@@ -18,7 +18,7 @@ export const employees: Array<GetUserDetailsResponseModel> = [
     firstName: "Ava",
     email: "ava.walker@gmail.com",
     site: "Phoenix",
-    profile: "Admin",
+    profile: "admin",
     guid: "1234678901",
   },
   {
@@ -28,7 +28,7 @@ export const employees: Array<GetUserDetailsResponseModel> = [
     firstName: "Noah",
     email: "noah.hall@gmail.com",
     site: "Atlanta",
-    profile: "User",
+    profile: "requester",
     guid: "1234689012",
   },
   {
@@ -38,7 +38,7 @@ export const employees: Array<GetUserDetailsResponseModel> = [
     firstName: "Isabella",
     email: "isabella.allen@gmail.com",
     site: "Orlando",
-    profile: "User",
+    profile: "requester",
     guid: "1234690123",
   },
   {
@@ -48,7 +48,7 @@ export const employees: Array<GetUserDetailsResponseModel> = [
     firstName: "James",
     email: "james.young@gmail.com",
     site: "Dallas",
-    profile: "Admin",
+    profile: "admin",
     guid: "1234701234",
   },
   {
@@ -58,7 +58,7 @@ export const employees: Array<GetUserDetailsResponseModel> = [
     firstName: "Mia",
     email: "mia.hernandez@gmail.com",
     site: "Philadelphia",
-    profile: "User",
+    profile: "requester",
     guid: "1234712345",
   },
   {
@@ -68,7 +68,7 @@ export const employees: Array<GetUserDetailsResponseModel> = [
     firstName: "Benjamin",
     email: "ben.king@gmail.com",
     site: "San Jose",
-    profile: "User",
+    profile: "requester",
     guid: "1234723456",
   },
   {
@@ -78,7 +78,7 @@ export const employees: Array<GetUserDetailsResponseModel> = [
     firstName: "Emma",
     email: "emma.wright@gmail.com",
     site: "Charlotte",
-    profile: "Admin",
+    profile: "admin",
     guid: "1234734567",
   },
   {
@@ -88,7 +88,7 @@ export const employees: Array<GetUserDetailsResponseModel> = [
     firstName: "Lucas",
     email: "lucas.lopez@gmail.com",
     site: "Indianapolis",
-    profile: "User",
+    profile: "requester",
     guid: "1234745678",
   },
   {
@@ -98,7 +98,7 @@ export const employees: Array<GetUserDetailsResponseModel> = [
     firstName: "Amelia",
     email: "amelia.scott@gmail.com",
     site: "Columbus",
-    profile: "Admin",
+    profile: "admin",
     guid: "1234756789",
   },
   {
@@ -108,7 +108,7 @@ export const employees: Array<GetUserDetailsResponseModel> = [
     firstName: "Logan",
     email: "logan.green@gmail.com",
     site: "Fort Worth",
-    profile: "User",
+    profile: "requester",
     guid: "1234767890",
   },
   {
@@ -118,7 +118,7 @@ export const employees: Array<GetUserDetailsResponseModel> = [
     firstName: "Harper",
     email: "harper.baker@gmail.com",
     site: "San Antonio",
-    profile: "User",
+    profile: "requester",
     guid: "1234778901",
   },
   {
@@ -128,7 +128,7 @@ export const employees: Array<GetUserDetailsResponseModel> = [
     firstName: "Elijah",
     email: "elijah.adams@gmail.com",
     site: "Jacksonville",
-    profile: "Admin",
+    profile: "admin",
     guid: "1234789012",
   },
   {
@@ -138,7 +138,7 @@ export const employees: Array<GetUserDetailsResponseModel> = [
     firstName: "Evelyn",
     email: "evelyn.nelson@gmail.com",
     site: "Nashville",
-    profile: "User",
+    profile: "requester",
     guid: "1234790123",
   },
   {
@@ -148,7 +148,7 @@ export const employees: Array<GetUserDetailsResponseModel> = [
     firstName: "Henry",
     email: "henry.carter@gmail.com",
     site: "Detroit",
-    profile: "User",
+    profile: "requester",
     guid: "1234801234",
   },
   {
@@ -158,7 +158,7 @@ export const employees: Array<GetUserDetailsResponseModel> = [
     firstName: "Abigail",
     email: "abigail.mitchell@gmail.com",
     site: "Memphis",
-    profile: "Admin",
+    profile: "admin",
     guid: "1234812345",
   },
   {
@@ -168,7 +168,7 @@ export const employees: Array<GetUserDetailsResponseModel> = [
     firstName: "Jack",
     email: "jack.perez@gmail.com",
     site: "Oklahoma City",
-    profile: "User",
+    profile: "requester",
     guid: "1234823456",
   },
   {
@@ -178,7 +178,7 @@ export const employees: Array<GetUserDetailsResponseModel> = [
     firstName: "Scarlett",
     email: "scarlett.roberts@gmail.com",
     site: "Louisville",
-    profile: "User",
+    profile: "requester",
     guid: "1234834567",
   },
   {
@@ -188,7 +188,7 @@ export const employees: Array<GetUserDetailsResponseModel> = [
     firstName: "Sebastian",
     email: "sebastian.turner@gmail.com",
     site: "Milwaukee",
-    profile: "Admin",
+    profile: "admin",
     guid: "1234845678",
   },
   {
@@ -198,7 +198,7 @@ export const employees: Array<GetUserDetailsResponseModel> = [
     firstName: "Grace",
     email: "grace.phillips@gmail.com",
     site: "Albuquerque",
-    profile: "User",
+    profile: "requester",
     guid: "1234856789",
   },
   {
@@ -208,7 +208,7 @@ export const employees: Array<GetUserDetailsResponseModel> = [
     firstName: "Daniel",
     email: "daniel.campbell@gmail.com",
     site: "Tucson",
-    profile: "Admin",
+    profile: "admin",
     guid: "1234867890",
   },
   {
@@ -218,7 +218,7 @@ export const employees: Array<GetUserDetailsResponseModel> = [
     firstName: "Chloe",
     email: "chloe.parker@gmail.com",
     site: "Fresno",
-    profile: "User",
+    profile: "requester",
     guid: "1234878901",
   },
   {
@@ -228,7 +228,7 @@ export const employees: Array<GetUserDetailsResponseModel> = [
     firstName: "Matthew",
     email: "matthew.evans@gmail.com",
     site: "Mesa",
-    profile: "User",
+    profile: "requester",
     guid: "1234889012",
   },
   {
@@ -238,7 +238,7 @@ export const employees: Array<GetUserDetailsResponseModel> = [
     firstName: "Zoey",
     email: "zoey.edwards@gmail.com",
     site: "Sacramento",
-    profile: "Admin",
+    profile: "admin",
     guid: "1234890123",
   },
   {
@@ -248,7 +248,7 @@ export const employees: Array<GetUserDetailsResponseModel> = [
     firstName: "Samuel",
     email: "samuel.collins@gmail.com",
     site: "Kansas City",
-    profile: "User",
+    profile: "requester",
     guid: "1234901234",
   },
   {
@@ -258,7 +258,7 @@ export const employees: Array<GetUserDetailsResponseModel> = [
     firstName: "Victoria",
     email: "victoria.stewart@gmail.com",
     site: "Atlanta",
-    profile: "Admin",
+    profile: "admin",
     guid: "1234912345",
   },
   {
@@ -268,7 +268,7 @@ export const employees: Array<GetUserDetailsResponseModel> = [
     firstName: "Nathan",
     email: "nathan.sanchez@gmail.com",
     site: "Raleigh",
-    profile: "User",
+    profile: "requester",
     guid: "1234923456",
   },
   {
@@ -278,7 +278,7 @@ export const employees: Array<GetUserDetailsResponseModel> = [
     firstName: "Hannah",
     email: "hannah.morris@gmail.com",
     site: "Long Beach",
-    profile: "User",
+    profile: "requester",
     guid: "1234934567",
   },
   {
@@ -288,7 +288,7 @@ export const employees: Array<GetUserDetailsResponseModel> = [
     firstName: "Andrew",
     email: "andrew.rogers@gmail.com",
     site: "Oakland",
-    profile: "Admin",
+    profile: "admin",
     guid: "1234945678",
   },
   {
@@ -298,7 +298,7 @@ export const employees: Array<GetUserDetailsResponseModel> = [
     firstName: "Aria",
     email: "aria.reed@gmail.com",
     site: "Minneapolis",
-    profile: "User",
+    profile: "requester",
     guid: "1234956789",
   },
 ];

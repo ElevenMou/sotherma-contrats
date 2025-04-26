@@ -16,6 +16,7 @@ import type { GetUserDetailsResponseModel } from "@/data/users/model/response/Ge
 import { useTranslation } from "react-i18next";
 import DepartmentsSelect from "@/components/form/DepartmentSelect";
 import SitesSelect from "@/components/form/SiteSelect";
+import RoleSelect from "@/components/form/RoleSelect";
 
 const EmployeeForm = ({
   employeeDetails,
@@ -136,6 +137,20 @@ const EmployeeForm = ({
 
         <FormField
           control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{t("employees.employee_email")}</FormLabel>
+              <FormControl>
+                <Input placeholder={t("employees.employee_email")} {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
           name="department"
           render={({ field }) => (
             <FormItem>
@@ -167,26 +182,15 @@ const EmployeeForm = ({
 
         <FormField
           control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t("employees.employee_email")}</FormLabel>
-              <FormControl>
-                <Input placeholder={t("employees.employee_email")} {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
           name="profile"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Role</FormLabel>
               <FormControl>
-                <Input placeholder="Role" {...field} />
+                <RoleSelect
+                  defaultValue={employeeDetails?.profile}
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

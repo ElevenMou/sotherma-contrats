@@ -5,7 +5,7 @@ import type {
   GetUsersListView,
   UserUseCaseInterface,
 } from "./userUsecase.interface";
-import type { GetUsersListRequestModel } from "@/data/users/model/request/GetUsersListRequestModel";
+import type { ListPaginationRequestModel } from "@/data/utils/ListPaginationRequestModel";
 import { userHttpRepository } from "@/data/users/user.repository";
 import { useEmployeesContext } from "@/pages/protected/admin/employees/contexts/EmployeesProvider";
 import type { GetUserDetailsRequestModel } from "@/data/users/model/request/GetUserDetailsRequestModel";
@@ -19,7 +19,7 @@ export const useUserUsecase = (): UserUseCaseInterface => {
     request,
     view,
   }: {
-    request: GetUsersListRequestModel;
+    request: ListPaginationRequestModel;
     view: GetUsersListView;
   }) => {
     try {

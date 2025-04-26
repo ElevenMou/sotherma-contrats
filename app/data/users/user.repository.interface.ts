@@ -1,14 +1,14 @@
 import type { GetUserDetailsRequestModel } from "./model/request/GetUserDetailsRequestModel";
-import type { GetUsersListRequestModel } from "./model/request/GetUsersListRequestModel";
+import type { ListPaginationRequestModel } from "../utils/ListPaginationRequestModel";
 import type { CurrentUserInfoModel } from "./model/response/CurrentUserInfoResponseModel";
 import type { UserDetailsModel } from "./model/response/UserDetailsModel";
-import type { GetUsersListResponseModel } from "./model/response/GetUsersListResponseModel";
+import type { ListResponseModel } from "../utils/GetUsersListResponseModel";
 
 export interface IUserRepository {
   GetCurrentUserInfo(): Promise<CurrentUserInfoModel>;
   GetUsersList(
-    request: GetUsersListRequestModel
-  ): Promise<GetUsersListResponseModel>;
+    request: ListPaginationRequestModel
+  ): Promise<ListResponseModel<UserDetailsModel, "usersList">>;
   GetUserDetails(
     request: GetUserDetailsRequestModel
   ): Promise<UserDetailsModel>;

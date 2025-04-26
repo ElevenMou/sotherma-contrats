@@ -5,7 +5,12 @@
     "back": "Retour",
     "isRequired": "est requis.",
     "isInvalid": "est invalide.",
-    "save": "Enregistrer"
+    "save": "Enregistrer",
+    "startDate": "Date de début",
+    "endDate": "Date de fin",
+    "site": "Site",
+    "department": "Département",
+    "status": "Statut"
   },
   "errors": {
     "not_found": "La page demandée est introuvable.",
@@ -78,6 +83,36 @@
       "saveUser": {
         "title": "Succès",
         "description": "L'employé a été enregistré avec succès."
+      }
+    }
+  },
+  "requests": {
+    "title": "Mes Demandes",
+    "add_request": "Ajouter une demande",
+    "desiredProfile": "Profil souhaité",
+    "needFrom": "Besoin à partir de",
+    "numberOfProfiles": "Nombre de profils",
+    "contractType": "Type de contrat",
+    "justification": "Justification",
+    "requesterFullName": "Nom du demandeur",
+    "errors": {
+      "listFetch": {
+        "title": "Erreur de récupération",
+        "description": "Erreur lors de la récupération de la liste des demandes."
+      },
+      "requestDetails": {
+        "title": "Erreur de récupération",
+        "description": "Erreur lors de la récupération des détails de la demande."
+      },
+      "saveRequest": {
+        "title": "Erreur de sauvegarde",
+        "description": "Erreur lors de la sauvegarde des détails de la demande."
+      }
+    },
+    "success": {
+      "saveRequest": {
+        "title": "Succès",
+        "description": "La demande a été enregistrée avec succès."
       }
     }
   }

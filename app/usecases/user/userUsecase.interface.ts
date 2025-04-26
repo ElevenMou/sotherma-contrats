@@ -1,5 +1,5 @@
 import type { GetUserDetailsRequestModel } from "@/data/users/model/request/GetUserDetailsRequestModel";
-import type { GetUsersListRequestModel } from "@/data/users/model/request/GetUsersListRequestModel";
+import type { ListPaginationRequestModel } from "@/data/utils/ListPaginationRequestModel";
 import type { UserDetailsModel } from "@/data/users/model/response/UserDetailsModel";
 import type React from "react";
 
@@ -18,7 +18,7 @@ export interface UserUseCaseInterface {
     request,
     view,
   }: {
-    request: GetUsersListRequestModel;
+    request: ListPaginationRequestModel;
     view: GetUsersListView;
   }) => Promise<void>;
 

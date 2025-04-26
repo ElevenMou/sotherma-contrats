@@ -2,8 +2,8 @@ import HttpService from "@/lib/http/http.service";
 import type { IUserRepository } from "./user.repository.interface";
 import { generateUrl, getEnvironment } from "../environment";
 import type { CurrentUserInfoModel } from "./model/response/CurrentUserInfoResponseModel";
-import type { GetUsersListRequestModel } from "./model/request/GetUsersListRequestModel";
-import type { GetUsersListResponseModel } from "./model/response/GetUsersListResponseModel";
+import type { ListPaginationRequestModel } from "../utils/ListPaginationRequestModel";
+import type { ListResponseModel } from "../utils/GetUsersListResponseModel";
 import type { GetUserDetailsRequestModel } from "./model/request/GetUserDetailsRequestModel";
 import type { UserDetailsModel } from "./model/response/UserDetailsModel";
 
@@ -26,15 +26,17 @@ class UserHttpRepository implements IUserRepository {
   }
 
   GetUsersList(
-    request: GetUsersListRequestModel
-  ): Promise<GetUsersListResponseModel> {
+    request: ListPaginationRequestModel
+  ): Promise<ListResponseModel<UserDetailsModel, "usersList">> {
     const url = generateUrl(`${base}${endpoints.usersList}`, {
       startIndex: request.startIndex.toString(),
       maxRecords: request.maxRecords.toString(),
     });
 
     try {
-      return httpService.get<GetUsersListResponseModel>(url);
+      return httpService.get<ListResponseModel<UserDetailsModel, "usersList">>(
+        url
+      );
     } catch (error) {
       throw error;
     }

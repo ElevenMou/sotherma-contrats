@@ -27,6 +27,15 @@ export const getEnvironment = () => {
         sitesList: "/getAllSites",
       },
     },
+    RequestsAPI: {
+      base: "request",
+      endpoints: {
+        listByUser:
+          "/getListByUser?startIndex=<startIndex>&maxRecords=<maxRecords>",
+        listToValidate:
+          "/getListToValidateByUser?startIndex=<startIndex>&maxRecords=<maxRecords>",
+      },
+    },
   };
 };
 

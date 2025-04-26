@@ -14,37 +14,35 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { useRequestsContext } from "../contexts/RequestsProvider";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Button } from "@/components/ui/button";
-import { Check, X } from "lucide-react";
 
-const MAX_RECORDS = 13;
+const MAX_RECORDS = 16;
 
-const RequestsList = () => {
+const MyRequestsList = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { getRequestsListToValidate } = useRequestUsecase();
+  const { getRequestsList } = useRequestUsecase();
   const [loading, setLoading] = useState(true);
-  const { requestsToValidate, requestsToValidateCount } = useRequestsContext();
+  const { requests, totalCount } = useRequestsContext();
   const [startIndex, setStartIndex] = useState(0);
 
   const handlePageChange = (page: number) => {
     setStartIndex((page - 1) * MAX_RECORDS);
   };
 
-  const fetchUsers = async () => {
-    setLoading(true);
-    await getRequestsListToValidate({
-      request: {
-        startIndex: startIndex,
-        maxRecords: MAX_RECORDS,
-      },
-      view: {
-        setLoading,
-      },
-    });
-  };
-
   useEffect(() => {
+    const fetchUsers = async () => {
+      setLoading(true);
+      await getRequestsList({
+        request: {
+          startIndex: startIndex,
+          maxRecords: MAX_RECORDS,
+        },
+        view: {
+          setLoading,
+        },
+      });
+    };
+
     fetchUsers();
   }, [startIndex, MAX_RECORDS]);
 
@@ -60,24 +58,27 @@ const RequestsList = () => {
           <TableHead>{t("requests.justification")}</TableHead>
           <TableHead>{t("common.status")}</TableHead>
           <TableHead>{t("requests.requesterFullName")}</TableHead>
-          <TableHead className="w-[100px]" />
         </TableRow>
       </TableHeader>
       <TableBody>
         {loading &&
           Array.from({ length: MAX_RECORDS }).map((_, i) => (
             <TableRow key={i}>
-              {Array.from({ length: 9 }).map((_, index) => (
+              {Array.from({ length: 8 }).map((_, index) => (
                 <TableCell key={index}>
-                  <Skeleton className="h-9 w-full" />
+                  <Skeleton className="h-5 w-full" />
                 </TableCell>
               ))}
             </TableRow>
           ))}
 
         {!loading &&
-          requestsToValidate.map((request) => (
-            <TableRow key={request.guid}>
+          requests.map((request) => (
+            <TableRow
+              key={request.guid}
+              onClick={() => navigate(`/requests/${request.guid}`)}
+              className="cursor-pointer"
+            >
               <TableCell>{request.desiredProfile}</TableCell>
               <TableCell>{request.department}</TableCell>
               <TableCell>{request.contractType}</TableCell>
@@ -86,22 +87,14 @@ const RequestsList = () => {
               <TableCell>{request.justification}</TableCell>
               <TableCell>{request.status}</TableCell>
               <TableCell>{request.requesterFullName}</TableCell>
-              <TableCell className="w-[100px]">
-                <Button size="icon" variant="destructive">
-                  <X className="h-4 w-4" />
-                </Button>
-                <Button size="icon" variant="default" className="ml-2">
-                  <Check className="h-4 w-4" />
-                </Button>
-              </TableCell>
             </TableRow>
           ))}
       </TableBody>
       <TableFooter>
         <TableRow>
-          <TableCell colSpan={9}>
+          <TableCell colSpan={8}>
             <Pagination
-              totalItems={requestsToValidateCount}
+              totalItems={totalCount}
               itemsPerPage={MAX_RECORDS}
               currentPage={Math.floor(startIndex / MAX_RECORDS) + 1}
               onPageChange={handlePageChange}
@@ -114,4 +107,4 @@ const RequestsList = () => {
   );
 };
 
-export default RequestsList;
+export default MyRequestsList;

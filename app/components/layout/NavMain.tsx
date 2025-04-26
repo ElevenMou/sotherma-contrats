@@ -60,12 +60,12 @@ export function NavMain() {
       icon: Users,
       roles: [userRoles.admin],
     },
-    {
-      title: t("menu.departments"),
-      url: "/departments",
-      icon: Building2,
-      roles: [userRoles.admin],
-    },
+    // {
+    //   title: t("menu.departments"),
+    //   url: "/departments",
+    //   icon: Building2,
+    //   roles: [userRoles.admin],
+    // },
   ];
 
   return (

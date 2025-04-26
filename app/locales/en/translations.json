@@ -5,7 +5,12 @@
     "back": "Back",
     "isRequired": "is required.",
     "isInvalid": "is invalid.",
-    "save": "Save"
+    "save": "Save",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "site": "Site",
+    "department": "Department",
+    "status": "Status"
   },
   "errors": {
     "not_found": "The requested page was not found.",
@@ -78,6 +83,37 @@
       "saveUser": {
         "title": "Success",
         "description": "Employee details saved successfully."
+      }
+    }
+  },
+  "requests": {
+    "title": "My Requests",
+    "add_request": "Add Request",
+    "desiredProfile": "Desired Profile",
+    "needFrom": "Need From",
+    "numberOfProfiles": "Number of Profiles",
+    "contractType": "Contract Type",
+    "justification": "Justification",
+    "requesterFullName": "Requester Name",
+
+    "errors": {
+      "listFetch": {
+        "title": "Fetch Error",
+        "description": "Error fetching the list of requests."
+      },
+      "requestDetails": {
+        "title": "Fetch Error",
+        "description": "Error fetching request details."
+      },
+      "saveRequest": {
+        "title": "Save Error",
+        "description": "Error saving request details."
+      }
+    },
+    "success": {
+      "saveRequest": {
+        "title": "Success",
+        "description": "Request details saved successfully."
       }
     }
   }

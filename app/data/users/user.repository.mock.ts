@@ -4,7 +4,7 @@ import {
   userRoles,
   type CurrentUserInfoModel,
 } from "./model/response/CurrentUserInfoResponseModel";
-import type { GetUsersListResponseModel } from "./model/response/GetUsersListResponseModel";
+import type { ListResponseModel } from "../utils/GetUsersListResponseModel";
 import type { UserDetailsModel } from "./model/response/UserDetailsModel";
 import { employees } from "./employees";
 
@@ -40,7 +40,7 @@ export const UserRepositoryMock = [
       startIndex + maxRecords
     );
 
-    const responseDto: GetUsersListResponseModel = {
+    const responseDto: ListResponseModel<UserDetailsModel, "usersList"> = {
       totalCount,
       usersList: paginatedEmployees,
     };

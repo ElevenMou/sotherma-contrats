@@ -1,4 +1,4 @@
-export interface GetUsersListRequestModel {
+export interface ListPaginationRequestModel {
   startIndex: number;
   maxRecords: number;
 }

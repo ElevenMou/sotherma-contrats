@@ -19,8 +19,8 @@ export const useDepartmentUseCase = (): DepartmentUseCaseInterface => {
       const response = await departmentHttpRepository.GetAllDepartments();
       view.setDepartments(response);
     } catch (error) {
-      toast.error(t("employees.errors.userDetails.title"), {
-        description: t("employees.errors.userDetails.description"),
+      toast.error(t("employees.errors.listDepartments.title"), {
+        description: t("employees.errors.listDepartments.description"),
       });
     } finally {
       view.setLoading(false);

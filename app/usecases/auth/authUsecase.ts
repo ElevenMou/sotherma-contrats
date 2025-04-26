@@ -48,5 +48,5 @@ export const useAuthUsecase = (): AuthUseCaseInterface => {
 export const logout = async () => {
   localStorage.removeItem(ACCESS_TOKEN_STORAGE_KEY);
   localStorage.removeItem(REFRESH_TOKEN_STORAGE_KEY);
-  window.location.replace(`${routes.login}`);
+  window.location.replace(routes.login);
 };

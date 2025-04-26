@@ -64,6 +64,14 @@
       "saveUser": {
         "title": "Save Error",
         "description": "Error saving employee details."
+      },
+      "listDepartments": {
+        "title": "Fetch Error",
+        "description": "Error fetching the list of departments."
+      },
+      "listSites": {
+        "title": "Fetch Error",
+        "description": "Error fetching the list of sites."
       }
     },
     "success": {

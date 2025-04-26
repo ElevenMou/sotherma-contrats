@@ -15,8 +15,8 @@ export const useSiteUseCase = (): SiteUseCaseInterface => {
       const response = await siteHttpRepository.GetAllSites();
       view.setSites(response);
     } catch (error) {
-      toast.error(t("employees.errors.userDetails.title"), {
-        description: t("employees.errors.userDetails.description"),
+      toast.error(t("employees.errors.listSites.title"), {
+        description: t("employees.errors.listSites.description"),
       });
     } finally {
       view.setLoading(false);

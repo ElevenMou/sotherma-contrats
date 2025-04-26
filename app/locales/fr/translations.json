@@ -64,6 +64,14 @@
       "saveUser": {
         "title": "Erreur de sauvegarde",
         "description": "Erreur lors de la sauvegarde des détails de l'employé."
+      },
+      "listDepartments": {
+        "title": "Erreur de récupération",
+        "description": "Erreur lors de la récupération de la liste des départements."
+      },
+      "listSites": {
+        "title": "Erreur de récupération",
+        "description": "Erreur lors de la récupération de la liste des sites."
       }
     },
     "success": {

@@ -18,6 +18,14 @@ import SitesSelect from "@/components/form/SiteSelect";
 import RoleSelect from "@/components/form/RoleSelect";
 import { useRequestUsecase } from "@/usecases/request/requestUsecase";
 import type { RequestDetailsModel } from "@/data/requests/model/request/RequestDetailsModel";
+import ContractTypeSelect from "@/components/form/ContractTypeSelect";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import JustificationSelect from "@/components/form/JustificationSelect";
 
 const RequestForm = ({
   requestDetails,
@@ -110,21 +118,8 @@ const RequestForm = ({
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 grid grid-cols-1 md:grid-cols-2 gap-4"
+        className="space-y-4 grid grid-cols-1 md:grid-cols-3 gap-4"
       >
-        <FormField
-          control={form.control}
-          name="contractType"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t("requests.contractType")}</FormLabel>
-              <FormControl>
-                <Input defaultValue={requestDetails?.contractType} {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
         <FormField
           control={form.control}
           name="desiredProfile"
@@ -134,57 +129,6 @@ const RequestForm = ({
               <FormControl>
                 <Input
                   defaultValue={requestDetails?.desiredProfile}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="department"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t("requests.request_department")}</FormLabel>
-              <FormControl>
-                <DepartmentsSelect
-                  defaultValue={String(requestDetails?.departmentId) || ""}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="site"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t("requests.request_site")}</FormLabel>
-              <FormControl>
-                <SitesSelect
-                  defaultValue={String(requestDetails?.siteId) || ""}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="justification"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t("requests.justification")}</FormLabel>
-              <FormControl>
-                <Input
-                  defaultValue={requestDetails?.justification}
                   {...field}
                 />
               </FormControl>
@@ -213,10 +157,78 @@ const RequestForm = ({
 
         <FormField
           control={form.control}
+          name="justification"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{t("requests.justification")}</FormLabel>
+              <FormControl>
+                <JustificationSelect
+                  defaultValue={requestDetails?.justification}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="contractType"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{t("requests.contractType")}</FormLabel>
+              <FormControl>
+                <ContractTypeSelect
+                  defaultValue={requestDetails?.contractType}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="department"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{t("common.department")}</FormLabel>
+              <FormControl>
+                <DepartmentsSelect
+                  defaultValue={String(requestDetails?.departmentId) || ""}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="site"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{t("common.site")}</FormLabel>
+              <FormControl>
+                <SitesSelect
+                  defaultValue={String(requestDetails?.siteId) || ""}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
           name="startDate"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t("requests.startDate")}</FormLabel>
+              <FormLabel>{t("common.startDate")}</FormLabel>
               <FormControl>
                 <Input
                   type="date"
@@ -234,7 +246,7 @@ const RequestForm = ({
           name="endDate"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t("requests.endDate")}</FormLabel>
+              <FormLabel>{t("common.endDate")}</FormLabel>
               <FormControl>
                 <Input
                   type="date"
@@ -265,61 +277,74 @@ const RequestForm = ({
           )}
         />
 
-        <FormField
-          control={form.control}
-          name="candidateFirstName"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t("requests.candidateFirstName")}</FormLabel>
-              <FormControl>
-                <Input
-                  defaultValue={requestDetails?.candidateFirstName || ""}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <Accordion
+          type="single"
+          collapsible
+          className="col-span-1 md:col-span-full"
+        >
+          <AccordionItem value="recomandation">
+            <AccordionTrigger>
+              {t("requests.haveRecomandation")}
+            </AccordionTrigger>
+            <AccordionContent className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <FormField
+                control={form.control}
+                name="candidateFirstName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t("requests.candidateFirstName")}</FormLabel>
+                    <FormControl>
+                      <Input
+                        defaultValue={requestDetails?.candidateFirstName || ""}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-        <FormField
-          control={form.control}
-          name="candidateLastName"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t("requests.candidateLastName")}</FormLabel>
-              <FormControl>
-                <Input
-                  defaultValue={requestDetails?.candidateLastName || ""}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+              <FormField
+                control={form.control}
+                name="candidateLastName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t("requests.candidateLastName")}</FormLabel>
+                    <FormControl>
+                      <Input
+                        defaultValue={requestDetails?.candidateLastName || ""}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-        <FormField
-          control={form.control}
-          name="cvFile"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t("requests.cvFile")}</FormLabel>
-              <FormControl>
-                <Input
-                  type="file"
-                  accept=".pdf,.doc,.docx"
-                  onChange={(e) => {
-                    if (e.target.files && e.target.files[0]) {
-                      field.onChange(e.target.files[0]);
-                    }
-                  }}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+              <FormField
+                control={form.control}
+                name="cvFile"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t("requests.cvFile")}</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="file"
+                        accept=".pdf,.doc,.docx"
+                        onChange={(e) => {
+                          if (e.target.files && e.target.files[0]) {
+                            field.onChange(e.target.files[0]);
+                          }
+                        }}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
         <Button
           type="submit"
           className="w-full col-span-1 md:col-span-full"

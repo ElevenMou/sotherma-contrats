@@ -84,7 +84,11 @@ const MyRequestsList = () => {
               <TableCell>{request.contractType}</TableCell>
               <TableCell>{request.startDate}</TableCell>
               <TableCell>{request.endDate}</TableCell>
-              <TableCell>{request.justification}</TableCell>
+              <TableCell>
+                {t(`justifications.${request.justification}`, {
+                  defaultValue: request.justification,
+                })}
+              </TableCell>
               <TableCell>{request.status}</TableCell>
               <TableCell>{request.requesterFullName}</TableCell>
             </TableRow>

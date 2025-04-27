@@ -95,9 +95,14 @@
     "contractType": "Type de contrat",
     "justification": "Justification",
     "requesterFullName": "Nom du demandeur",
+    "desiredStartDate": "Date de début souhaitée",
     "reject": "Rejeter",
     "accept": "Accepter",
     "reason": "Raison",
+    "haveRecomandation": "Avez-vous une recommandation ?",
+    "candidateFirstName": "Prénom du candidat",
+    "candidateLastName": "Nom du candidat",
+    "cvFile": "Fichier CV",
     "confirmReject": {
       "title": "Confirmer le rejet",
       "description": "Êtes-vous sûr de vouloir rejeter cette demande ?"
@@ -136,6 +141,41 @@
       "acceptRequest": {
         "title": "Succès",
         "description": "La demande a été acceptée avec succès."
+      }
+    }
+  },
+  "justifications": {
+    "title": "Justification",
+    "replace": "Remplacement d'un départ",
+    "create": "Création de poste",
+    "seasonal_work": "Travail saisonnier"
+  },
+  "contracts": {
+    "title": "Contrats",
+    "add_contract": "Ajouter un contrat",
+    "edit_contract": "Modifier le contrat",
+    "delete_contract": "Supprimer le contrat",
+    "contract_id": "ID du contrat",
+    "contract_type": "Type de contrat",
+    "temporary": "Intérimaire",
+    "errors": {
+      "listFetch": {
+        "title": "Erreur de récupération",
+        "description": "Erreur lors de la récupération de la liste des contrats."
+      },
+      "contractDetails": {
+        "title": "Erreur de récupération",
+        "description": "Erreur lors de la récupération des détails du contrat."
+      },
+      "saveContract": {
+        "title": "Erreur de sauvegarde",
+        "description": "Erreur lors de la sauvegarde des détails du contrat."
+      }
+    },
+    "success": {
+      "saveContract": {
+        "title": "Succès",
+        "description": "Le contrat a été enregistré avec succès."
       }
     }
   }

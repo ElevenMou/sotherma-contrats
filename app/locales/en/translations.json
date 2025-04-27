@@ -95,9 +95,14 @@
     "contractType": "Contract Type",
     "justification": "Justification",
     "requesterFullName": "Requester Name",
+    "desiredStartDate": "Desired Start Date",
     "reject": "Reject",
     "accept": "Accept",
     "reason": "Reason",
+    "haveRecomandation": "Do you have a recommendation?",
+    "candidateFirstName": "Candidate First Name",
+    "candidateLastName": "Candidate Last Name",
+    "cvFile": "CV File",
     "confirmReject": {
       "title": "Confirm Reject",
       "description": "Are you sure you want to reject this request?"
@@ -136,6 +141,36 @@
       "acceptRequest": {
         "title": "Success",
         "description": "Request accepted successfully."
+      }
+    }
+  },
+  "justifications": {
+    "title": "Justification",
+    "replace": "Replacement of a departure",
+    "create": "Job creation",
+    "seasonal_work": "Seasonal work"
+  },
+  "contracts": {
+    "title": "Contracts",
+    "add_contract": "Create Contract",
+    "edit_contract": "Edit Contract",
+    "contract_id": "Contract ID",
+    "contract_type": "Contract Type",
+    "temporary": "Temporary",
+    "errors": {
+      "listFetch": {
+        "title": "Fetch Error",
+        "description": "Error fetching the list of contracts."
+      },
+      "saveContract": {
+        "title": "Save Error",
+        "description": "Error saving contract details."
+      }
+    },
+    "success": {
+      "saveContract": {
+        "title": "Success",
+        "description": "Contract details saved successfully."
       }
     }
   }

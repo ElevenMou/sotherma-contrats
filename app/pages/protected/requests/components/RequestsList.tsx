@@ -48,10 +48,6 @@ const RequestsList = () => {
     fetchUsers();
   };
 
-  const handleRejectRequest = (requestId: string) => {
-    alert("Reject request: " + requestId);
-  };
-
   const handlePageChange = (page: number) => {
     setStartIndex((page - 1) * MAX_RECORDS);
   };
@@ -95,7 +91,9 @@ const RequestsList = () => {
               <TableCell>{request.contractType}</TableCell>
               <TableCell>{request.startDate}</TableCell>
               <TableCell>{request.endDate}</TableCell>
-              <TableCell>{request.justification}</TableCell>
+              <TableCell>
+                {t(`justifications.${request.justification}`)}
+              </TableCell>
               <TableCell>{request.status}</TableCell>
               <TableCell>{request.requesterFullName}</TableCell>
               <TableCell className="w-[100px]">

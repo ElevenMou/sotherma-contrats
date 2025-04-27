@@ -102,19 +102,21 @@ const ContractsList = () => {
                 })}
               </TableCell>
               <TableCell className="w-[200px]">
-                {contract.statusLabel !== "Closed" && (
-                  <Button
-                    variant="destructive"
-                    onClick={() => handleCloseContract(contract.guid || "")}
-                  >
-                    {t("common.close")}
-                  </Button>
-                )}
-                <ExtendContract
-                  contractId={contract.guid || ""}
-                  endDate={new Date(contract.endDate)}
-                  refreshContracts={fetchContracts}
-                />
+                <div className="flex justify-end gap-2">
+                  {contract.statusLabel !== "Closed" && (
+                    <Button
+                      variant="destructive"
+                      onClick={() => handleCloseContract(contract.guid || "")}
+                    >
+                      {t("common.close")}
+                    </Button>
+                  )}
+                  <ExtendContract
+                    contractId={contract.guid || ""}
+                    endDate={new Date(contract.endDate)}
+                    refreshContracts={fetchContracts}
+                  />
+                </div>
               </TableCell>
             </TableRow>
           ))}

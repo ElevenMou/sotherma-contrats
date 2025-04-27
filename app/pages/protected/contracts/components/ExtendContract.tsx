@@ -66,7 +66,7 @@ const ExtendContract = ({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <Button asChild className="ml-2">
+      <Button asChild>
         <DialogTrigger>{t("common.extend")}</DialogTrigger>
       </Button>
       <DialogContent>

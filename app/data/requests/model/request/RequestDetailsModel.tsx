@@ -9,7 +9,7 @@ export interface RequestDetailsModel {
   desiredStartDate: Date;
   justification: string;
   numberOfProfiles: number;
-  isChangeable: boolean;
+  isChangeable?: boolean;
   candidateFirstName?: string | null;
   candidateLastName?: string | null;
   cvFile?: File | null;

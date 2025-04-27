@@ -67,27 +67,25 @@ class RequestHttpRepository implements IRequestRepository {
   }
 
   async SaveRequest(request: RequestDetailsModel): Promise<void> {
-    const url = `${base}${endpoints.saveRequest}`;
-    const formData = new FormData();
-    formData.append("contractType", request.contractType);
-    formData.append("endDate", request.endDate.toString());
-    formData.append("startDate", request.startDate.toString());
-    formData.append("guid", request.guid || "");
-    formData.append("siteId", request.siteId.toString());
-    formData.append("departmentId", request.departmentId.toString());
-    formData.append("desiredProfile", request.desiredProfile);
-    formData.append("desiredStartDate", request.desiredStartDate.toString());
-    formData.append("justification", request.justification);
-    formData.append("numberOfProfiles", request.numberOfProfiles.toString());
-    formData.append("isChangeable", request.isChangeable.toString());
-
-    if (request.cvFile) {
-      formData.append("cvFile", request.cvFile);
-    }
-    formData.append("candidateFirstName", request.candidateFirstName || "");
-    formData.append("candidateLastName", request.candidateLastName || "");
-
     try {
+      const url = `${base}${endpoints.saveRequest}`;
+      const formData = new FormData();
+      formData.append("contractType", request.contractType);
+      formData.append("endDate", request.endDate.toString());
+      formData.append("startDate", request.startDate.toString());
+      formData.append("guid", request.guid || "");
+      formData.append("siteId", request.siteId.toString());
+      formData.append("departmentId", request.departmentId.toString());
+      formData.append("desiredProfile", request.desiredProfile);
+      formData.append("desiredStartDate", request.desiredStartDate.toString());
+      formData.append("justification", request.justification);
+      formData.append("numberOfProfiles", request.numberOfProfiles.toString());
+
+      if (request.cvFile) {
+        formData.append("cvFile", request.cvFile);
+      }
+      formData.append("candidateFirstName", request.candidateFirstName || "");
+      formData.append("candidateLastName", request.candidateLastName || "");
       await httpService.post(url, formData, {
         headers: {
           "Content-Type": "multipart/form-data",

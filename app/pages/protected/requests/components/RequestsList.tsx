@@ -40,8 +40,8 @@ const RequestsList = () => {
     });
   };
 
-  const handleAcceptRequest = (requestId: string) => {
-    acceptRequest({
+  const handleAcceptRequest = async (requestId: string) => {
+    await acceptRequest({
       request: {
         requestGuid: requestId,
       },

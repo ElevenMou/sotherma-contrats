@@ -18,7 +18,7 @@ export const UserRepositoryMock = [
       firstName: "Moussa",
       lastName: "Saidi",
       email: "moussa.saidi.01@gmail.com",
-      profile: userRoles.hr,
+      profile: userRoles.admin,
     };
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -66,9 +66,12 @@ export const UserRepositoryMock = [
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    return HttpResponse.json(responseDto, {
-      status: 200,
-    });
+    return HttpResponse.json(
+      { ...responseDto, department: 1, site: 2 },
+      {
+        status: 200,
+      }
+    );
   }),
 
   http.post(`${baseUrl}${endpoints.save}`, async ({}) => {

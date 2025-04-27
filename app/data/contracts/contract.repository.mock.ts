@@ -2,7 +2,6 @@ import { http, HttpResponse } from "msw";
 import { getEnvironment } from "../environment";
 import { contracts } from "./contracts";
 import type { ListResponseModel } from "../utils/GetUsersListResponseModel";
-import type { ContractDetailsModel } from "./model/response/ContractDetailsModel";
 import type { ContractListItemModel } from "./model/response/ContractListItemModel";
 
 const { ContractsAPI } = getEnvironment();

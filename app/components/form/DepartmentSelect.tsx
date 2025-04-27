@@ -49,6 +49,7 @@ const DepartmentsSelect = ({
       const selectedSite = departments.find(
         (department) => department.id === defaultValue
       );
+
       if (selectedSite) {
         onChange(selectedSite.id);
       }
@@ -63,7 +64,7 @@ const DepartmentsSelect = ({
           onValueChange={handleChangeLanguage}
           disabled={disabled}
           defaultValue={departments
-            .find((department) => department.id === String(defaultValue))
+            .find((department) => department.id === defaultValue)
             ?.id?.toString()}
           i18nIsDynamicList={true}
           name="department"

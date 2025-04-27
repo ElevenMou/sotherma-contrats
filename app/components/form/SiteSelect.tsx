@@ -61,7 +61,7 @@ const SitesSelect = ({
           onValueChange={handleChangeLanguage}
           disabled={disabled}
           defaultValue={sites
-            .find((site) => site.id === String(defaultValue))
+            .find((site) => site.id === defaultValue)
             ?.id?.toString()}
           i18nIsDynamicList={true}
           name="site"

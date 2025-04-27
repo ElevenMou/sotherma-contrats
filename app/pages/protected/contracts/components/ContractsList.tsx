@@ -113,6 +113,7 @@ const ContractsList = () => {
                 <ExtendContract
                   contractId={contract.guid || ""}
                   endDate={new Date(contract.endDate)}
+                  refreshContracts={fetchContracts}
                 />
               </TableCell>
             </TableRow>

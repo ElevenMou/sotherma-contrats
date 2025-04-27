@@ -28,9 +28,11 @@ import { date, object, string, z } from "zod";
 const ExtendContract = ({
   contractId,
   endDate,
+  refreshContracts,
 }: {
   contractId: string;
   endDate: Date;
+  refreshContracts: () => void;
 }) => {
   const { t } = useTranslation();
   const { extendContract } = useContractUsecase();
@@ -57,6 +59,7 @@ const ExtendContract = ({
         newEndDate: form.getValues("newEndDate").toISOString(),
       },
     });
+    refreshContracts();
     setOpen(false);
     form.reset();
   };

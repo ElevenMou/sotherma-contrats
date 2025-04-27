@@ -72,7 +72,7 @@ class ContractHttpRepository implements IContractRepository {
     try {
       const url = generateUrl(`${base}${endpoints.extend}`, {
         guid,
-        newEndDate,
+        newEndDate: new Date(newEndDate).toISOString().split("T")[0],
       });
       await httpService.post(url);
     } catch (error) {

@@ -71,13 +71,19 @@ class RequestHttpRepository implements IRequestRepository {
       const url = `${base}${endpoints.saveRequest}`;
       const formData = new FormData();
       formData.append("contractType", request.contractType);
-      formData.append("endDate", request.endDate.toString());
-      formData.append("startDate", request.startDate.toString());
+      formData.append("endDate", request.endDate.toISOString().split("T")[0]);
+      formData.append(
+        "startDate",
+        request.startDate.toISOString().split("T")[0]
+      );
       formData.append("guid", request.guid || "");
       formData.append("siteId", request.siteId.toString());
       formData.append("departmentId", request.departmentId.toString());
       formData.append("desiredProfile", request.desiredProfile);
-      formData.append("desiredStartDate", request.desiredStartDate.toString());
+      formData.append(
+        "desiredStartDate",
+        request.desiredStartDate.toISOString().split("T")[0]
+      );
       formData.append("justification", request.justification);
       formData.append("numberOfProfiles", request.numberOfProfiles.toString());
 
@@ -86,11 +92,15 @@ class RequestHttpRepository implements IRequestRepository {
       }
       formData.append("candidateFirstName", request.candidateFirstName || "");
       formData.append("candidateLastName", request.candidateLastName || "");
-      await httpService.post(url, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      if (request.cvFile) {
+        await httpService.post(url, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+      } else {
+        await httpService.post(url, formData);
+      }
     } catch (error) {
       throw error;
     }

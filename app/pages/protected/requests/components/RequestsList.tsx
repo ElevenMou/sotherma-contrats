@@ -88,11 +88,17 @@ const RequestsList = () => {
             <TableRow key={request.guid}>
               <TableCell>{request.desiredProfile}</TableCell>
               <TableCell>{request.department}</TableCell>
-              <TableCell>{request.contractType}</TableCell>
+              <TableCell>
+                {t(`contracts.${request.contractType}`, {
+                  defaultValue: request.contractType,
+                })}
+              </TableCell>
               <TableCell>{request.startDate}</TableCell>
               <TableCell>{request.endDate}</TableCell>
               <TableCell>
-                {t(`justifications.${request.justification}`)}
+                {t(`justifications.${request.justification}`, {
+                  defaultValue: request.justification,
+                })}
               </TableCell>
               <TableCell>{request.status}</TableCell>
               <TableCell>{request.requesterFullName}</TableCell>

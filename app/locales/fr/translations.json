@@ -32,6 +32,13 @@
     "to": "à",
     "of": "de"
   },
+  "status": {
+    "pending": "En attente",
+    "approved": "Approuvé",
+    "rejected": "Rejeté",
+    "in_progress": "En cours",
+    "completed": "Terminé"
+  },
   "login": {
     "title": "Connectez-vous à votre compte",
     "subtitle": "Bienvenue! Veuillez saisir vos identifiants pour vous connecter à votre compte.",

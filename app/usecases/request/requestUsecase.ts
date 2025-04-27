@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import type {
   GetRequestsListView,
   RequestUseCaseInterface,
+  SaveRequestView,
 } from "./requestUsecase.interface";
 import { useRequestsContext } from "@/pages/protected/requests/contexts/RequestsProvider";
 import type { ListPaginationRequestModel } from "@/data/utils/ListPaginationRequestModel";
@@ -95,12 +96,19 @@ export const useRequestUsecase = (): RequestUseCaseInterface => {
     }
   };
 
-  const saveRequest = async ({ request }: { request: RequestDetailsModel }) => {
+  const saveRequest = async ({
+    request,
+    view,
+  }: {
+    request: RequestDetailsModel;
+    view: SaveRequestView;
+  }) => {
     try {
       await requestHttpRepository.SaveRequest(request);
       toast.success(t("requests.success.saveRequest.title"), {
         description: t("requests.success.saveRequest.description"),
       });
+      view.navigateToRequestsList();
     } catch (error) {
       console.log(error);
 

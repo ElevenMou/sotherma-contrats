@@ -32,6 +32,13 @@
     "to": "to",
     "of": "of"
   },
+  "status": {
+    "pending": "Pending",
+    "approved": "Approved",
+    "rejected": "Rejected",
+    "in_progress": "In Progress",
+    "completed": "Completed"
+  },
   "login": {
     "title": "Login to your account",
     "subtitle": "Welcome! Please enter your credentials to log in to your account.",

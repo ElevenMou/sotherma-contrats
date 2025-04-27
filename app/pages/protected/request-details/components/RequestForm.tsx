@@ -26,6 +26,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import JustificationSelect from "@/components/form/JustificationSelect";
+import { useNavigate } from "react-router";
+import { routes } from "@/lib/router/routes";
 
 const RequestForm = ({
   requestDetails,
@@ -34,6 +36,7 @@ const RequestForm = ({
 }) => {
   const { t } = useTranslation();
   const { saveRequest } = useRequestUsecase();
+  const navigate = useNavigate();
 
   const requestDetailsSchema = object({
     contractType: string().min(
@@ -111,7 +114,10 @@ const RequestForm = ({
       candidateLastName: values.candidateLastName || null,
       cvFile: values.cvFile || null,
     };
-    await saveRequest({ request: requestData });
+    await saveRequest({
+      request: requestData,
+      view: { navigateToRequestsList: () => navigate(routes.requests) },
+    });
   }
 
   return (

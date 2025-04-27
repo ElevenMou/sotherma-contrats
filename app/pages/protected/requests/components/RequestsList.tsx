@@ -16,6 +16,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { Check, X } from "lucide-react";
 import RejectRequest from "./RejectRequest";
+import { formatDateWithoutTime } from "@/lib/utils";
 
 const MAX_RECORDS = 13;
 
@@ -93,14 +94,18 @@ const RequestsList = () => {
                   defaultValue: request.contractType,
                 })}
               </TableCell>
-              <TableCell>{request.startDate}</TableCell>
-              <TableCell>{request.endDate}</TableCell>
+              <TableCell>{formatDateWithoutTime(request.startDate)}</TableCell>
+              <TableCell>{formatDateWithoutTime(request.endDate)}</TableCell>
               <TableCell>
                 {t(`justifications.${request.justification}`, {
                   defaultValue: request.justification,
                 })}
               </TableCell>
-              <TableCell>{request.status}</TableCell>
+              <TableCell>
+                {t(`status.${request.status.toLocaleLowerCase()}`, {
+                  defaultValue: request.status,
+                })}
+              </TableCell>
               <TableCell>{request.requesterFullName}</TableCell>
               <TableCell className="w-[100px]">
                 <RejectRequest requestId={request.guid} />

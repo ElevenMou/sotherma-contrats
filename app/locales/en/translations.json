@@ -37,7 +37,9 @@
     "approved": "Approved",
     "rejected": "Rejected",
     "in_progress": "In Progress",
-    "completed": "Completed"
+    "completed": "Completed",
+    "Active": "Active",
+    "Closed": "Closed"
   },
   "login": {
     "title": "Login to your account",

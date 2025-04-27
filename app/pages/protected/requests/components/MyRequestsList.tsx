@@ -36,7 +36,7 @@ const MyRequestsList = () => {
   };
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchRequests = async () => {
       setLoading(true);
       await getRequestsList({
         request: {
@@ -49,7 +49,7 @@ const MyRequestsList = () => {
       });
     };
 
-    fetchUsers();
+    fetchRequests();
   }, [startIndex, MAX_RECORDS]);
 
   const COLS_NUMBER = userInfo?.profile === userRoles.hr ? 9 : 8;

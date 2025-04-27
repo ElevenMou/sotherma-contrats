@@ -27,7 +27,7 @@ const RequestsList = () => {
   const { requestsToValidate, requestsToValidateCount } = useRequestsContext();
   const [startIndex, setStartIndex] = useState(0);
 
-  const fetchUsers = async () => {
+  const fetchRequests = async () => {
     setLoading(true);
     await getRequestsListToValidate({
       request: {
@@ -46,7 +46,7 @@ const RequestsList = () => {
         requestGuid: requestId,
       },
     });
-    fetchUsers();
+    fetchRequests();
   };
 
   const handlePageChange = (page: number) => {
@@ -54,7 +54,7 @@ const RequestsList = () => {
   };
 
   useEffect(() => {
-    fetchUsers();
+    fetchRequests();
   }, [startIndex, MAX_RECORDS]);
 
   return (

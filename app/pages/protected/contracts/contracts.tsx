@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Separator } from "@radix-ui/react-separator";
 import type { Route } from "./+types/contracts";
+import ContractsList from "./components/ContractsList";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -22,11 +23,11 @@ export default function Contracts() {
             orientation="vertical"
             className="mr-2 h-4 w-[1px] bg-ring"
           />
-          <h1>Contracts</h1>
+          <h1>{t("menu.contracts")}</h1>
         </div>
       </header>
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-        <h1>{t("common.welcome")}</h1>
+        <ContractsList />
       </div>
     </>
   );

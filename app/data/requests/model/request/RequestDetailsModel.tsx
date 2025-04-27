@@ -14,5 +14,3 @@ export interface RequestDetailsModel {
   candidateLastName?: string | null;
   cvFile?: File | null;
 }
-
-// TODO: create contract type enum and justification enum

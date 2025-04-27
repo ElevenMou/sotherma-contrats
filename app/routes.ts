@@ -15,6 +15,10 @@ export default [
         path: routes.requestDetails,
       },
       {
+        file: "pages/protected/request-contract/request-contract.tsx",
+        path: routes.requestContract,
+      },
+      {
         file: "pages/protected/contracts/contracts.tsx",
         path: routes.contracts,
       },

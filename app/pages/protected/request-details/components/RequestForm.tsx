@@ -15,7 +15,6 @@ import Loading from "@/components/layout/Loading";
 import { useTranslation } from "react-i18next";
 import DepartmentsSelect from "@/components/form/DepartmentSelect";
 import SitesSelect from "@/components/form/SiteSelect";
-import RoleSelect from "@/components/form/RoleSelect";
 import { useRequestUsecase } from "@/usecases/request/requestUsecase";
 import type { RequestDetailsModel } from "@/data/requests/model/request/RequestDetailsModel";
 import ContractTypeSelect from "@/components/form/ContractTypeSelect";

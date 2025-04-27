@@ -70,4 +70,23 @@ export const RequestRepositoryMock = [
       status: 200,
     });
   }),
+
+  http.get(`${baseUrl}${endpoints.requestDetails}`, async ({ request }) => {
+    const searchParams = new URL(request.url).searchParams;
+    const guid = searchParams.get("guid") || "";
+
+    const requestDetails = requests.find((req) => req.guid === guid);
+
+    if (!requestDetails) {
+      return HttpResponse.json("Request not found", {
+        status: 404,
+      });
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    return HttpResponse.json(requestDetails, {
+      status: 200,
+    });
+  }),
 ];

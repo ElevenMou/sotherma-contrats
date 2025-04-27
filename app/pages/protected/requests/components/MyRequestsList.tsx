@@ -93,7 +93,11 @@ const MyRequestsList = () => {
             >
               <TableCell>{request.desiredProfile}</TableCell>
               <TableCell>{request.department}</TableCell>
-              <TableCell>{request.contractType}</TableCell>
+              <TableCell>
+                {t(`contracts.${request.contractType}`, {
+                  defaultValue: request.contractType,
+                })}
+              </TableCell>
               <TableCell>{formatDateWithoutTime(request.startDate)}</TableCell>
               <TableCell>{formatDateWithoutTime(request.endDate)}</TableCell>
               <TableCell>

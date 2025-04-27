@@ -37,6 +37,15 @@ export const getEnvironment = () => {
         acceptRequest: "/accept",
         rejectRequest: "/reject",
         saveRequest: "/save",
+        requestDetails: "/details?guid=<guid>",
+      },
+    },
+    ContractsAPI: {
+      base: "contract",
+      endpoints: {
+        list: "/getList?startIndex=<startIndex>&maxRecords=<maxRecords>",
+        contractDetails: "/getDetails?guid=<guid>",
+        save: "/save",
       },
     },
   };

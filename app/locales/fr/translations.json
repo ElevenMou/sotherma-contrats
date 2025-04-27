@@ -110,6 +110,7 @@
     "candidateFirstName": "Prénom du candidat",
     "candidateLastName": "Nom du candidat",
     "cvFile": "Fichier CV",
+    "details": "Détails de la demande",
     "confirmReject": {
       "title": "Confirmer le rejet",
       "description": "Êtes-vous sûr de vouloir rejeter cette demande ?"
@@ -165,6 +166,9 @@
     "contract_id": "ID du contrat",
     "contract_type": "Type de contrat",
     "temporary": "Intérimaire",
+    "providerFirstName": "Prénom du candidat",
+    "providerLastName": "Nom du candidat",
+    "providerEmail": "Email du candidat",
     "errors": {
       "listFetch": {
         "title": "Erreur de récupération",

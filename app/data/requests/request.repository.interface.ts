@@ -17,4 +17,6 @@ export interface IRequestRepository {
   RejectRequest(requestGuid: string, reason: string): Promise<void>;
 
   SaveRequest(request: RequestDetailsModel): Promise<void>;
+
+  GetRequestDetails(requestGuid: string): Promise<RequestDetailsModel>;
 }

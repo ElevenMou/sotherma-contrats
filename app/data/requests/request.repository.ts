@@ -105,6 +105,17 @@ class RequestHttpRepository implements IRequestRepository {
       throw error;
     }
   }
+
+  async GetRequestDetails(requestGuid: string): Promise<RequestDetailsModel> {
+    const url = generateUrl(`${base}${endpoints.requestDetails}`, {
+      guid: requestGuid,
+    });
+    try {
+      return httpService.get<RequestDetailsModel>(url);
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export const requestHttpRepository = new RequestHttpRepository();

@@ -10,6 +10,11 @@ export interface SaveRequestView {
   navigateToRequestsList: () => void;
 }
 
+export interface GetRequestDetailsView {
+  setLoading: (loading: boolean) => void;
+  setRequestDetails: (requestDetails: RequestDetailsModel) => void;
+}
+
 export interface RequestUseCaseInterface {
   getRequestsList: ({
     request,
@@ -44,5 +49,13 @@ export interface RequestUseCaseInterface {
   }: {
     request: RequestDetailsModel;
     view: SaveRequestView;
+  }) => Promise<void>;
+
+  getRequestDetails: ({
+    requestGuid,
+    view,
+  }: {
+    requestGuid: string;
+    view: GetRequestDetailsView;
   }) => Promise<void>;
 }

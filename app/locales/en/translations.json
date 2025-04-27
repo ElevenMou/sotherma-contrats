@@ -110,6 +110,7 @@
     "candidateFirstName": "Candidate First Name",
     "candidateLastName": "Candidate Last Name",
     "cvFile": "CV File",
+    "details": "Request Details",
     "confirmReject": {
       "title": "Confirm Reject",
       "description": "Are you sure you want to reject this request?"
@@ -164,6 +165,9 @@
     "contract_id": "Contract ID",
     "contract_type": "Contract Type",
     "temporary": "Temporary",
+    "providerFirstName": "Candidate First Name",
+    "providerLastName": "Candidate Last Name",
+    "providerEmail": "Candidate Email",
     "errors": {
       "listFetch": {
         "title": "Fetch Error",

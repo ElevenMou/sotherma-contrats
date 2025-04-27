@@ -1,3 +1,4 @@
+import { ContractRepositoryMock } from "@/data/contracts/contract.repository.mock";
 import { DepartmentRepositoryMock } from "@/data/departments/departments.repository.mock";
 import { RequestRepositoryMock } from "@/data/requests/request.repository.mock";
 import { SiteRepositoryMock } from "@/data/sites/sites.repository.mock";
@@ -10,4 +11,5 @@ export const handlers = [
   ...DepartmentRepositoryMock,
   ...SiteRepositoryMock,
   ...RequestRepositoryMock,
+  ...ContractRepositoryMock,
 ];

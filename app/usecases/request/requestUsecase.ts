@@ -1,6 +1,7 @@
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 import type {
+  GetRequestDetailsView,
   GetRequestsListView,
   RequestUseCaseInterface,
   SaveRequestView,
@@ -118,11 +119,34 @@ export const useRequestUsecase = (): RequestUseCaseInterface => {
     }
   };
 
+  const getRequestDetails = async ({
+    requestGuid,
+    view,
+  }: {
+    requestGuid: string;
+    view: GetRequestDetailsView;
+  }) => {
+    view.setLoading(true);
+    try {
+      const response = await requestHttpRepository.GetRequestDetails(
+        requestGuid
+      );
+      view.setRequestDetails(response);
+    } catch (error) {
+      toast.error(t("requests.errors.listFetch.title"), {
+        description: t("requests.errors.listFetch.description"),
+      });
+    } finally {
+      view.setLoading(false);
+    }
+  };
+
   return {
     getRequestsList,
     getRequestsListToValidate,
     acceptRequest,
     rejectRequest,
     saveRequest,
+    getRequestDetails,
   };
 };

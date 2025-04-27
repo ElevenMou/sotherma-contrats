@@ -40,8 +40,8 @@
     "rejected": "Rejeté",
     "in_progress": "En cours",
     "completed": "Terminé",
-    "Active": "Actif",
-    "Closed": "Fermé"
+    "active": "Actif",
+    "closed": "Fermé"
   },
   "login": {
     "title": "Connectez-vous à votre compte",

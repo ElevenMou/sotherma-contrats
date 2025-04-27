@@ -40,8 +40,8 @@
     "rejected": "Rejected",
     "in_progress": "In Progress",
     "completed": "Completed",
-    "Active": "Active",
-    "Closed": "Closed"
+    "active": "Active",
+    "closed": "Closed"
   },
   "login": {
     "title": "Login to your account",

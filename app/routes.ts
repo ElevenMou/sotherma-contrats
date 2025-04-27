@@ -11,6 +11,10 @@ export default [
     children: [
       { file: "pages/protected/requests/requests.tsx", path: routes.requests },
       {
+        file: "pages/protected/request-details/request-details.tsx",
+        path: routes.requestDetails,
+      },
+      {
         file: "pages/protected/contracts/contracts.tsx",
         path: routes.contracts,
       },

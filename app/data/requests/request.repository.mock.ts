@@ -64,4 +64,10 @@ export const RequestRepositoryMock = [
       status: 200,
     });
   }),
+
+  http.post(`${baseUrl}${endpoints.saveRequest}`, async () => {
+    return HttpResponse.json("Saved", {
+      status: 200,
+    });
+  }),
 ];

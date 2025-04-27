@@ -8,6 +8,7 @@ import { useRequestsContext } from "@/pages/protected/requests/contexts/Requests
 import type { ListPaginationRequestModel } from "@/data/utils/ListPaginationRequestModel";
 import { requestHttpRepository } from "@/data/requests/request.repository";
 import type { ChangeRequestStatusModel } from "@/data/requests/model/request/ChangeRequestStatusModel";
+import type { RequestDetailsModel } from "@/data/requests/model/request/RequestDetailsModel";
 
 export const useRequestUsecase = (): RequestUseCaseInterface => {
   const { t } = useTranslation();
@@ -64,7 +65,7 @@ export const useRequestUsecase = (): RequestUseCaseInterface => {
   }) => {
     try {
       await requestHttpRepository.AcceptRequest(request.requestGuid);
-      toast.error(t("requests.success.rejectRequest.title"), {
+      toast.success(t("requests.success.rejectRequest.title"), {
         description: t("requests.success.rejectRequest.description"),
       });
     } catch (error) {
@@ -84,7 +85,7 @@ export const useRequestUsecase = (): RequestUseCaseInterface => {
         request.requestGuid,
         request.reason || ""
       );
-      toast.error(t("requests.success.rejectRequest.title"), {
+      toast.success(t("requests.success.rejectRequest.title"), {
         description: t("requests.success.rejectRequest.description"),
       });
     } catch (error) {
@@ -94,10 +95,26 @@ export const useRequestUsecase = (): RequestUseCaseInterface => {
     }
   };
 
+  const saveRequest = async ({ request }: { request: RequestDetailsModel }) => {
+    try {
+      await requestHttpRepository.SaveRequest(request);
+      toast.success(t("requests.success.saveRequest.title"), {
+        description: t("requests.success.saveRequest.description"),
+      });
+    } catch (error) {
+      console.log(error);
+
+      toast.error(t("requests.errors.saveRequest.title"), {
+        description: t("requests.errors.saveRequest.description"),
+      });
+    }
+  };
+
   return {
     getRequestsList,
     getRequestsListToValidate,
     acceptRequest,
     rejectRequest,
+    saveRequest,
   };
 };

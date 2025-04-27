@@ -1,4 +1,5 @@
 import type { ChangeRequestStatusModel } from "@/data/requests/model/request/ChangeRequestStatusModel";
+import type { RequestDetailsModel } from "@/data/requests/model/request/RequestDetailsModel";
 import type { ListPaginationRequestModel } from "@/data/utils/ListPaginationRequestModel";
 
 export interface GetRequestsListView {
@@ -32,4 +33,6 @@ export interface RequestUseCaseInterface {
   }: {
     request: ChangeRequestStatusModel;
   }) => Promise<void>;
+
+  saveRequest: ({ request }: { request: RequestDetailsModel }) => Promise<void>;
 }

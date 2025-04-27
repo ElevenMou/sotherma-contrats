@@ -98,7 +98,7 @@
     "reject": "Rejeter",
     "accept": "Accepter",
     "reason": "Raison",
-    "confirmReject":{
+    "confirmReject": {
       "title": "Confirmer le rejet",
       "description": "Êtes-vous sûr de vouloir rejeter cette demande ?"
     },

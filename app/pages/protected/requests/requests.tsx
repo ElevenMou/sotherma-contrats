@@ -8,6 +8,8 @@ import { userRoles } from "@/data/users/model/response/CurrentUserInfoResponseMo
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import MyRequestsList from "./components/MyRequestsList";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router";
 
 export function meta({}: Route.MetaArgs) {
   const { t } = useTranslation();
@@ -24,42 +26,49 @@ export default function Requests() {
 
   return (
     <>
-      <header className="flex h-16 shrink-0 items-center gap-2">
-        <div className="flex items-center gap-2 px-4">
+      <header className="flex h-16 shrink-0 items-center gap-2 w-full">
+        <div className="flex items-center gap-2 px-4 w-full">
           <SidebarTrigger className="-ml-1" />
           <Separator
             orientation="vertical"
             className="mr-2 h-4 w-[1px] bg-ring"
           />
-          <h1>
+          <h1 className="w-full">
             {activeTab === "requests"
               ? t("menu.requests")
               : t("requests.title")}
           </h1>
+          {userInfo?.profile === userRoles.requester && (
+            <Button asChild className="!w-fit">
+              <Link to="/requests/create" className="w-full">
+                {t("requests.add_request")}
+              </Link>
+            </Button>
+          )}
         </div>
       </header>
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-        {(userInfo?.profile !== userRoles.requester &&
-          userInfo?.profile !== userRoles.hr) && (
-          <Tabs
-            defaultValue="account"
-            value={activeTab}
-            onValueChange={(value) => setActiveTab(value)}
-          >
-            <TabsList className="w-full">
-              <TabsTrigger value="requests">{t("menu.requests")}</TabsTrigger>
-              <TabsTrigger value="myRequests">
-                {t("requests.title")}
-              </TabsTrigger>
-            </TabsList>
-            <TabsContent value="requests">
-              <RequestsList />
-            </TabsContent>
-            <TabsContent value="myRequests">
-              <MyRequestsList />
-            </TabsContent>
-          </Tabs>
-        )}
+        {userInfo?.profile !== userRoles.requester &&
+          userInfo?.profile !== userRoles.hr && (
+            <Tabs
+              defaultValue="account"
+              value={activeTab}
+              onValueChange={(value) => setActiveTab(value)}
+            >
+              <TabsList className="w-full">
+                <TabsTrigger value="requests">{t("menu.requests")}</TabsTrigger>
+                <TabsTrigger value="myRequests">
+                  {t("requests.title")}
+                </TabsTrigger>
+              </TabsList>
+              <TabsContent value="requests">
+                <RequestsList />
+              </TabsContent>
+              <TabsContent value="myRequests">
+                <MyRequestsList />
+              </TabsContent>
+            </Tabs>
+          )}
 
         {(userInfo?.profile === userRoles.requester ||
           userInfo?.profile === userRoles.hr) && <MyRequestsList />}

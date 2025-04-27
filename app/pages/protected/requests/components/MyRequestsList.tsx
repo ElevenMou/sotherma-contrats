@@ -76,8 +76,8 @@ const MyRequestsList = () => {
           requests.map((request) => (
             <TableRow
               key={request.guid}
-              onClick={() => navigate(`/requests/${request.guid}`)}
-              className="cursor-pointer"
+              // onClick={() => navigate(`/requests/${request.guid}`)}
+              // className="cursor-pointer"
             >
               <TableCell>{request.desiredProfile}</TableCell>
               <TableCell>{request.department}</TableCell>

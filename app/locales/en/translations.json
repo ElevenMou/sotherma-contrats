@@ -184,7 +184,8 @@
       "saveContract": {
         "title": "Save Error",
         "description": "Error saving contract details."
-      }
+      },
+      "endDate": "New end date must be after the current end date."
     },
     "success": {
       "saveContract": {

@@ -110,7 +110,10 @@ const ContractsList = () => {
                     {t("common.close")}
                   </Button>
                 )}
-                <ExtendContract contractId={contract.guid || ""} />
+                <ExtendContract
+                  contractId={contract.guid || ""}
+                  endDate={new Date(contract.endDate)}
+                />
               </TableCell>
             </TableRow>
           ))}

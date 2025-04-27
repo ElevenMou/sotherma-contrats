@@ -23,24 +23,30 @@ import { X } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { object, string, z } from "zod";
+import { date, object, string, z } from "zod";
 
-const ExtendContract = ({ contractId }: { contractId: string }) => {
+const ExtendContract = ({
+  contractId,
+  endDate,
+}: {
+  contractId: string;
+  endDate: Date;
+}) => {
   const { t } = useTranslation();
   const { extendContract } = useContractUsecase();
 
   const [open, setOpen] = useState(false);
 
   const rejectContractSchema = object({
-    newEndDate: string({
-      required_error: `${t("contracts.reason")} ${t("common.isRequired")}`,
-    }).min(1, `${t("contracts.reason")} ${t("common.isRequired")}`),
+    newEndDate: date({
+      required_error: `${t("common.endDate")} ${t("common.isRequired")}`,
+    }).min(endDate, t("contracts.errors.endDate")),
   });
 
   const form = useForm<z.infer<typeof rejectContractSchema>>({
     resolver: zodResolver(rejectContractSchema),
     defaultValues: {
-      newEndDate: "",
+      newEndDate: endDate,
     },
   });
 
@@ -48,7 +54,7 @@ const ExtendContract = ({ contractId }: { contractId: string }) => {
     await extendContract({
       request: {
         guid: contractId,
-        newEndDate: form.getValues("newEndDate"),
+        newEndDate: form.getValues("newEndDate").toISOString(),
       },
     });
     setOpen(false);
@@ -79,6 +85,14 @@ const ExtendContract = ({ contractId }: { contractId: string }) => {
                         type="date"
                         placeholder={t("common.endDate")}
                         {...field}
+                        value={
+                          field.value
+                            ? new Date(field.value).toISOString().split("T")[0]
+                            : ""
+                        }
+                        onChange={(e) => {
+                          field.onChange(new Date(e.target.value));
+                        }}
                       />
                     </FormControl>
                     <FormMessage />

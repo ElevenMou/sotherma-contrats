@@ -197,7 +197,8 @@
       "closeContract": {
         "title": "Erreur de fermeture",
         "description": "Erreur lors de la fermeture du contrat."
-      }
+      },
+      "endDate": "La nouvelle date de fin doit être postérieure à la date de fin actuelle."
     },
     "success": {
       "saveContract": {

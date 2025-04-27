@@ -16,12 +16,15 @@ import { formatDateWithoutTime } from "@/lib/utils";
 import { useContractUsecase } from "@/usecases/contract/contractUsecase";
 import type { ContractListItemModel } from "@/data/contracts/model/response/ContractListItemModel";
 import ExtendContract from "./ExtendContract";
+import { useGlobalContext } from "@/contexts/GlobalContext";
+import { userRoles } from "@/data/users/model/response/CurrentUserInfoResponseModel";
 
 const MAX_RECORDS = 13;
 
 const ContractsList = () => {
   const { t } = useTranslation();
   const { getList, closeContract } = useContractUsecase();
+  const { userInfo } = useGlobalContext();
 
   const [constractsList, setContractsList] = useState<ContractListItemModel[]>(
     []
@@ -63,6 +66,7 @@ const ContractsList = () => {
     fetchContracts();
   }, [startIndex, MAX_RECORDS]);
 
+  const isHR = userInfo?.profile === userRoles.hr;
   return (
     <Table>
       <TableHeader>
@@ -73,7 +77,7 @@ const ContractsList = () => {
           <TableHead>{t("contracts.providerLastName")}</TableHead>
           <TableHead>{t("contracts.providerEmail")}</TableHead>
           <TableHead>{t("common.status")}</TableHead>
-          <TableHead className="w-[100px]" />
+          {isHR && <TableHead className="w-[200px]" />}
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -101,23 +105,25 @@ const ContractsList = () => {
                   defaultValue: contract.statusLabel,
                 })}
               </TableCell>
-              <TableCell className="w-[200px]">
-                <div className="flex justify-end gap-2">
-                  {contract.statusLabel !== "Closed" && (
-                    <Button
-                      variant="destructive"
-                      onClick={() => handleCloseContract(contract.guid || "")}
-                    >
-                      {t("common.close")}
-                    </Button>
-                  )}
-                  <ExtendContract
-                    contractId={contract.guid || ""}
-                    endDate={new Date(contract.endDate)}
-                    refreshContracts={fetchContracts}
-                  />
-                </div>
-              </TableCell>
+              {isHR && (
+                <TableCell className="w-[200px]">
+                  <div className="flex justify-end gap-2">
+                    {contract.statusLabel !== "Closed" && (
+                      <Button
+                        variant="destructive"
+                        onClick={() => handleCloseContract(contract.guid || "")}
+                      >
+                        {t("common.close")}
+                      </Button>
+                    )}
+                    <ExtendContract
+                      contractId={contract.guid || ""}
+                      endDate={new Date(contract.endDate)}
+                      refreshContracts={fetchContracts}
+                    />
+                  </div>
+                </TableCell>
+              )}
             </TableRow>
           ))}
       </TableBody>

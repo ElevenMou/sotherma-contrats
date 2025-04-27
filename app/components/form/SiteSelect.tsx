@@ -12,7 +12,6 @@ import { useTranslation } from "react-i18next";
 import { Skeleton } from "../ui/skeleton";
 
 const SitesSelect = ({
-  value,
   disabled,
   defaultValue,
   onChange,
@@ -47,7 +46,7 @@ const SitesSelect = ({
 
   useEffect(() => {
     if (defaultValue) {
-      const selectedSite = sites.find((site) => site.name === defaultValue);
+      const selectedSite = sites.find((site) => site.id === defaultValue);
       if (selectedSite) {
         onChange(selectedSite.id);
       }
@@ -62,7 +61,7 @@ const SitesSelect = ({
           onValueChange={handleChangeLanguage}
           disabled={disabled}
           defaultValue={sites
-            .find((site) => site.name === String(defaultValue))
+            .find((site) => site.id === String(defaultValue))
             ?.id?.toString()}
           i18nIsDynamicList={true}
           name="site"

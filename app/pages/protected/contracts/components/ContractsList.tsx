@@ -60,6 +60,7 @@ const ContractsList = () => {
         setLoading,
       },
     });
+    fetchContracts();
   };
 
   useEffect(() => {

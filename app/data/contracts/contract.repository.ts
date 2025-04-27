@@ -29,7 +29,11 @@ class ContractHttpRepository implements IContractRepository {
       formData.append("providerEmail", contract.providerEmail);
       formData.append("cvFile", contract.cvFile);
 
-      await httpService.post(url, formData);
+      await httpService.post(url, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
     } catch (error) {
       throw error;
     }

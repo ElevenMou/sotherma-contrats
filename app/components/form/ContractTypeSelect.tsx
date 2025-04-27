@@ -26,7 +26,7 @@ const ContractTypeSelect = ({
 
   const contractTypes = [
     { value: "CDD", label: "CDD" },
-    { value: "Temporary", label: t("contracts.temporary") },
+    { value: "temporary", label: t("contracts.temporary") },
   ];
 
   return (

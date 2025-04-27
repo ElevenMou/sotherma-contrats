@@ -1,4 +1,5 @@
 import type { ContractDetailsModel } from "@/data/contracts/model/response/ContractDetailsModel";
+import type { ContractListItemModel } from "@/data/contracts/model/response/ContractListItemModel";
 import type { ListPaginationRequestModel } from "@/data/utils/ListPaginationRequestModel";
 
 export interface SaveContractView {
@@ -6,7 +7,7 @@ export interface SaveContractView {
 }
 
 export interface GetListView {
-  setContractsList: (contracts: ContractDetailsModel[]) => void;
+  setContractsList: (contracts: ContractListItemModel[]) => void;
   setTotalCount: (totalCount: number) => void;
   setLoading: (loading: boolean) => void;
 }

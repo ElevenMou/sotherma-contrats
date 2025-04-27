@@ -3,6 +3,7 @@ import { getEnvironment } from "../environment";
 import { contracts } from "./contracts";
 import type { ListResponseModel } from "../utils/GetUsersListResponseModel";
 import type { ContractDetailsModel } from "./model/response/ContractDetailsModel";
+import type { ContractListItemModel } from "./model/response/ContractListItemModel";
 
 const { ContractsAPI } = getEnvironment();
 const { base, endpoints } = ContractsAPI;
@@ -27,7 +28,7 @@ export const ContractRepositoryMock = [
 
     const totalRecords = contracts.length;
 
-    const response: ListResponseModel<ContractDetailsModel, "contractList"> = {
+    const response: ListResponseModel<ContractListItemModel, "contractList"> = {
       contractList: paginatedContracts,
       totalCount: totalRecords,
     };

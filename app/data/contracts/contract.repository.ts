@@ -4,6 +4,7 @@ import { generateUrl, getEnvironment } from "../environment";
 import type { ContractDetailsModel } from "./model/response/ContractDetailsModel";
 import type { ListPaginationRequestModel } from "../utils/ListPaginationRequestModel";
 import type { ListResponseModel } from "../utils/GetUsersListResponseModel";
+import type { ContractListItemModel } from "./model/response/ContractListItemModel";
 
 // HttpService instance
 const httpService = HttpService.getInstance();
@@ -43,13 +44,13 @@ class ContractHttpRepository implements IContractRepository {
 
   async GetList(
     request: ListPaginationRequestModel
-  ): Promise<ListResponseModel<ContractDetailsModel, "contractList">> {
+  ): Promise<ListResponseModel<ContractListItemModel, "contractList">> {
     try {
       const url = generateUrl(`${base}${endpoints.list}`, {
         maxRecords: request.maxRecords.toString(),
         startIndex: request.startIndex.toString(),
       });
-      const response = await httpService.post(url, request);
+      const response = await httpService.get(url);
       return response;
     } catch (error) {
       throw error;

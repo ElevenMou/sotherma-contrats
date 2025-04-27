@@ -14,7 +14,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { formatDateWithoutTime } from "@/lib/utils";
 import { useContractUsecase } from "@/usecases/contract/contractUsecase";
-import type { ContractDetailsModel } from "@/data/contracts/model/response/ContractDetailsModel";
+import type { ContractListItemModel } from "@/data/contracts/model/response/ContractListItemModel";
 
 const MAX_RECORDS = 13;
 
@@ -22,7 +22,7 @@ const ContractsList = () => {
   const { t } = useTranslation();
   const { getList } = useContractUsecase();
 
-  const [constractsList, setContractsList] = useState<ContractDetailsModel[]>(
+  const [constractsList, setContractsList] = useState<ContractListItemModel[]>(
     []
   );
   const [totalCount, setTotalCount] = useState<number>(0);
@@ -56,7 +56,6 @@ const ContractsList = () => {
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>{t("requests.contractType")}</TableHead>
           <TableHead>{t("common.startDate")}</TableHead>
           <TableHead>{t("common.endDate")}</TableHead>
           <TableHead>{t("contracts.providerFirstName")}</TableHead>
@@ -81,11 +80,6 @@ const ContractsList = () => {
         {!loading &&
           constractsList.map((contract) => (
             <TableRow key={contract.guid}>
-              <TableCell>
-                {t(`contracts.${contract.contractType}`, {
-                  defaultValue: contract.contractType,
-                })}
-              </TableCell>
               <TableCell>{formatDateWithoutTime(contract.startDate)}</TableCell>
               <TableCell>{formatDateWithoutTime(contract.endDate)}</TableCell>
               <TableCell>{contract.providerFirstName}</TableCell>

@@ -75,16 +75,10 @@ export const useUserUsecase = (): UserUseCaseInterface => {
     request: UserDetailsModel;
   }) => {
     try {
-      const res = await userHttpRepository.SaveUserDetails(request);
-      if (res) {
-        toast.success(t("employees.success.saveUser.title"), {
-          description: t("employees.success.saveUser.description"),
-        });
-      } else {
-        toast.error(t("employees.errors.saveUser.title"), {
-          description: t("employees.errors.saveUser.description"),
-        });
-      }
+      await userHttpRepository.SaveUserDetails(request);
+      toast.success(t("employees.success.saveUser.title"), {
+        description: t("employees.success.saveUser.description"),
+      });
     } catch (error) {
       toast.error(t("employees.errors.saveUser.title"), {
         description: t("employees.errors.saveUser.description"),

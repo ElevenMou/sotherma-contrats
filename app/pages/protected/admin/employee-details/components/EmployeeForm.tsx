@@ -18,6 +18,8 @@ import DepartmentsSelect from "@/components/form/DepartmentSelect";
 import SitesSelect from "@/components/form/SiteSelect";
 import RoleSelect from "@/components/form/RoleSelect";
 import { useUserUsecase } from "@/usecases/user/userUsecase";
+import { useNavigate } from "react-router";
+import { routes } from "@/lib/router/routes";
 
 const EmployeeForm = ({
   employeeDetails,
@@ -26,6 +28,7 @@ const EmployeeForm = ({
 }) => {
   const { t } = useTranslation();
   const { saveUserDetails } = useUserUsecase();
+  const navigate = useNavigate();
 
   const employeeDetailsSchema = object({
     code: string().min(
@@ -94,6 +97,8 @@ const EmployeeForm = ({
       profile: values.profile,
     };
     await saveUserDetails({ request: userDetails });
+    form.reset();
+    navigate(routes.employees, { replace: true });
   }
 
   return (

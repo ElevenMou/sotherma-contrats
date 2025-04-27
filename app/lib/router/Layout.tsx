@@ -1,9 +1,7 @@
 import { Links, Meta, Scripts, ScrollRestoration } from "react-router";
 import type { Route } from "../../+types/root";
-import { ThemeProvider } from "next-themes";
 import { Toaster } from "@/components/ui/sonner";
 import { useEffect } from "react";
-import { GlobalProvider } from "@/contexts/GlobalContext";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -45,9 +43,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body suppressHydrationWarning>
-        <ThemeProvider attribute="class" storageKey="theme">
-          <GlobalProvider>{children}</GlobalProvider>
-        </ThemeProvider>
+        {children}
         <ScrollRestoration />
         <Scripts />
         <Toaster />

@@ -31,7 +31,7 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
 export const useGlobalContext = (): GlobalContextModel => {
   const context = useContext(GlobalContext);
   if (!context) {
-    throw new Error("useBusinessContext must be wrapped in GlobalProvider");
+    throw new Error("useGlobalContext must be wrapped in GlobalProvider");
   }
   return context;
 };

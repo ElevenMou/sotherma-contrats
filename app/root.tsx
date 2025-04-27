@@ -5,18 +5,25 @@ import { locales } from "./locales";
 import type { Route } from "./+types/root";
 import { useTranslation } from "react-i18next";
 import { routes } from "@/lib/router/routes";
-import { logout } from "./usecases/auth/authUsecase";
 import {
   ACCESS_TOKEN_STORAGE_KEY,
   REFRESH_TOKEN_STORAGE_KEY,
 } from "./lib/http/http.service";
+import { GlobalProvider } from "./contexts/GlobalContext";
+import { ThemeProvider } from "next-themes";
 
 initializeI18next({ resources: locales });
 
 export * from "@lib/router/Layout";
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <ThemeProvider attribute="class" storageKey="theme">
+      <GlobalProvider>
+        <Outlet />
+      </GlobalProvider>
+    </ThemeProvider>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {

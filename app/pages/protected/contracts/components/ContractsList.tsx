@@ -15,12 +15,13 @@ import { Button } from "@/components/ui/button";
 import { formatDateWithoutTime } from "@/lib/utils";
 import { useContractUsecase } from "@/usecases/contract/contractUsecase";
 import type { ContractListItemModel } from "@/data/contracts/model/response/ContractListItemModel";
+import ExtendContract from "./ExtendContract";
 
 const MAX_RECORDS = 13;
 
 const ContractsList = () => {
   const { t } = useTranslation();
-  const { getList } = useContractUsecase();
+  const { getList, closeContract } = useContractUsecase();
 
   const [constractsList, setContractsList] = useState<ContractListItemModel[]>(
     []
@@ -46,6 +47,16 @@ const ContractsList = () => {
 
   const handlePageChange = (page: number) => {
     setStartIndex((page - 1) * MAX_RECORDS);
+  };
+
+  const handleCloseContract = async (contractId: string) => {
+    setLoading(true);
+    await closeContract({
+      guid: contractId,
+      view: {
+        setLoading,
+      },
+    });
   };
 
   useEffect(() => {
@@ -90,7 +101,17 @@ const ContractsList = () => {
                   defaultValue: contract.statusLabel,
                 })}
               </TableCell>
-              <TableCell className="w-[100px]">{/* actions */}</TableCell>
+              <TableCell className="w-[200px]">
+                {contract.statusLabel !== "Closed" && (
+                  <Button
+                    variant="destructive"
+                    onClick={() => handleCloseContract(contract.guid || "")}
+                  >
+                    {t("common.close")}
+                  </Button>
+                )}
+                <ExtendContract contractId={contract.guid || ""} />
+              </TableCell>
             </TableRow>
           ))}
       </TableBody>

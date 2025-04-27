@@ -10,7 +10,9 @@
     "endDate": "Date de fin",
     "site": "Site",
     "department": "Département",
-    "status": "Statut"
+    "status": "Statut",
+    "close": "Fermer",
+    "extend": "Prolonger"
   },
   "errors": {
     "not_found": "La page demandée est introuvable.",
@@ -171,6 +173,10 @@
     "providerFirstName": "Prénom du candidat",
     "providerLastName": "Nom du candidat",
     "providerEmail": "Email du candidat",
+    "confirmExtend": {
+      "title": "Confirmer la prolongation",
+      "description": "Entrez la nouvelle date de fin pour le contrat."
+    },
     "errors": {
       "listFetch": {
         "title": "Erreur de récupération",
@@ -183,12 +189,28 @@
       "saveContract": {
         "title": "Erreur de sauvegarde",
         "description": "Erreur lors de la sauvegarde des détails du contrat."
+      },
+      "extendContract": {
+        "title": "Erreur de prolongation",
+        "description": "Erreur lors de la prolongation du contrat."
+      },
+      "closeContract": {
+        "title": "Erreur de fermeture",
+        "description": "Erreur lors de la fermeture du contrat."
       }
     },
     "success": {
       "saveContract": {
         "title": "Succès",
         "description": "Le contrat a été enregistré avec succès."
+      },
+      "extendContract": {
+        "title": "Succès",
+        "description": "Le contrat a été prolongé avec succès."
+      },
+      "closeContract": {
+        "title": "Succès",
+        "description": "Le contrat a été fermé avec succès."
       }
     }
   }

@@ -10,7 +10,9 @@
     "endDate": "End Date",
     "site": "Site",
     "department": "Department",
-    "status": "Status"
+    "status": "Status",
+    "close": "Close",
+    "extend": "Extend"
   },
   "errors": {
     "not_found": "The requested page was not found.",
@@ -170,6 +172,10 @@
     "providerFirstName": "Candidate First Name",
     "providerLastName": "Candidate Last Name",
     "providerEmail": "Candidate Email",
+    "confirmExtend": {
+      "title": "Confirmer la prolongation",
+      "description": "Enter the new end date for the contract."
+    },
     "errors": {
       "listFetch": {
         "title": "Fetch Error",

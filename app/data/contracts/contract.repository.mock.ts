@@ -37,4 +37,32 @@ export const ContractRepositoryMock = [
       status: 200,
     });
   }),
+
+  http.post(`${baseUrl}${endpoints.close}`, ({ request }) => {
+    const searchParams = new URL(request.url).searchParams;
+    const guid = searchParams.get("guid") || "";
+
+    const contractIndex = contracts.findIndex(
+      (contract) => contract.guid === guid
+    );
+
+    if (contractIndex === -1) {
+      return HttpResponse.json(
+        { error: "Contract not found" },
+        { status: 404 }
+      );
+    }
+
+    contracts.splice(contractIndex, 1);
+
+    return HttpResponse.json("Contract closed successfully", {
+      status: 200,
+    });
+  }),
+
+  http.post(`${baseUrl}${endpoints.extend}`, () => {
+    return HttpResponse.json("Contract extended successfully", {
+      status: 200,
+    });
+  }),
 ];

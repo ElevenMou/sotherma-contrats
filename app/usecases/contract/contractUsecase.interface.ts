@@ -1,3 +1,4 @@
+import type { ExtendContractRequestModel } from "@/data/contracts/model/request/ExtendContractRequestModel";
 import type { ContractDetailsModel } from "@/data/contracts/model/response/ContractDetailsModel";
 import type { ContractListItemModel } from "@/data/contracts/model/response/ContractListItemModel";
 import type { ListPaginationRequestModel } from "@/data/utils/ListPaginationRequestModel";
@@ -9,6 +10,10 @@ export interface SaveContractView {
 export interface GetListView {
   setContractsList: (contracts: ContractListItemModel[]) => void;
   setTotalCount: (totalCount: number) => void;
+  setLoading: (loading: boolean) => void;
+}
+
+export interface LoadingView {
   setLoading: (loading: boolean) => void;
 }
 
@@ -27,5 +32,19 @@ export interface ContractUseCaseInterface {
   }: {
     request: ListPaginationRequestModel;
     view: GetListView;
+  }) => Promise<void>;
+
+  closeContract: ({
+    guid,
+    view,
+  }: {
+    guid: string;
+    view: LoadingView;
+  }) => Promise<void>;
+
+  extendContract: ({
+    request,
+  }: {
+    request: ExtendContractRequestModel;
   }) => Promise<void>;
 }

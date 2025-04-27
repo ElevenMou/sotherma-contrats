@@ -9,4 +9,8 @@ export interface IContractRepository {
   ): Promise<ListResponseModel<ContractListItemModel, "contractList">>;
 
   SaveContract: (contract: ContractDetailsModel) => Promise<void>;
+
+  CloseContract: (guid: string) => Promise<void>;
+
+  ExtendContract: (guid: string, newEndDate: string) => Promise<void>;
 }

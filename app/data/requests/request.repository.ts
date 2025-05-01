@@ -80,10 +80,6 @@ class RequestHttpRepository implements IRequestRepository {
       formData.append("siteId", request.siteId.toString());
       formData.append("departmentId", request.departmentId.toString());
       formData.append("desiredProfile", request.desiredProfile);
-      formData.append(
-        "desiredStartDate",
-        request.desiredStartDate.toISOString().split("T")[0]
-      );
       formData.append("justification", request.justification);
       formData.append("numberOfProfiles", request.numberOfProfiles.toString());
 

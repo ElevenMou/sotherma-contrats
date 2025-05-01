@@ -6,7 +6,6 @@ export interface RequestDetailsModel {
   siteId: number;
   departmentId: number;
   desiredProfile: string;
-  desiredStartDate: Date;
   justification: string;
   numberOfProfiles: number;
   isChangeable?: boolean;

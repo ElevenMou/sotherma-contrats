@@ -12,7 +12,8 @@
     "department": "Département",
     "status": "Statut",
     "close": "Fermer",
-    "extend": "Prolonger"
+    "extend": "Prolonger",
+    "pickDate": "Choisir une date"
   },
   "errors": {
     "not_found": "La page demandée est introuvable.",

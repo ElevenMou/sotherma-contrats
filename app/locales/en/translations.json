@@ -12,7 +12,8 @@
     "department": "Department",
     "status": "Status",
     "close": "Close",
-    "extend": "Extend"
+    "extend": "Extend",
+    "pickDate": "Pick a date"
   },
   "errors": {
     "not_found": "The requested page was not found.",

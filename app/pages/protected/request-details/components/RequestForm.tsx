@@ -27,6 +27,7 @@ import {
 import JustificationSelect from "@/components/form/JustificationSelect";
 import { useNavigate } from "react-router";
 import { routes } from "@/lib/router/routes";
+import { DatePicker } from "@/components/form/DatePicker";
 
 const RequestForm = ({
   requestDetails,
@@ -42,14 +43,16 @@ const RequestForm = ({
       1,
       `${t("requests.contractType")} ${t("common.isRequired")}`
     ),
-    endDate: string().min(
-      1,
-      `${t("requests.endDate")} ${t("common.isRequired")}`
-    ),
-    startDate: string().min(
-      1,
-      `${t("requests.startDate")} ${t("common.isRequired")}`
-    ),
+    startDate: z.coerce
+      .date({
+        required_error: `${t("requests.startDate")} ${t("common.isRequired")}`,
+      })
+      .min(new Date(), {
+        message: `${t("requests.startDate")} ${t("common.isRequired")}`,
+      }),
+    endDate: z.coerce.date({
+      required_error: `${t("requests.endDate")} ${t("common.isRequired")}`,
+    }),
     site: string().min(1, `${t("requests.site")} ${t("common.isRequired")}`),
     department: string().min(
       1,
@@ -58,10 +61,6 @@ const RequestForm = ({
     desiredProfile: string().min(
       1,
       `${t("requests.desiredProfile")} ${t("common.isRequired")}`
-    ),
-    desiredStartDate: string().min(
-      1,
-      `${t("requests.desiredStartDate")} ${t("common.isRequired")}`
     ),
     justification: string().min(
       1,
@@ -82,7 +81,6 @@ const RequestForm = ({
       siteId: Number(data.site),
       departmentId: Number(data.department),
       desiredProfile: data.desiredProfile,
-      desiredStartDate: new Date(data.desiredStartDate),
       justification: data.justification,
       numberOfProfiles: Number(data.numberOfProfiles),
       candidateFirstName: data.candidateFirstName || null,
@@ -101,12 +99,11 @@ const RequestForm = ({
     const requestData: RequestDetailsModel = {
       guid: requestDetails?.guid || "",
       contractType: values.contractType,
-      endDate: new Date(values.endDate),
-      startDate: new Date(values.startDate),
+      endDate: values.endDate,
+      startDate: values.startDate,
       siteId: Number(values.site),
       departmentId: Number(values.department),
       desiredProfile: values.desiredProfile,
-      desiredStartDate: new Date(values.desiredStartDate),
       justification: values.justification,
       numberOfProfiles: Number(values.numberOfProfiles),
       candidateFirstName: values.candidateFirstName || null,
@@ -118,6 +115,26 @@ const RequestForm = ({
       view: { navigateToRequestsList: () => navigate(routes.requests) },
     });
   }
+
+  const minStartDate = () => {
+    const today = new Date();
+    const dayOfWeek = today.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+
+    const daysToAdd = dayOfWeek === 5 || dayOfWeek === 4 ? 4 : 2; // Friday & Thursday: +4, other days: +2
+    const minDate = new Date(today.getTime() + daysToAdd * 24 * 60 * 60 * 1000);
+
+    return minDate;
+  };
+
+  const minEndDate = () => {
+    const startDate = form.watch("startDate");
+    if (!startDate)
+      return new Date(minStartDate().getTime() + 48 * 60 * 60 * 1000);
+
+    const minEndDate = new Date(startDate.getTime() + 48 * 60 * 60 * 1000);
+
+    return minEndDate;
+  };
 
   return (
     <Form {...form}>
@@ -235,10 +252,10 @@ const RequestForm = ({
             <FormItem>
               <FormLabel>{t("common.startDate")}</FormLabel>
               <FormControl>
-                <Input
-                  type="date"
-                  defaultValue={requestDetails?.startDate.toString()}
-                  {...field}
+                <DatePicker
+                  minDate={minStartDate()}
+                  date={field.value ?? requestDetails?.startDate}
+                  setDate={field.onChange}
                 />
               </FormControl>
               <FormMessage />
@@ -253,28 +270,10 @@ const RequestForm = ({
             <FormItem>
               <FormLabel>{t("common.endDate")}</FormLabel>
               <FormControl>
-                <Input
-                  type="date"
-                  defaultValue={requestDetails?.endDate.toString()}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="desiredStartDate"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t("requests.desiredStartDate")}</FormLabel>
-              <FormControl>
-                <Input
-                  type="date"
-                  defaultValue={requestDetails?.desiredStartDate.toString()}
-                  {...field}
+                <DatePicker
+                  minDate={minEndDate()}
+                  date={field.value ?? requestDetails?.endDate}
+                  setDate={field.onChange}
                 />
               </FormControl>
               <FormMessage />

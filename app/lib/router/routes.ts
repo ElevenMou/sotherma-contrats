@@ -8,4 +8,5 @@ export const routes = {
   contracts: "/contracts",
   contractDetails: "/contracts/:id",
   departments: "/departments",
+  sites: "/sites",
 };

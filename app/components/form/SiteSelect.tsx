@@ -5,7 +5,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import type { SiteModel } from "@/data/sites/model/response/SiteModel";
+import type { AllSitesItemModel } from "@/data/sites/model/response/AllSitesItemModel";
 import { useSiteUseCase } from "@/usecases/site/siteUsecase";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -24,7 +24,7 @@ const SitesSelect = ({
   const { t } = useTranslation();
   const { getAllSites } = useSiteUseCase();
 
-  const [sites, setSites] = useState<SiteModel[]>([]);
+  const [sites, setSites] = useState<AllSitesItemModel[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   const handleChangeLanguage = (selectedLanguage: string) => {

@@ -22,6 +22,8 @@ export default [
         file: "pages/protected/contracts/contracts.tsx",
         path: routes.contracts,
       },
+
+      // Admin pages
       {
         file: "pages/protected/admin/_layout.tsx",
         children: [
@@ -36,6 +38,10 @@ export default [
           {
             file: "pages/protected/admin/departments/departments.tsx",
             path: routes.departments,
+          },
+          {
+            file: "pages/protected/admin/sites/sites.tsx",
+            path: routes.sites,
           },
         ],
       },

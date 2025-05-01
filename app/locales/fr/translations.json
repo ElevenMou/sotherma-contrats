@@ -26,6 +26,7 @@
     "employees": "Employés",
     "contracts": "Contrats",
     "departments": "Départements",
+    "sites": "Sites",
     "logout": "Déconnexion"
   },
   "pagination": {
@@ -212,6 +213,28 @@
       "closeContract": {
         "title": "Succès",
         "description": "Le contrat a été fermé avec succès."
+      }
+    }
+  },
+  "sites": {
+    "title": "Sites",
+    "add_site": "Ajouter un site",
+    "site_name": "Nom du site",
+    "site_code": "Code du site",
+    "errors": {
+      "listFetch": {
+        "title": "Erreur de récupération",
+        "description": "Erreur lors de la récupération de la liste des sites."
+      },
+      "saveSite": {
+        "title": "Erreur de sauvegarde",
+        "description": "Erreur lors de la sauvegarde des détails du site."
+      }
+    },
+    "success": {
+      "saveSite": {
+        "title": "Succès",
+        "description": "Les détails du site ont été enregistrés avec succès."
       }
     }
   }

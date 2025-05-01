@@ -1,6 +1,12 @@
 "use client";
 
-import { Building2, LayoutDashboard, ReceiptText, Users } from "lucide-react";
+import {
+  Building2,
+  LayoutDashboard,
+  MapPinned,
+  ReceiptText,
+  Users,
+} from "lucide-react";
 
 import {
   SidebarGroup,
@@ -15,7 +21,6 @@ import {
   userRoles,
   type UserRole,
 } from "@/data/users/model/response/CurrentUserInfoResponseModel";
-import { useEffect } from "react";
 
 interface NavItem {
   title: string;
@@ -60,19 +65,26 @@ export function NavMain() {
       icon: Users,
       roles: [userRoles.admin],
     },
-    // {
-    //   title: t("menu.departments"),
-    //   url: "/departments",
-    //   icon: Building2,
-    //   roles: [userRoles.admin],
-    // },
+    {
+      title: t("menu.departments"),
+      url: "/departments",
+      icon: Building2,
+      roles: [userRoles.admin],
+    },
+    {
+      title: t("menu.sites"),
+      url: "/sites",
+      icon: MapPinned,
+      roles: [userRoles.admin],
+    },
   ];
 
   return (
     userInfo && (
       <SidebarGroup>
         <SidebarMenu>
-          {items.map((item) =>  (
+          {items.map(
+            (item) =>
               item.roles.includes(userInfo.profile) && (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton
@@ -86,7 +98,6 @@ export function NavMain() {
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               )
-            )
           )}
         </SidebarMenu>
       </SidebarGroup>

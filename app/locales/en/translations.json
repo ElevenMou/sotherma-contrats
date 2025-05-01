@@ -26,6 +26,7 @@
     "employees": "Employees",
     "contracts": "Contracts",
     "departments": "Departments",
+    "sites": "Sites",
     "logout": "Logout"
   },
   "pagination": {
@@ -191,6 +192,28 @@
       "saveContract": {
         "title": "Success",
         "description": "Contract details saved successfully."
+      }
+    }
+  },
+  "sites": {
+    "title": "Sites",
+    "add_site": "Add Site",
+    "site_name": "Site Name",
+    "site_code": "Site Code",
+    "errors": {
+      "listFetch": {
+        "title": "Fetch Error",
+        "description": "Error fetching the list of sites."
+      },
+      "saveSite": {
+        "title": "Save Error",
+        "description": "Error saving site details."
+      }
+    },
+    "success": {
+      "saveSite": {
+        "title": "Success",
+        "description": "Site details saved successfully."
       }
     }
   }

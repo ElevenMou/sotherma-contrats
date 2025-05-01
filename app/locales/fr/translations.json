@@ -116,6 +116,10 @@
     "candidateLastName": "Nom du candidat",
     "cvFile": "Fichier CV",
     "details": "Détails de la demande",
+    "tab": {
+      "activeRequests": "Mes demandes en cours",
+      "completedRequests": "Mes demandes validées"
+    },
     "confirmReject": {
       "title": "Confirmer le rejet",
       "description": "Êtes-vous sûr de vouloir rejeter cette demande ?"

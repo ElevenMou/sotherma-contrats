@@ -56,9 +56,11 @@ export default function Requests() {
               onValueChange={(value) => setActiveTab(value)}
             >
               <TabsList className="w-full">
-                <TabsTrigger value="requests">{t("menu.requests")}</TabsTrigger>
+                <TabsTrigger value="requests">
+                  {t("requests.tab.activeRequests")}
+                </TabsTrigger>
                 <TabsTrigger value="myRequests">
-                  {t("requests.title")}
+                  {t("requests.tab.completedRequests")}
                 </TabsTrigger>
               </TabsList>
               <TabsContent value="requests">

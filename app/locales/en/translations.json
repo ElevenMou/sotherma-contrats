@@ -116,6 +116,10 @@
     "candidateLastName": "Candidate Last Name",
     "cvFile": "CV File",
     "details": "Request Details",
+    "tab": {
+      "activeRequests": "My Pending Requests",
+      "completedRequests": "My Validated Requests"
+    },
     "confirmReject": {
       "title": "Confirm Reject",
       "description": "Are you sure you want to reject this request?"

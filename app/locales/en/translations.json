@@ -198,6 +198,8 @@
   "sites": {
     "title": "Sites",
     "add_site": "Add Site",
+    "edit_site": "Edit Site",
+    "save_site": "Save Site",
     "site_name": "Site Name",
     "site_code": "Site Code",
     "errors": {

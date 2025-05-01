@@ -4,7 +4,7 @@ import type { ISiteRepository } from "./sites.repository.interface";
 import type { AllSitesItemModel } from "./model/response/AllSitesItemModel";
 import type { ListPaginationRequestModel } from "../utils/ListPaginationRequestModel";
 import type { ListResponseModel } from "../utils/GetUsersListResponseModel";
-import type { SitesListItemModel } from "./model/response/SitesListItemModel";
+import type { SiteDetailsModel } from "./model/response/SitesListItemModel";
 
 // HttpService instance
 const httpService = HttpService.getInstance();
@@ -26,7 +26,7 @@ class SiteHttpRepository implements ISiteRepository {
 
   async GetSitesList(
     request: ListPaginationRequestModel
-  ): Promise<ListResponseModel<SitesListItemModel, "siteList">> {
+  ): Promise<ListResponseModel<SiteDetailsModel, "siteList">> {
     const url = generateUrl(`${base}${endpoints.sitesList}`, {
       startIndex: request.startIndex.toString(),
       maxRecords: request.maxRecords.toString(),
@@ -34,9 +34,30 @@ class SiteHttpRepository implements ISiteRepository {
 
     try {
       const response = await httpService.get<
-        ListResponseModel<SitesListItemModel, "siteList">
+        ListResponseModel<SiteDetailsModel, "siteList">
       >(url);
       return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async GetSiteDetails(request: { guid: string }): Promise<SiteDetailsModel> {
+    const url = generateUrl(`${base}${endpoints.siteDetails}`, {
+      guid: request.guid,
+    });
+    try {
+      const response = await httpService.get<SiteDetailsModel>(url);
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async SaveSite(request: SiteDetailsModel): Promise<void> {
+    const url = `${base}${endpoints.saveSite}`;
+    try {
+      await httpService.post(url, request);
     } catch (error) {
       throw error;
     }

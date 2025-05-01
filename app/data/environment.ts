@@ -26,6 +26,8 @@ export const getEnvironment = () => {
       endpoints: {
         allSites: "/getAllSites",
         sitesList: "/getList?startIndex=<startIndex>&maxRecords=<maxRecords>",
+        siteDetails: "/details?guid=<guid>",
+        saveSite: "/save",
       },
     },
     RequestsAPI: {

@@ -8,13 +8,14 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useUserUsecase } from "@/usecases/user/userUsecase";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSiteUseCase } from "@/usecases/site/siteUsecase";
-import type { SitesListItemModel } from "@/data/sites/model/response/SitesListItemModel";
+import type { SiteDetailsModel } from "@/data/sites/model/response/SitesListItemModel";
+import SiteFormDialog from "./SiteFormDialog";
+import { Edit } from "lucide-react";
 
 const MAX_RECORDS = 16;
 
@@ -23,7 +24,7 @@ const SitesList = () => {
   const { t } = useTranslation();
   const { getSitesList } = useSiteUseCase();
 
-  const [sites, setSites] = useState<SitesListItemModel[]>([]);
+  const [sites, setSites] = useState<SiteDetailsModel[]>([]);
   const [totalCount, setTotalCount] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
   const [startIndex, setStartIndex] = useState<number>(0);
@@ -32,22 +33,21 @@ const SitesList = () => {
     setStartIndex((page - 1) * MAX_RECORDS);
   };
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      setLoading(true);
-      await getSitesList({
-        request: {
-          startIndex: startIndex,
-          maxRecords: MAX_RECORDS,
-        },
-        view: {
-          setLoading,
-          setSitesList: setSites,
-          setTotalCount,
-        },
-      });
-    };
+  const fetchUsers = async () => {
+    await getSitesList({
+      request: {
+        startIndex: startIndex,
+        maxRecords: MAX_RECORDS,
+      },
+      view: {
+        setLoading,
+        setSitesList: setSites,
+        setTotalCount,
+      },
+    });
+  };
 
+  useEffect(() => {
     fetchUsers();
   }, [startIndex, MAX_RECORDS]);
 
@@ -57,6 +57,7 @@ const SitesList = () => {
         <TableRow>
           <TableHead>{t("sites.site_code")}</TableHead>
           <TableHead>{t("sites.site_name")}</TableHead>
+          <TableHead></TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -74,19 +75,25 @@ const SitesList = () => {
         {!loading &&
           sites?.length > 0 &&
           sites.map((site) => (
-            <TableRow
-              key={site.code}
-              onClick={() => navigate(`/site/${site.guid}`)}
-              className="cursor-pointer hover:bg-muted/50"
-            >
+            <TableRow className="cursor-pointer hover:bg-muted/50">
               <TableCell>{site.code}</TableCell>
               <TableCell>{site.name}</TableCell>
+              <TableCell className="text-right">
+                <SiteFormDialog
+                  key={site.code}
+                  siteId={site.guid}
+                  refreshSites={fetchUsers}
+                  variant="ghost"
+                >
+                  <Edit className="text-primary" />
+                </SiteFormDialog>
+              </TableCell>
             </TableRow>
           ))}
       </TableBody>
       <TableFooter>
         <TableRow>
-          <TableCell colSpan={2}>
+          <TableCell colSpan={3}>
             <Pagination
               totalItems={totalCount}
               itemsPerPage={MAX_RECORDS}

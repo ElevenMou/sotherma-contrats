@@ -2,7 +2,8 @@ import { http, HttpResponse } from "msw";
 import { getEnvironment } from "../environment";
 import type { AllSitesItemModel } from "./model/response/AllSitesItemModel";
 import type { ListResponseModel } from "../utils/GetUsersListResponseModel";
-import type { SitesListItemModel } from "./model/response/SitesListItemModel";
+import type { SiteDetailsModel } from "./model/response/SitesListItemModel";
+import { sites } from "./sites";
 
 const { SitesAPI } = getEnvironment();
 const { base, endpoints } = SitesAPI;
@@ -85,60 +86,11 @@ export const SiteRepositoryMock = [
     const startIndex = parseInt(searchParams.get("startIndex") || "0", 10);
     const maxRecords = parseInt(searchParams.get("maxRecords") || "10", 10);
 
-    const responseDto: ListResponseModel<SitesListItemModel, "siteList"> = {
-      totalCount: 10,
-      siteList: [
-        {
-          code: "SD",
-          name: "San Diego",
-          guid: "1",
-        },
-        {
-          code: "PHX",
-          name: "Phoenix",
-          guid: "2",
-        },
-        {
-          code: "ATL",
-          name: "Atlanta",
-          guid: "3",
-        },
-        {
-          code: "ORL",
-          name: "Orlando",
-          guid: "4",
-        },
-        {
-          code: "DAL",
-          name: "Dallas",
-          guid: "5",
-        },
-        {
-          code: "PHI",
-          name: "Philadelphia",
-          guid: "6",
-        },
-        {
-          code: "NYC",
-          name: "New York",
-          guid: "7",
-        },
-        {
-          code: "LA",
-          name: "Los Angeles",
-          guid: "8",
-        },
-        {
-          code: "CHI",
-          name: "Chicago",
-          guid: "9",
-        },
-        {
-          code: "HOU",
-          name: "Houston",
-          guid: "10",
-        },
-      ],
+    const paginatedSites = sites.slice(startIndex, startIndex + maxRecords);
+
+    const responseDto: ListResponseModel<SiteDetailsModel, "siteList"> = {
+      totalCount: sites.length,
+      siteList: paginatedSites,
     };
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -146,5 +98,25 @@ export const SiteRepositoryMock = [
     return HttpResponse.json(responseDto, {
       status: 200,
     });
+  }),
+
+  http.get(`${baseUrl}${endpoints.siteDetails}`, async ({ request }) => {
+    const searchParams = new URL(request.url).searchParams;
+    const guid = searchParams.get("guid");
+
+    const site = sites.find((site) => site.guid === guid);
+    if (!site) {
+      return HttpResponse.json({ error: "Site not found" }, { status: 404 });
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    return HttpResponse.json(site, {
+      status: 200,
+    });
+  }),
+
+  http.post(`${baseUrl}${endpoints.saveSite}`, async () => {
+    return HttpResponse.json("Site saved successfully", { status: 200 });
   }),
 ];

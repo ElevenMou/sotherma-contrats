@@ -219,6 +219,8 @@
   "sites": {
     "title": "Sites",
     "add_site": "Ajouter un site",
+    "edit_site": "Modifier le site",
+    "save_site": "Enregistrer le site",
     "site_name": "Nom du site",
     "site_code": "Code du site",
     "errors": {

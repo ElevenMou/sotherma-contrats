@@ -18,7 +18,7 @@ export const UserRepositoryMock = [
       firstName: "Moussa",
       lastName: "Saidi",
       email: "moussa.saidi.01@gmail.com",
-      profile: userRoles.requester,
+      profile: userRoles.admin,
     };
 
     await new Promise((resolve) => setTimeout(resolve, 1000));

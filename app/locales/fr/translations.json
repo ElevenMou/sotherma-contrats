@@ -244,5 +244,31 @@
         "description": "Les détails du site ont été enregistrés avec succès."
       }
     }
+  },
+  "departments": {
+    "title": "Départements",
+    "add_department": "Ajouter un département",
+    "edit_department": "Modifier le département",
+    "save_department": "Enregistrer le département",
+    "department_name": "Nom du département",
+    "first_validator": "Premier validateur",
+    "second_validator": "Deuxième validateur",
+    "hr": "RH",
+    "errors": {
+      "listFetch": {
+        "title": "Erreur de récupération",
+        "description": "Erreur lors de la récupération de la liste des départements."
+      },
+      "saveDepartment": {
+        "title": "Erreur de sauvegarde",
+        "description": "Erreur lors de la sauvegarde des détails du département."
+      }
+    },
+    "success": {
+      "saveDepartment": {
+        "title": "Succès",
+        "description": "Les détails du département ont été enregistrés avec succès."
+      }
+    }
   }
 }

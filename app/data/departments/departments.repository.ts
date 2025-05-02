@@ -1,7 +1,7 @@
 import HttpService from "@/lib/http/http.service";
 import { generateUrl, getEnvironment } from "../environment";
 import type { IDepartmentRepository } from "./departments.repository.interface";
-import type { DepartmentDetailsModel } from "./model/response/DepartmentDetailsModel";
+import type { DepartmentSlectItemModel } from "./model/response/DepartmentSlectItemModel";
 import type { ListPaginationRequestModel } from "../utils/ListPaginationRequestModel";
 import type { ListResponseModel } from "../utils/GetUsersListResponseModel";
 import type { DepartmentListItemModel } from "./model/response/DepartmentListItemModel";
@@ -14,10 +14,10 @@ const { DepartmentsAPI } = getEnvironment();
 const { base, endpoints } = DepartmentsAPI;
 
 class DepartmentHttpRepository implements IDepartmentRepository {
-  async GetAllDepartments(): Promise<DepartmentDetailsModel[]> {
+  async GetAllDepartments(): Promise<DepartmentSlectItemModel[]> {
     const url = `${base}${endpoints.departmentsList}`;
     try {
-      const response = await httpService.get<DepartmentDetailsModel[]>(url);
+      const response = await httpService.get<DepartmentSlectItemModel[]>(url);
       return response;
     } catch (error) {
       throw error;

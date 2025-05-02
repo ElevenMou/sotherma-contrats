@@ -223,5 +223,31 @@
         "description": "Site details saved successfully."
       }
     }
+  },
+  "departments": {
+    "title": "Departments",
+    "add_department": "Add Department",
+    "edit_department": "Edit Department",
+    "save_department": "Save Department",
+    "department_name": "Department Name",
+    "first_validator": "First Validator",
+    "second_validator": "Second Validator",
+    "hr": "HR",
+    "errors": {
+      "listFetch": {
+        "title": "Fetch Error",
+        "description": "Error fetching the list of departments."
+      },
+      "saveDepartment": {
+        "title": "Save Error",
+        "description": "Error saving department details."
+      }
+    },
+    "success": {
+      "saveDepartment": {
+        "title": "Success",
+        "description": "Department details saved successfully."
+      }
+    }
   }
 }

@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { Separator } from "@radix-ui/react-separator";
 import type { Route } from "./+types/departments";
+import DepartmentsList from "./components/DepartmentsList";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -26,7 +27,7 @@ export default function Departments() {
         </div>
       </header>
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-        <h1>{t("common.welcome")}</h1>
+        <DepartmentsList />
       </div>
     </>
   );

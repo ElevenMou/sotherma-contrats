@@ -71,4 +71,10 @@ export const DepartmentRepositoryMock = [
       status: 200,
     });
   }),
+
+  http.post(`${baseUrl}${endpoints.save}`, async () => {
+    return HttpResponse.json(null, {
+      status: 200,
+    });
+  }),
 ];

@@ -40,6 +40,15 @@ class DepartmentHttpRepository implements IDepartmentRepository {
       throw error;
     }
   }
+
+  async SaveDepartment(request: DepartmentListItemModel): Promise<void> {
+    const url = `${base}${endpoints.save}`;
+    try {
+      await httpService.post(url, request);
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export const departmentHttpRepository = new DepartmentHttpRepository();

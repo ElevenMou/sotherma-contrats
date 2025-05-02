@@ -41,6 +41,6 @@ export const departmentList: DepartmentListItemModel[] = [
     name: "Support",
     firstValidator: "",
     secondValidator: "",
-    hr: "HR Sotherma",
+    hr: "",
   },
 ];

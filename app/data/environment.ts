@@ -20,6 +20,7 @@ export const getEnvironment = () => {
       endpoints: {
         departmentsList: "/getAllDepartments",
         getList: "/list?startIndex=<startIndex>&maxRecords=<maxRecords>",
+        save: "/save",
       },
     },
     SitesAPI: {

@@ -5,7 +5,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import type { DepartmentModel } from "@/data/departments/model/response/DepartmentModel";
+import type { DepartmentDetailsModel } from "@/data/departments/model/response/DepartmentDetailsModel";
 import { useDepartmentUseCase } from "@/usecases/department/departmentUsecase";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -24,7 +24,7 @@ const DepartmentsSelect = ({
   const { t } = useTranslation();
   const { getAllDepartments } = useDepartmentUseCase();
 
-  const [departments, setDepartments] = useState<DepartmentModel[]>([]);
+  const [departments, setDepartments] = useState<DepartmentDetailsModel[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
   const handleChangeLanguage = (selectedLanguage: string) => {

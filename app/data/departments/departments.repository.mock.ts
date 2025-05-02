@@ -1,6 +1,6 @@
 import { http, HttpResponse } from "msw";
 import { getEnvironment } from "../environment";
-import type { DepartmentModel } from "./model/response/DepartmentModel";
+import type { DepartmentDetailsModel } from "./model/response/DepartmentDetailsModel";
 
 const { DepartmentsAPI } = getEnvironment();
 const { base, endpoints } = DepartmentsAPI;
@@ -8,7 +8,7 @@ const baseUrl = `${import.meta.env.VITE_API_URL}/${base}`;
 
 export const DepartmentRepositoryMock = [
   http.get(`${baseUrl}${endpoints.departmentsList}`, async () => {
-    const responseDto: DepartmentModel[] = [
+    const responseDto: DepartmentDetailsModel[] = [
       {
         id: "1",
         name: "HR",

@@ -11,6 +11,7 @@ import {
 } from "./lib/http/http.service";
 import { GlobalProvider } from "./contexts/GlobalContext";
 import { ThemeProvider } from "next-themes";
+import { Toaster } from "./components/ui/sonner";
 
 initializeI18next({ resources: locales });
 
@@ -21,6 +22,7 @@ export default function App() {
     <ThemeProvider attribute="class" storageKey="theme">
       <GlobalProvider>
         <Outlet />
+        <Toaster />
       </GlobalProvider>
     </ThemeProvider>
   );

@@ -1,6 +1,5 @@
 import { Links, Meta, Scripts, ScrollRestoration } from "react-router";
 import type { Route } from "../../+types/root";
-import { Toaster } from "@/components/ui/sonner";
 import { useEffect } from "react";
 
 export const links: Route.LinksFunction = () => [
@@ -46,7 +45,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {children}
         <ScrollRestoration />
         <Scripts />
-        <Toaster />
       </body>
     </html>
   );

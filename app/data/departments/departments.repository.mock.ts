@@ -77,4 +77,25 @@ export const DepartmentRepositoryMock = [
       status: 200,
     });
   }),
+
+  http.get(`${baseUrl}${endpoints.details}`, async ({ request }) => {
+    const searchParams = new URL(request.url).searchParams;
+    const guid = searchParams.get("guid") || "";
+
+    const departmentDetails = departmentList.find(
+      (department) => department.guid === guid
+    );
+
+    if (!departmentDetails) {
+      return HttpResponse.json(null, {
+        status: 404,
+      });
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    return HttpResponse.json(departmentDetails, {
+      status: 200,
+    });
+  }),
 ];

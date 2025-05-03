@@ -3,6 +3,7 @@ import type { ListPaginationRequestModel } from "../utils/ListPaginationRequestM
 import type { DepartmentSlectItemModel } from "./model/response/DepartmentSlectItemModel";
 import type { DepartmentListItemModel } from "./model/response/DepartmentListItemModel";
 import type { DepartmentDetailsModel } from "./model/request/DepartmentDetailsModel";
+import type { GetDepartmentDetailsRequestModel } from "./model/request/GetDepartmentDetailsRequestModel";
 
 export interface IDepartmentRepository {
   GetAllDepartments(): Promise<DepartmentSlectItemModel[]>;
@@ -12,4 +13,8 @@ export interface IDepartmentRepository {
   ): Promise<ListResponseModel<DepartmentListItemModel, "departmentsList">>;
 
   SaveDepartment(request: DepartmentDetailsModel): Promise<void>;
+
+  GetDepartmentDetails(
+    request: GetDepartmentDetailsRequestModel
+  ): Promise<DepartmentDetailsModel>;
 }

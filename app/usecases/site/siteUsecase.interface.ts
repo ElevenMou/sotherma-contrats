@@ -8,12 +8,6 @@ export interface GetAllSitesView {
   setLoading: (loading: boolean) => void;
 }
 
-export interface GetSitesListView {
-  setLoading: (loading: boolean) => void;
-  setSitesList: (sitesList: SiteDetailsModel[]) => void;
-  setTotalCount: (totalCount: number) => void;
-}
-
 export interface GetSiteDetailsView {
   setLoading: (loading: boolean) => void;
   setSiteDetails: (siteDetails: SiteDetailsModel) => void;
@@ -28,10 +22,8 @@ export interface SiteUseCaseInterface {
 
   getSitesList: ({
     request,
-    view,
   }: {
     request: ListPaginationRequestModel;
-    view: GetSitesListView;
   }) => Promise<void>;
 
   getSiteDetails: ({

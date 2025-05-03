@@ -16,75 +16,73 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useSiteUseCase } from "@/usecases/site/siteUsecase";
+import { useDepartmentUseCase } from "@/usecases/department/departmentUsecase";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { object, string, z } from "zod";
 
-const SiteFormDialog = ({
-  siteId,
+const DepartmentFormDialog = ({
+  departmentId,
   children,
   variant = "default",
+  refreshDepartments,
 }: {
-  siteId?: string;
+  departmentId?: string;
   children?: React.ReactNode;
   variant?: "ghost" | "outline" | "default";
+  refreshDepartments?: () => void;
 }) => {
   const { t } = useTranslation();
-  const { getSiteDetails, saveSite } = useSiteUseCase();
+  const { getDepartmentDetails, saveDepartment } = useDepartmentUseCase();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (siteId) {
-      getSiteDetails({
-        request: { guid: siteId },
+    if (departmentId) {
+      getDepartmentDetails({
+        request: { guid: departmentId },
         view: {
           setLoading,
-          setSiteDetails: (siteDetails) => {
-            form.setValue("code", siteDetails.code);
-            form.setValue("name", siteDetails.name);
+          setDepartmentDetails: (departmentDetails) => {
+            form.setValue("name", departmentDetails.name);
           },
         },
       });
     }
-  }, [siteId]);
+  }, [departmentId]);
 
-  const siteDetailsSchema = object({
-    code: string().min(1, {
-      message: `${t("sites.site_code")} ${t("common.isRequired")}`,
-    }),
+  const departmentDetailsSchema = object({
     name: string().min(1, {
-      message: `${t("sites.site_name")} ${t("common.isRequired")}`,
+      message: `${t("departments.department_name")} ${t("common.isRequired")}`,
     }),
   });
 
-  const form = useForm<z.infer<typeof siteDetailsSchema>>({
-    resolver: zodResolver(siteDetailsSchema),
+  const form = useForm<z.infer<typeof departmentDetailsSchema>>({
+    resolver: zodResolver(departmentDetailsSchema),
     defaultValues: {
-      code: "",
       name: "",
     },
   });
 
-  const onSaveSuccess = async () => {
+  const onSuccess = async () => {
     setOpen(false);
     form.reset();
+    refreshDepartments?.();
   };
 
   const onSubmit = async () => {
-    await saveSite({
+    await saveDepartment({
       request: {
-        guid: siteId ?? "",
-        code: form.getValues("code"),
+        guid: departmentId ?? "",
         name: form.getValues("name"),
       },
       view: {
-        onSaveSuccess,
+        onSuccess,
       },
     });
+    refreshDepartments?.();
     setOpen(false);
     form.reset();
   };
@@ -93,44 +91,30 @@ const SiteFormDialog = ({
     <Dialog open={open} onOpenChange={setOpen}>
       <Button variant={variant} asChild>
         <DialogTrigger>
-          {children ? children : t("sites.add_site")}
+          {children ? children : t("departments.add_department")}
         </DialogTrigger>
       </Button>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>
-            {t(`sites.${siteId ? "edit_site" : "add_site"}`)}
+            {t(
+              `departments.${
+                departmentId ? "edit_department" : "add_department"
+              }`
+            )}
           </DialogTitle>
 
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <FormField
                 control={form.control}
-                name="code"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t("sites.site_code")}</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder={t("sites.site_code")}
-                        disabled={loading}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{t("sites.site_name")}</FormLabel>
+                    <FormLabel>{t("departments.department_name")}</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder={t("sites.site_name")}
+                        placeholder={t("departments.department_name")}
                         disabled={loading}
                         {...field}
                       />
@@ -145,7 +129,7 @@ const SiteFormDialog = ({
                 className="w-full"
                 disabled={form.formState.isSubmitting || loading}
               >
-                {t("sites.save_site")}{" "}
+                {t("departments.save_department")}{" "}
                 {form.formState.isSubmitting && <Loading />}
               </Button>
             </form>
@@ -156,4 +140,4 @@ const SiteFormDialog = ({
   );
 };
 
-export default SiteFormDialog;
+export default DepartmentFormDialog;

@@ -2,6 +2,7 @@ import { departmentHttpRepository } from "@/data/departments/departments.reposit
 import type {
   DepartmentUseCaseInterface,
   GetAllDepartmentsView,
+  GetDepartmentDetailsView,
   GetDepartmentsListView,
   SaveDepartmentView,
 } from "./departmentUsecase.interface";
@@ -9,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import type { ListPaginationRequestModel } from "@/data/utils/ListPaginationRequestModel";
 import type { DepartmentDetailsModel } from "@/data/departments/model/request/DepartmentDetailsModel";
+import type { GetDepartmentDetailsRequestModel } from "@/data/departments/model/request/GetDepartmentDetailsRequestModel";
 
 export const useDepartmentUseCase = (): DepartmentUseCaseInterface => {
   const { t } = useTranslation();
@@ -74,5 +76,32 @@ export const useDepartmentUseCase = (): DepartmentUseCaseInterface => {
     }
   };
 
-  return { getAllDepartments, getDepartmentsList, saveDepartment };
+  const getDepartmentDetails = async ({
+    request,
+    view,
+  }: {
+    request: GetDepartmentDetailsRequestModel;
+    view: GetDepartmentDetailsView;
+  }) => {
+    view.setLoading(true);
+    try {
+      const response = await departmentHttpRepository.GetDepartmentDetails(
+        request
+      );
+      view.setDepartmentDetails(response);
+    } catch (error) {
+      toast.error(t("departments.errors.detailsFetch.title"), {
+        description: t("departments.errors.detailsFetch.description"),
+      });
+    } finally {
+      view.setLoading(false);
+    }
+  };
+
+  return {
+    getAllDepartments,
+    getDepartmentsList,
+    saveDepartment,
+    getDepartmentDetails,
+  };
 };

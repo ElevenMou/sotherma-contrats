@@ -21,6 +21,7 @@ export const getEnvironment = () => {
         departmentsList: "/getAllDepartments",
         getList: "/list?startIndex=<startIndex>&maxRecords=<maxRecords>",
         save: "/save",
+        details: "/details?guid=<guid>",
       },
     },
     SitesAPI: {

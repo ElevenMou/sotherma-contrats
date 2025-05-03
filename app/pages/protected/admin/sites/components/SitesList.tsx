@@ -10,46 +10,35 @@ import {
 } from "@/components/ui/table";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSiteUseCase } from "@/usecases/site/siteUsecase";
-import type { SiteDetailsModel } from "@/data/sites/model/response/SitesListItemModel";
 import SiteFormDialog from "./SiteFormDialog";
 import { Edit } from "lucide-react";
-
-const MAX_RECORDS = 16;
+import { SITES_MAX_RECORDS, useSitesContext } from "../contexts/SitesProvider";
 
 const SitesList = () => {
-  const navigate = useNavigate();
   const { t } = useTranslation();
   const { getSitesList } = useSiteUseCase();
 
-  const [sites, setSites] = useState<SiteDetailsModel[]>([]);
-  const [totalCount, setTotalCount] = useState<number>(0);
-  const [loading, setLoading] = useState<boolean>(true);
+  const { loading, totalCount, sites } = useSitesContext();
   const [startIndex, setStartIndex] = useState<number>(0);
 
   const handlePageChange = (page: number) => {
-    setStartIndex((page - 1) * MAX_RECORDS);
+    setStartIndex((page - 1) * SITES_MAX_RECORDS);
   };
 
-  const fetchUsers = async () => {
+  const fetchSites = async () => {
     await getSitesList({
       request: {
         startIndex: startIndex,
-        maxRecords: MAX_RECORDS,
-      },
-      view: {
-        setLoading,
-        setSitesList: setSites,
-        setTotalCount,
+        maxRecords: SITES_MAX_RECORDS,
       },
     });
   };
 
   useEffect(() => {
-    fetchUsers();
-  }, [startIndex, MAX_RECORDS]);
+    fetchSites();
+  }, [startIndex, SITES_MAX_RECORDS]);
 
   return (
     <Table>
@@ -62,7 +51,7 @@ const SitesList = () => {
       </TableHeader>
       <TableBody>
         {loading &&
-          Array.from({ length: MAX_RECORDS }).map((_, i) => (
+          Array.from({ length: SITES_MAX_RECORDS }).map((_, i) => (
             <TableRow key={i}>
               {Array.from({ length: 7 }).map((_, index) => (
                 <TableCell key={index}>
@@ -82,7 +71,6 @@ const SitesList = () => {
                 <SiteFormDialog
                   key={site.code}
                   siteId={site.guid}
-                  refreshSites={fetchUsers}
                   variant="ghost"
                 >
                   <Edit className="text-primary" />
@@ -96,8 +84,8 @@ const SitesList = () => {
           <TableCell colSpan={3}>
             <Pagination
               totalItems={totalCount}
-              itemsPerPage={MAX_RECORDS}
-              currentPage={Math.floor(startIndex / MAX_RECORDS) + 1}
+              itemsPerPage={SITES_MAX_RECORDS}
+              currentPage={Math.floor(startIndex / SITES_MAX_RECORDS) + 1}
               onPageChange={handlePageChange}
               label={t("sites.title")}
             />

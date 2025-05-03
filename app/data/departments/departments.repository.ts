@@ -5,6 +5,7 @@ import type { DepartmentSlectItemModel } from "./model/response/DepartmentSlectI
 import type { ListPaginationRequestModel } from "../utils/ListPaginationRequestModel";
 import type { ListResponseModel } from "../utils/GetUsersListResponseModel";
 import type { DepartmentListItemModel } from "./model/response/DepartmentListItemModel";
+import type { DepartmentDetailsModel } from "./model/request/DepartmentDetailsModel";
 
 // HttpService instance
 const httpService = HttpService.getInstance();
@@ -41,7 +42,7 @@ class DepartmentHttpRepository implements IDepartmentRepository {
     }
   }
 
-  async SaveDepartment(request: DepartmentListItemModel): Promise<void> {
+  async SaveDepartment(request: DepartmentDetailsModel): Promise<void> {
     const url = `${base}${endpoints.save}`;
     try {
       await httpService.post(url, request);

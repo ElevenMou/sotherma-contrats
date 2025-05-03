@@ -85,6 +85,11 @@ const EmployeeForm = ({
     },
   });
 
+  const onSuccess = () => {
+    form.reset();
+    navigate(routes.employees, { replace: true });
+  };
+
   async function onSubmit(values: z.infer<typeof employeeDetailsSchema>) {
     const userDetails: UserDetailsModel = {
       guid: employeeDetails?.guid || "",
@@ -96,9 +101,7 @@ const EmployeeForm = ({
       email: values.email,
       profile: values.profile,
     };
-    await saveUserDetails({ request: userDetails });
-    form.reset();
-    navigate(routes.employees, { replace: true });
+    await saveUserDetails({ request: userDetails, view: { onSuccess } });
   }
 
   return (

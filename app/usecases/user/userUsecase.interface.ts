@@ -13,6 +13,10 @@ export interface GetUserDetailsView {
   onError: () => void;
 }
 
+export interface SaveUserDetailsView {
+  onSuccess: () => void;
+}
+
 export interface UserUseCaseInterface {
   getUsersList: ({
     request,
@@ -32,7 +36,9 @@ export interface UserUseCaseInterface {
 
   saveUserDetails: ({
     request,
+    view,
   }: {
     request: UserDetailsModel;
+    view: SaveUserDetailsView;
   }) => Promise<void>;
 }

@@ -3,10 +3,12 @@ import type {
   DepartmentUseCaseInterface,
   GetAllDepartmentsView,
   GetDepartmentsListView,
+  SaveDepartmentView,
 } from "./departmentUsecase.interface";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 import type { ListPaginationRequestModel } from "@/data/utils/ListPaginationRequestModel";
+import type { DepartmentDetailsModel } from "@/data/departments/model/request/DepartmentDetailsModel";
 
 export const useDepartmentUseCase = (): DepartmentUseCaseInterface => {
   const { t } = useTranslation();
@@ -52,5 +54,25 @@ export const useDepartmentUseCase = (): DepartmentUseCaseInterface => {
     }
   };
 
-  return { getAllDepartments, getDepartmentsList };
+  const saveDepartment = async ({
+    request,
+    view,
+  }: {
+    request: DepartmentDetailsModel;
+    view: SaveDepartmentView;
+  }) => {
+    try {
+      await departmentHttpRepository.SaveDepartment(request);
+      toast.success(t("departments.success.saveDepartment.title"), {
+        description: t("departments.success.saveDepartment.description"),
+      });
+      view.onSuccess();
+    } catch (error) {
+      toast.error(t("departments.errors.saveDepartment.title"), {
+        description: t("departments.errors.saveDepartment.description"),
+      });
+    }
+  };
+
+  return { getAllDepartments, getDepartmentsList, saveDepartment };
 };

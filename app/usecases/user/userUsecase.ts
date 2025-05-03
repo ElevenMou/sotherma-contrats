@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import type {
   GetUserDetailsView,
   GetUsersListView,
+  SaveUserDetailsView,
   UserUseCaseInterface,
 } from "./userUsecase.interface";
 import type { ListPaginationRequestModel } from "@/data/utils/ListPaginationRequestModel";
@@ -71,14 +72,17 @@ export const useUserUsecase = (): UserUseCaseInterface => {
 
   const saveUserDetails = async ({
     request,
+    view,
   }: {
     request: UserDetailsModel;
+    view: SaveUserDetailsView;
   }) => {
     try {
       await userHttpRepository.SaveUserDetails(request);
       toast.success(t("employees.success.saveUser.title"), {
         description: t("employees.success.saveUser.description"),
       });
+      view.onSuccess();
     } catch (error) {
       toast.error(t("employees.errors.saveUser.title"), {
         description: t("employees.errors.saveUser.description"),

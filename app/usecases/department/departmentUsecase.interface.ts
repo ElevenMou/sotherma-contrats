@@ -1,3 +1,4 @@
+import type { DepartmentDetailsModel } from "@/data/departments/model/request/DepartmentDetailsModel";
 import type { DepartmentListItemModel } from "@/data/departments/model/response/DepartmentListItemModel";
 import type { DepartmentSlectItemModel } from "@/data/departments/model/response/DepartmentSlectItemModel";
 import type { ListPaginationRequestModel } from "@/data/utils/ListPaginationRequestModel";
@@ -13,6 +14,10 @@ export interface GetDepartmentsListView {
   setLoading: (loading: boolean) => void;
 }
 
+export interface SaveDepartmentView {
+  onSuccess: () => void;
+}
+
 export interface DepartmentUseCaseInterface {
   getAllDepartments: ({
     view,
@@ -26,5 +31,13 @@ export interface DepartmentUseCaseInterface {
   }: {
     request: ListPaginationRequestModel;
     view: GetDepartmentsListView;
+  }) => Promise<void>;
+
+  saveDepartment: ({
+    request,
+    view,
+  }: {
+    request: DepartmentDetailsModel;
+    view: SaveDepartmentView;
   }) => Promise<void>;
 }

@@ -13,6 +13,7 @@ export const getEnvironment = () => {
         usersList: "/getList?startIndex=<startIndex>&maxRecords=<maxRecords>",
         userDetails: "/details?guid=<guid>",
         save: "/save",
+        delegationUsers: "/get-delegation-users",
       },
     },
     DepartmentsAPI: {

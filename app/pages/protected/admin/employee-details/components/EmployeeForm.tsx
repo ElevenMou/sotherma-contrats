@@ -59,6 +59,7 @@ const EmployeeForm = ({
       .min(1, `${t("employees.employee_email")} ${t("common.isRequired")}`)
       .email(`${t("employees.employee_email")} ${t("common.isInvalid")}`),
     profile: string().min(1, `Role ${t("common.isRequired")}`),
+    delegationUserId: string().optional(),
   }).refine((data) => {
     const userDetails: Omit<UserDetailsModel, "guid"> = {
       code: "",
@@ -68,6 +69,7 @@ const EmployeeForm = ({
       site: "",
       email: data.email,
       profile: "",
+      delegationUserId: "",
     };
     return userDetails;
   });
@@ -82,6 +84,7 @@ const EmployeeForm = ({
       site: employeeDetails?.site || "",
       email: employeeDetails?.email || "",
       profile: employeeDetails?.profile || "",
+      delegationUserId: employeeDetails?.delegationUserId || "",
     },
   });
 

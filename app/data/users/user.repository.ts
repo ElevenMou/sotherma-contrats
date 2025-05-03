@@ -6,6 +6,7 @@ import type { ListPaginationRequestModel } from "../utils/ListPaginationRequestM
 import type { ListResponseModel } from "../utils/GetUsersListResponseModel";
 import type { GetUserDetailsRequestModel } from "./model/request/GetUserDetailsRequestModel";
 import type { UserDetailsModel } from "./model/response/UserDetailsModel";
+import type { DelegationUserModel } from "./model/response/DelegationUserModel";
 
 // HttpService instance
 const httpService = HttpService.getInstance();
@@ -60,6 +61,15 @@ class UserHttpRepository implements IUserRepository {
     const url = `${base}${endpoints.save}`;
     try {
       return httpService.post<string>(url, request);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  GetDelegationUsers(): Promise<DelegationUserModel[]> {
+    const url = `${base}${endpoints.delegationUsers}`;
+    try {
+      return httpService.get<DelegationUserModel[]>(url);
     } catch (error) {
       throw error;
     }

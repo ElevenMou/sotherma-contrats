@@ -3,14 +3,20 @@ import type { ListPaginationRequestModel } from "../utils/ListPaginationRequestM
 import type { CurrentUserInfoModel } from "./model/response/CurrentUserInfoResponseModel";
 import type { UserDetailsModel } from "./model/response/UserDetailsModel";
 import type { ListResponseModel } from "../utils/GetUsersListResponseModel";
+import type { DelegationUserModel } from "./model/response/DelegationUserModel";
 
 export interface IUserRepository {
   GetCurrentUserInfo(): Promise<CurrentUserInfoModel>;
+
   GetUsersList(
     request: ListPaginationRequestModel
   ): Promise<ListResponseModel<UserDetailsModel, "usersList">>;
+
   GetUserDetails(
     request: GetUserDetailsRequestModel
   ): Promise<UserDetailsModel>;
+
   SaveUserDetails(request: UserDetailsModel): Promise<string>;
+
+  GetDelegationUsers(): Promise<DelegationUserModel[]>;
 }

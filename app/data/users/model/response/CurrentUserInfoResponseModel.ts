@@ -5,6 +5,7 @@ export interface CurrentUserInfoModel {
   lastName: string;
   email: string;
   profile: UserRole;
+  delegated: boolean;
 }
 
 export const userRoles = {
@@ -12,6 +13,7 @@ export const userRoles = {
   manager: "manager",
   hr: "hr",
   requester: "requester",
+  hr_deleagate: "hr_deleagate",
 };
 
 export type UserRole = EnumToType<keyof typeof userRoles>;

@@ -7,4 +7,5 @@ export interface UserDetailsModel {
   profile: string;
   department: string;
   code: string;
+  delegationUserId?: string;
 }

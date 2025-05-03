@@ -43,7 +43,9 @@ const RoleSelect = ({
         <SelectContent>
           {roles.map((role) => (
             <SelectItem key={role} value={String(role)}>
-              {role}
+              {t(`roles.${role}`, {
+                defaultValue: role,
+              })}
             </SelectItem>
           ))}
         </SelectContent>

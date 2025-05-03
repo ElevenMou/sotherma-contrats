@@ -16,6 +16,13 @@
     "pickDate": "Pick a date",
     "define": "(Define)"
   },
+  "roles": {
+    "admin": "Administrator",
+    "hr": "Human Resources",
+    "manager": "Manager",
+    "requester": "Requester",
+    "hr_deleagate": "HR Delegate"
+  },
   "errors": {
     "not_found": "The requested page was not found.",
     "server_error": "An internal server error occurred. Please try again later.",

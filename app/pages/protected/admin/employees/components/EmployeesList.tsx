@@ -82,7 +82,11 @@ const EmployeesList = () => {
               <TableCell>{employee.firstName}</TableCell>
               <TableCell>{employee.email}</TableCell>
               <TableCell>{employee.site}</TableCell>
-              <TableCell>{employee.profile}</TableCell>
+              <TableCell>
+                {t(`roles.${employee.profile}`, {
+                  defaultValue: employee.profile,
+                })}
+              </TableCell>
             </TableRow>
           ))}
       </TableBody>

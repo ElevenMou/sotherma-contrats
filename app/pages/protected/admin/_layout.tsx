@@ -1,7 +1,6 @@
 import { Outlet, useNavigation } from "react-router";
 import Loading from "@/components/layout/Loading";
 import { useGlobalContext } from "@/contexts/GlobalContext";
-import { useEffect } from "react";
 import { userRoles } from "@/data/users/model/response/CurrentUserInfoResponseModel";
 import { EmployeesProvider } from "./employees/contexts/EmployeesProvider";
 

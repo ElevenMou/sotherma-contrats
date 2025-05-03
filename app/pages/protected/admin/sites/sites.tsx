@@ -4,7 +4,6 @@ import { Separator } from "@radix-ui/react-separator";
 import type { Route } from "./+types/sites";
 import SitesList from "./components/SitesList";
 import SiteFormDialog from "./components/SiteFormDialog";
-import { SitesProvider } from "./contexts/SitesProvider";
 
 export function meta({}: Route.MetaArgs) {
   const { t } = useTranslation();
@@ -18,7 +17,7 @@ export default function Sites() {
   const { t } = useTranslation();
 
   return (
-    <SitesProvider>
+    <>
       <header className="flex h-16 shrink-0 items-center gap-2">
         <div className="flex items-center gap-2 px-4 w-full">
           <SidebarTrigger className="-ml-1" />
@@ -33,6 +32,6 @@ export default function Sites() {
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
         <SitesList />
       </div>
-    </SitesProvider>
+    </>
   );
 }

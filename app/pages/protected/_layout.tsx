@@ -8,6 +8,8 @@ import { useGlobalContext } from "@/contexts/GlobalContext";
 import { useEffect } from "react";
 import { userHttpRepository } from "@/data/users/user.repository";
 import { RequestsProvider } from "./requests/contexts/RequestsProvider";
+import { SitesProvider } from "./admin/sites/contexts/SitesProvider";
+import { DepartmentsProvider } from "./admin/departments/contexts/DepartmentsProvider";
 
 export async function clientLoader({}: Route.LoaderArgs) {
   const accessToken = localStorage.getItem(ACCESS_TOKEN_STORAGE_KEY);
@@ -44,14 +46,18 @@ const ProtecedLayout = ({ loaderData }: Route.ComponentProps) => {
     <SidebarProvider>
       <AppSidebar />
       <SidebarInset>
-        <RequestsProvider>
-          {isNavigating && (
-            <div className="flex items-center justify-center h-svh">
-              <Loading />
-            </div>
-          )}
-          {!isNavigating && <Outlet />}
-        </RequestsProvider>
+        <SitesProvider>
+          <DepartmentsProvider>
+            <RequestsProvider>
+              {isNavigating && (
+                <div className="flex items-center justify-center h-svh">
+                  <Loading />
+                </div>
+              )}
+              {!isNavigating && <Outlet />}
+            </RequestsProvider>
+          </DepartmentsProvider>
+        </SitesProvider>
       </SidebarInset>
     </SidebarProvider>
   );

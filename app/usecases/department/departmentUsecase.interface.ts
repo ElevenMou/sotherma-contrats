@@ -9,12 +9,6 @@ export interface GetAllDepartmentsView {
   setLoading: (loading: boolean) => void;
 }
 
-export interface GetDepartmentsListView {
-  setDepartments: (departments: DepartmentListItemModel[]) => void;
-  setTotalCount: (totalCount: number) => void;
-  setLoading: (loading: boolean) => void;
-}
-
 export interface GetDepartmentDetailsView {
   setDepartmentDetails: (department: DepartmentDetailsModel) => void;
   setLoading: (loading: boolean) => void;
@@ -33,10 +27,8 @@ export interface DepartmentUseCaseInterface {
 
   getDepartmentsList: ({
     request,
-    view,
   }: {
     request: ListPaginationRequestModel;
-    view: GetDepartmentsListView;
   }) => Promise<void>;
 
   saveDepartment: ({

@@ -13,7 +13,8 @@
     "status": "Statut",
     "close": "Fermer",
     "extend": "Prolonger",
-    "pickDate": "Choisir une date"
+    "pickDate": "Choisir une date",
+    "define": "(Définir)"
   },
   "errors": {
     "not_found": "La page demandée est introuvable.",
@@ -236,6 +237,10 @@
       "saveSite": {
         "title": "Erreur de sauvegarde",
         "description": "Erreur lors de la sauvegarde des détails du site."
+      },
+      "detailsFetch": {
+        "title": "Erreur de récupération",
+        "description": "Erreur lors de la récupération des détails du site."
       }
     },
     "success": {
@@ -262,6 +267,10 @@
       "saveDepartment": {
         "title": "Erreur de sauvegarde",
         "description": "Erreur lors de la sauvegarde des détails du département."
+      },
+      "detailsFetch": {
+        "title": "Erreur de récupération",
+        "description": "Erreur lors de la récupération des détails du département."
       }
     },
     "success": {

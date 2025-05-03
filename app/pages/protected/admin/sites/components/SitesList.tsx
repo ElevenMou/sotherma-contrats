@@ -20,8 +20,8 @@ const SitesList = () => {
   const { t } = useTranslation();
   const { getSitesList } = useSiteUseCase();
 
-  const { loading, totalCount, sites } = useSitesContext();
-  const [startIndex, setStartIndex] = useState<number>(0);
+  const { loading, totalCount, sites, startIndex, setStartIndex } =
+    useSitesContext();
 
   const handlePageChange = (page: number) => {
     setStartIndex((page - 1) * SITES_MAX_RECORDS);

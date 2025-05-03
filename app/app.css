@@ -144,10 +144,10 @@
     @apply text-base;
   }
   a {
-    @apply underline-offset-4 transition-colors;
+    @apply underline-offset-4 transition-colors text-primary;
   }
   a:hover {
-    @apply text-primary-foreground;
+    @apply underline;
   }
   a:focus-visible {
     @apply text-primary-foreground ring-2 ring-ring;

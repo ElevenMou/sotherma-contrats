@@ -10,45 +10,43 @@ import {
 } from "@/components/ui/table";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useDepartmentUseCase } from "@/usecases/department/departmentUsecase";
-import type { DepartmentListItemModel } from "@/data/departments/model/response/DepartmentListItemModel";
-
-const MAX_RECORDS = 16;
+import {
+  DEPARTMENTS_MAX_RECORDS,
+  useDepartmentsContext,
+} from "../contexts/DepartmentsProvider";
+import DepartmentFormDialog from "./DepartmentFormDialog";
 
 const DepartmentsList = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { getDepartmentsList } = useDepartmentUseCase();
 
-  const [departments, setDepartments] = useState<DepartmentListItemModel[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [startIndex, setStartIndex] = useState<number>(0);
-  const [totalCount, setTotalCount] = useState<number>(0);
+  const { departments, loading, startIndex, totalCount, setStartIndex } =
+    useDepartmentsContext();
 
   const handlePageChange = (page: number) => {
-    setStartIndex((page - 1) * MAX_RECORDS);
+    setStartIndex((page - 1) * DEPARTMENTS_MAX_RECORDS);
+  };
+
+  const navigateToDepartmentManagement = (id: string) => {
+    navigate(`/departments/${id}`);
   };
 
   useEffect(() => {
     const fetchUsers = async () => {
-      setLoading(true);
       await getDepartmentsList({
         request: {
           startIndex: startIndex,
-          maxRecords: MAX_RECORDS,
-        },
-        view: {
-          setLoading,
-          setDepartments,
-          setTotalCount,
+          maxRecords: DEPARTMENTS_MAX_RECORDS,
         },
       });
     };
 
     fetchUsers();
-  }, [startIndex, MAX_RECORDS]);
+  }, [startIndex, DEPARTMENTS_MAX_RECORDS]);
 
   return (
     <Table>
@@ -62,7 +60,7 @@ const DepartmentsList = () => {
       </TableHeader>
       <TableBody>
         {loading &&
-          Array.from({ length: MAX_RECORDS }).map((_, i) => (
+          Array.from({ length: DEPARTMENTS_MAX_RECORDS }).map((_, i) => (
             <TableRow key={i}>
               {Array.from({ length: 7 }).map((_, index) => (
                 <TableCell key={index}>
@@ -75,15 +73,40 @@ const DepartmentsList = () => {
         {!loading &&
           departments?.length > 0 &&
           departments.map((department) => (
-            <TableRow
-              key={department.guid}
-              onClick={() => navigate(`/departments/${department.guid}`)}
-              className="cursor-pointer hover:bg-muted/50"
-            >
-              <TableCell>{department.name}</TableCell>
-              <TableCell>{department.firstValidator}</TableCell>
-              <TableCell>{department.secondValidator}</TableCell>
-              <TableCell>{department.hr}</TableCell>
+            <TableRow key={department.guid} className="hover:bg-muted/50">
+              <TableCell>
+                <DepartmentFormDialog
+                  variant="ghost"
+                  departmentId={department.guid}
+                  className="w-full justify-start"
+                >
+                  {department.name}
+                </DepartmentFormDialog>
+              </TableCell>
+              <TableCell>
+                <Link
+                  to={`/departments/${department.guid}`}
+                  className="w-full justify-start"
+                >
+                  {department.firstValidator || t("common.define")}
+                </Link>
+              </TableCell>
+              <TableCell>
+                <Link
+                  to={`/departments/${department.guid}`}
+                  className="w-full justify-start"
+                >
+                  {department.secondValidator || t("common.define")}
+                </Link>
+              </TableCell>
+              <TableCell>
+                <Link
+                  to={`/departments/${department.guid}`}
+                  className="w-full justify-start"
+                >
+                  {department.hr || t("common.define")}
+                </Link>
+              </TableCell>
             </TableRow>
           ))}
       </TableBody>
@@ -92,8 +115,8 @@ const DepartmentsList = () => {
           <TableCell colSpan={4}>
             <Pagination
               totalItems={totalCount}
-              itemsPerPage={MAX_RECORDS}
-              currentPage={Math.floor(startIndex / MAX_RECORDS) + 1}
+              itemsPerPage={DEPARTMENTS_MAX_RECORDS}
+              currentPage={Math.floor(startIndex / DEPARTMENTS_MAX_RECORDS) + 1}
               onPageChange={handlePageChange}
               label={t("departments.title")}
             />

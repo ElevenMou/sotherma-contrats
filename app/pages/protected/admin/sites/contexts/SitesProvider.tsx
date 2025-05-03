@@ -8,6 +8,9 @@ export interface SitesContextModel {
   totalCount: number;
   setTotalCount: (totalCount: number) => void;
 
+  startIndex: number;
+  setStartIndex: (startIndex: number) => void;
+
   loading: boolean;
   setLoading: (loading: boolean) => void;
 }
@@ -21,6 +24,7 @@ export const SitesProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [sites, setSites] = useState<SiteDetailsModel[]>([]);
   const [totalCount, setTotalCount] = useState<number>(0);
+  const [startIndex, setStartIndex] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
 
   const value = useMemo(
@@ -31,10 +35,13 @@ export const SitesProvider: React.FC<{ children: React.ReactNode }> = ({
       totalCount,
       setTotalCount,
 
+      startIndex,
+      setStartIndex,
+
       loading,
       setLoading,
     }),
-    [sites, totalCount, loading]
+    [sites, totalCount, startIndex, loading]
   );
 
   return (

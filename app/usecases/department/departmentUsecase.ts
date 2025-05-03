@@ -3,7 +3,6 @@ import type {
   DepartmentUseCaseInterface,
   GetAllDepartmentsView,
   GetDepartmentDetailsView,
-  GetDepartmentsListView,
   SaveDepartmentView,
 } from "./departmentUsecase.interface";
 import { useTranslation } from "react-i18next";
@@ -11,9 +10,14 @@ import { toast } from "sonner";
 import type { ListPaginationRequestModel } from "@/data/utils/ListPaginationRequestModel";
 import type { DepartmentDetailsModel } from "@/data/departments/model/request/DepartmentDetailsModel";
 import type { GetDepartmentDetailsRequestModel } from "@/data/departments/model/request/GetDepartmentDetailsRequestModel";
+import {
+  DEPARTMENTS_MAX_RECORDS,
+  useDepartmentsContext,
+} from "@/pages/protected/admin/departments/contexts/DepartmentsProvider";
 
 export const useDepartmentUseCase = (): DepartmentUseCaseInterface => {
   const { t } = useTranslation();
+  const ctx = useDepartmentsContext();
 
   const getAllDepartments = async ({
     view,
@@ -35,24 +39,22 @@ export const useDepartmentUseCase = (): DepartmentUseCaseInterface => {
 
   const getDepartmentsList = async ({
     request,
-    view,
   }: {
     request: ListPaginationRequestModel;
-    view: GetDepartmentsListView;
   }) => {
-    view.setLoading(true);
+    ctx.setLoading(true);
     try {
       const response = await departmentHttpRepository.GetDepartmentsList(
         request
       );
-      view.setDepartments(response.departmentsList);
-      view.setTotalCount(response.totalCount);
+      ctx.setDepartments(response.departmentsList);
+      ctx.setTotalCount(response.totalCount);
     } catch (error) {
       toast.error(t("departments.errors.listFetch.title"), {
         description: t("departments.errors.listFetch.description"),
       });
     } finally {
-      view.setLoading(false);
+      ctx.setLoading(false);
     }
   };
 
@@ -69,6 +71,13 @@ export const useDepartmentUseCase = (): DepartmentUseCaseInterface => {
         description: t("departments.success.saveDepartment.description"),
       });
       view.onSuccess();
+      ctx.setStartIndex(0);
+      await getDepartmentsList({
+        request: {
+          startIndex: 0,
+          maxRecords: DEPARTMENTS_MAX_RECORDS,
+        },
+      });
     } catch (error) {
       toast.error(t("departments.errors.saveDepartment.title"), {
         description: t("departments.errors.saveDepartment.description"),

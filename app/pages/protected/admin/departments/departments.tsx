@@ -4,6 +4,7 @@ import { Separator } from "@radix-ui/react-separator";
 import type { Route } from "./+types/departments";
 import DepartmentsList from "./components/DepartmentsList";
 import DepartmentFormDialog from "./components/DepartmentFormDialog";
+import { DepartmentsProvider } from "./contexts/DepartmentsProvider";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -16,7 +17,7 @@ export default function Departments() {
   const { t } = useTranslation();
 
   return (
-    <>
+    <DepartmentsProvider>
       <header className="flex h-16 shrink-0 items-center gap-2">
         <div className="flex items-center gap-2 px-4 w-full">
           <SidebarTrigger className="-ml-1" />
@@ -31,6 +32,6 @@ export default function Departments() {
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
         <DepartmentsList />
       </div>
-    </>
+    </DepartmentsProvider>
   );
 }

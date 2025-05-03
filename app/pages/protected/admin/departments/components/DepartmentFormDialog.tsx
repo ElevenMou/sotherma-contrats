@@ -27,12 +27,12 @@ const DepartmentFormDialog = ({
   departmentId,
   children,
   variant = "default",
-  refreshDepartments,
+  className,
 }: {
   departmentId?: string;
   children?: React.ReactNode;
   variant?: "ghost" | "outline" | "default";
-  refreshDepartments?: () => void;
+  className?: string;
 }) => {
   const { t } = useTranslation();
   const { getDepartmentDetails, saveDepartment } = useDepartmentUseCase();
@@ -69,7 +69,6 @@ const DepartmentFormDialog = ({
   const onSuccess = async () => {
     setOpen(false);
     form.reset();
-    refreshDepartments?.();
   };
 
   const onSubmit = async () => {
@@ -82,14 +81,13 @@ const DepartmentFormDialog = ({
         onSuccess,
       },
     });
-    refreshDepartments?.();
     setOpen(false);
     form.reset();
   };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <Button variant={variant} asChild>
+      <Button variant={variant} asChild className={className}>
         <DialogTrigger>
           {children ? children : t("departments.add_department")}
         </DialogTrigger>

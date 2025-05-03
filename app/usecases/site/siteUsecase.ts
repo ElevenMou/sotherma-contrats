@@ -64,8 +64,8 @@ export const useSiteUseCase = (): SiteUseCaseInterface => {
       const response = await siteHttpRepository.GetSiteDetails(request);
       view.setSiteDetails(response);
     } catch (error) {
-      toast.error(t("sites.errors.listFetch.title"), {
-        description: t("sites.errors.listFetch.description"),
+      toast.error(t("sites.errors.detailsFetch.title"), {
+        description: t("sites.errors.detailsFetch.description"),
       });
     } finally {
       view.setLoading(false);
@@ -85,6 +85,7 @@ export const useSiteUseCase = (): SiteUseCaseInterface => {
         description: t("sites.success.saveSite.description"),
       });
       view.onSaveSuccess();
+      ctx.setStartIndex(0);
       await getSitesList({
         request: {
           startIndex: 0,

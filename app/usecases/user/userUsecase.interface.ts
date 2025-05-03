@@ -3,10 +3,6 @@ import type { ListPaginationRequestModel } from "@/data/utils/ListPaginationRequ
 import type { UserDetailsModel } from "@/data/users/model/response/UserDetailsModel";
 import type React from "react";
 
-export interface GetUsersListView {
-  setLoading: (loading: boolean) => void;
-}
-
 export interface GetUserDetailsView {
   setLoading: (loading: boolean) => void;
   setUserDetails: React.Dispatch<React.SetStateAction<UserDetailsModel | null>>;
@@ -20,10 +16,8 @@ export interface SaveUserDetailsView {
 export interface UserUseCaseInterface {
   getUsersList: ({
     request,
-    view,
   }: {
     request: ListPaginationRequestModel;
-    view: GetUsersListView;
   }) => Promise<void>;
 
   getUserDetails: ({

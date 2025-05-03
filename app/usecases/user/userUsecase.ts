@@ -2,7 +2,6 @@ import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 import type {
   GetUserDetailsView,
-  GetUsersListView,
   SaveUserDetailsView,
   UserUseCaseInterface,
 } from "./userUsecase.interface";
@@ -18,13 +17,11 @@ export const useUserUsecase = (): UserUseCaseInterface => {
 
   const getUsersList = async ({
     request,
-    view,
   }: {
     request: ListPaginationRequestModel;
-    view: GetUsersListView;
   }) => {
     try {
-      view.setLoading(true);
+      ctx.setLoading(true);
       const res = await userHttpRepository.GetUsersList(request);
       if (res) {
         ctx.setEmployees(res.usersList);
@@ -39,7 +36,7 @@ export const useUserUsecase = (): UserUseCaseInterface => {
         description: t("employees.errors.listFetch.description"),
       });
     } finally {
-      view.setLoading(false);
+      ctx.setLoading(false);
     }
   };
 

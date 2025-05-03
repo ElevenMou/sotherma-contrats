@@ -3,14 +3,16 @@ import { createContext, useContext, useMemo, useState } from "react";
 
 export interface EmployeesContextModel {
   employees: Array<UserDetailsModel>;
-  setEmployees: React.Dispatch<
-    React.SetStateAction<Array<UserDetailsModel>>
-  >;
+  setEmployees: React.Dispatch<React.SetStateAction<Array<UserDetailsModel>>>;
 
   totalCount: number;
   setTotalCount: React.Dispatch<React.SetStateAction<number>>;
+
+  loading: boolean;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+export const EMPLOYEES_MAX_RECORDS = 16;
 export const EmployeesContext = createContext<EmployeesContextModel | null>(
   null
 );
@@ -18,10 +20,9 @@ export const EmployeesContext = createContext<EmployeesContextModel | null>(
 export const EmployeesProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [employees, setEmployees] = useState<
-    Array<UserDetailsModel>
-  >([]);
+  const [employees, setEmployees] = useState<Array<UserDetailsModel>>([]);
   const [totalCount, setTotalCount] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const value = useMemo(
     () => ({
@@ -30,8 +31,11 @@ export const EmployeesProvider: React.FC<{ children: React.ReactNode }> = ({
 
       totalCount,
       setTotalCount,
+
+      loading,
+      setLoading,
     }),
-    [employees]
+    [employees, totalCount, loading]
   );
 
   return (

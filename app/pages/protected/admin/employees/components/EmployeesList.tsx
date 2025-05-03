@@ -12,39 +12,36 @@ import { useUserUsecase } from "@/usecases/user/userUsecase";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
-import { useEmployeesContext } from "../contexts/EmployeesProvider";
+import {
+  EMPLOYEES_MAX_RECORDS,
+  useEmployeesContext,
+} from "../contexts/EmployeesProvider";
 import { Skeleton } from "@/components/ui/skeleton";
-
-const MAX_RECORDS = 16;
 
 const EmployeesList = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { getUsersList } = useUserUsecase();
-  const [loading, setLoading] = useState(true);
-  const { employees, totalCount } = useEmployeesContext();
+
+  const { employees, totalCount, loading } = useEmployeesContext();
   const [startIndex, setStartIndex] = useState(0);
 
   const handlePageChange = (page: number) => {
-    setStartIndex((page - 1) * MAX_RECORDS);
+    setStartIndex((page - 1) * EMPLOYEES_MAX_RECORDS);
   };
 
   useEffect(() => {
     const fetchUsers = async () => {
-      setLoading(true);
       await getUsersList({
         request: {
           startIndex: startIndex,
-          maxRecords: MAX_RECORDS,
-        },
-        view: {
-          setLoading,
+          maxRecords: EMPLOYEES_MAX_RECORDS,
         },
       });
     };
 
     fetchUsers();
-  }, [startIndex, MAX_RECORDS]);
+  }, [startIndex, EMPLOYEES_MAX_RECORDS]);
 
   return (
     <Table>
@@ -61,7 +58,7 @@ const EmployeesList = () => {
       </TableHeader>
       <TableBody>
         {loading &&
-          Array.from({ length: MAX_RECORDS }).map((_, i) => (
+          Array.from({ length: EMPLOYEES_MAX_RECORDS }).map((_, i) => (
             <TableRow key={i}>
               {Array.from({ length: 7 }).map((_, index) => (
                 <TableCell key={index}>
@@ -94,8 +91,8 @@ const EmployeesList = () => {
           <TableCell colSpan={7}>
             <Pagination
               totalItems={totalCount}
-              itemsPerPage={MAX_RECORDS}
-              currentPage={Math.floor(startIndex / MAX_RECORDS) + 1}
+              itemsPerPage={EMPLOYEES_MAX_RECORDS}
+              currentPage={Math.floor(startIndex / EMPLOYEES_MAX_RECORDS) + 1}
               onPageChange={handlePageChange}
               label={t("employees.title")}
             />

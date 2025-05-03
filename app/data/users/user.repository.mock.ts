@@ -7,6 +7,7 @@ import {
 import type { ListResponseModel } from "../utils/GetUsersListResponseModel";
 import type { UserDetailsModel } from "./model/response/UserDetailsModel";
 import { employees } from "./employees";
+import type { DelegationUserModel } from "./model/response/DelegationUserModel";
 
 const { UserAPI } = getEnvironment();
 const { base, endpoints } = UserAPI;
@@ -79,6 +80,17 @@ export const UserRepositoryMock = [
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     return HttpResponse.json("success", {
+      status: 200,
+    });
+  }),
+
+  http.get(`${baseUrl}${endpoints.delegationUsers}`, async () => {
+    const responseDto: DelegationUserModel[] = employees.map((user) => ({
+      userId: user.guid || "",
+      fullName: `${user.firstName} ${user.lastName}`,
+    }));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    return HttpResponse.json(responseDto, {
       status: 200,
     });
   }),

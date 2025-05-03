@@ -1,6 +1,7 @@
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 import type {
+  GetDelegationUsersView,
   GetUserDetailsView,
   SaveUserDetailsView,
   UserUseCaseInterface,
@@ -87,5 +88,28 @@ export const useUserUsecase = (): UserUseCaseInterface => {
     }
   };
 
-  return { getUsersList, getUserDetails, saveUserDetails };
+  const getDelegationUsers = async ({
+    view,
+  }: {
+    view: GetDelegationUsersView;
+  }) => {
+    try {
+      const res = await userHttpRepository.GetDelegationUsers();
+      if (res) {
+        view.setDelegationUsers(res);
+      } else {
+        toast.error(t("employees.errors.delegationUsersFetch.title"), {
+          description: t("employees.errors.delegationUsersFetch.description"),
+        });
+      }
+    } catch (error) {
+      toast.error(t("employees.errors.delegationUsersFetch.title"), {
+        description: t("employees.errors.delegationUsersFetch.description"),
+      });
+    } finally {
+      view.setLoading(false);
+    }
+  };
+
+  return { getUsersList, getUserDetails, saveUserDetails, getDelegationUsers };
 };

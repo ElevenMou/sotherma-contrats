@@ -20,6 +20,8 @@ import RoleSelect from "@/components/form/RoleSelect";
 import { useUserUsecase } from "@/usecases/user/userUsecase";
 import { useNavigate } from "react-router";
 import { routes } from "@/lib/router/routes";
+import { userRoles } from "@/data/users/model/response/CurrentUserInfoResponseModel";
+import DelegationsSelect from "@/components/form/DelegationsSelect";
 
 const EmployeeForm = ({
   employeeDetails,
@@ -219,6 +221,26 @@ const EmployeeForm = ({
             </FormItem>
           )}
         />
+
+        {form.watch("profile") === userRoles.hr && (
+          <FormField
+            control={form.control}
+            name="delegationUserId"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t("employees.employee_delegation")}</FormLabel>
+                <FormControl>
+                  <DelegationsSelect
+                    defaultValue={employeeDetails?.delegationUserId}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        )}
+
         <Button
           type="submit"
           className="w-full"

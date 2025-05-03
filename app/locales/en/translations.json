@@ -78,6 +78,7 @@
     "employee_email": "Email",
     "employee_site": "Site",
     "employee_department": "Department",
+    "employee_delegation": "Delegation",
     "errors": {
       "listFetch": {
         "title": "Fetch Error",

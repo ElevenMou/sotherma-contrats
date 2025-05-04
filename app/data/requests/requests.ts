@@ -1,6 +1,11 @@
 import type { RequestListItemModel } from "./model/response/RequestModel";
 
-export const requests: RequestListItemModel[] = [
+export const requests: Array<
+  RequestListItemModel & {
+    departmentId: number;
+    siteId: number;
+  }
+> = [
   {
     guid: "req-0001",
     desiredProfile: "Admin",
@@ -11,6 +16,8 @@ export const requests: RequestListItemModel[] = [
     justification: "replace",
     status: "Pending",
     requesterFullName: "John Doe",
+    departmentId: 1,
+    siteId: 1,
   },
   {
     guid: "req-0002",
@@ -22,6 +29,8 @@ export const requests: RequestListItemModel[] = [
     justification: "replace",
     status: "Approved",
     requesterFullName: "Jane Smith",
+    departmentId: 2,
+    siteId: 1,
   },
   {
     guid: "req-0003",
@@ -33,6 +42,8 @@ export const requests: RequestListItemModel[] = [
     justification: "create",
     status: "Rejected",
     requesterFullName: "Mike Brown",
+    departmentId: 3,
+    siteId: 2,
   },
   {
     guid: "req-0004",
@@ -44,6 +55,8 @@ export const requests: RequestListItemModel[] = [
     justification: "create",
     status: "Pending",
     requesterFullName: "Emily Johnson",
+    departmentId: 4,
+    siteId: 2,
   },
   {
     guid: "req-0005",
@@ -55,6 +68,8 @@ export const requests: RequestListItemModel[] = [
     justification: "seasonal_work",
     status: "Pending",
     requesterFullName: "Liam Nguyen",
+    departmentId: 5,
+    siteId: 3,
   },
   {
     guid: "req-0006",
@@ -66,6 +81,8 @@ export const requests: RequestListItemModel[] = [
     justification: "seasonal_work",
     status: "Approved",
     requesterFullName: "Ava Walker",
+    departmentId: 6,
+    siteId: 3,
   },
   {
     guid: "req-0007",
@@ -77,6 +94,8 @@ export const requests: RequestListItemModel[] = [
     justification: "seasonal_work",
     status: "Pending",
     requesterFullName: "Noah Hall",
+    departmentId: 3,
+    siteId: 4,
   },
   {
     guid: "req-0008",
@@ -88,6 +107,8 @@ export const requests: RequestListItemModel[] = [
     justification: "seasonal_work",
     status: "Approved",
     requesterFullName: "Isabella Allen",
+    departmentId: 1,
+    siteId: 4,
   },
   {
     guid: "req-0009",
@@ -99,6 +120,8 @@ export const requests: RequestListItemModel[] = [
     justification: "seasonal_work",
     status: "Pending",
     requesterFullName: "James Young",
+    departmentId: 2,
+    siteId: 5,
   },
   {
     guid: "req-0010",
@@ -110,6 +133,8 @@ export const requests: RequestListItemModel[] = [
     justification: "replace",
     status: "Rejected",
     requesterFullName: "Mia Hernandez",
+    departmentId: 1,
+    siteId: 5,
   },
   {
     guid: "req-0011",
@@ -121,6 +146,8 @@ export const requests: RequestListItemModel[] = [
     justification: "seasonal_work",
     status: "Pending",
     requesterFullName: "Benjamin King",
+    departmentId: 3,
+    siteId: 6,
   },
   {
     guid: "req-0012",
@@ -132,6 +159,8 @@ export const requests: RequestListItemModel[] = [
     justification: "replace",
     status: "Pending",
     requesterFullName: "Emma Wright",
+    departmentId: 2,
+    siteId: 6,
   },
   {
     guid: "req-0013",
@@ -143,6 +172,8 @@ export const requests: RequestListItemModel[] = [
     justification: "create",
     status: "Approved",
     requesterFullName: "Lucas Lopez",
+    departmentId: 4,
+    siteId: 7,
   },
   {
     guid: "req-0014",
@@ -154,6 +185,8 @@ export const requests: RequestListItemModel[] = [
     justification: "create",
     status: "Pending",
     requesterFullName: "Amelia Scott",
+    departmentId: 5,
+    siteId: 7,
   },
   {
     guid: "req-0015",
@@ -165,6 +198,8 @@ export const requests: RequestListItemModel[] = [
     justification: "replace",
     status: "Approved",
     requesterFullName: "Logan Green",
+    departmentId: 6,
+    siteId: 8,
   },
   {
     guid: "req-0016",
@@ -176,6 +211,8 @@ export const requests: RequestListItemModel[] = [
     justification: "replace",
     status: "Rejected",
     requesterFullName: "Harper Baker",
+    departmentId: 1,
+    siteId: 8,
   },
   {
     guid: "req-0017",
@@ -187,6 +224,8 @@ export const requests: RequestListItemModel[] = [
     justification: "create",
     status: "Pending",
     requesterFullName: "Elijah Adams",
+    departmentId: 2,
+    siteId: 9,
   },
   {
     guid: "req-0018",
@@ -198,6 +237,8 @@ export const requests: RequestListItemModel[] = [
     justification: "create",
     status: "Pending",
     requesterFullName: "Evelyn Nelson",
+    departmentId: 3,
+    siteId: 9,
   },
   {
     guid: "req-0019",
@@ -209,6 +250,8 @@ export const requests: RequestListItemModel[] = [
     justification: "replace",
     status: "Approved",
     requesterFullName: "Henry Carter",
+    departmentId: 1,
+    siteId: 10,
   },
   {
     guid: "req-0020",
@@ -220,6 +263,8 @@ export const requests: RequestListItemModel[] = [
     justification: "seasonal_work",
     status: "Pending",
     requesterFullName: "Abigail Mitchell",
+    departmentId: 3,
+    siteId: 10,
   },
   {
     guid: "req-0021",
@@ -231,6 +276,8 @@ export const requests: RequestListItemModel[] = [
     justification: "create",
     status: "Pending",
     requesterFullName: "Jack Perez",
+    departmentId: 6,
+    siteId: 1,
   },
   {
     guid: "req-0022",
@@ -242,6 +289,8 @@ export const requests: RequestListItemModel[] = [
     justification: "create",
     status: "Approved",
     requesterFullName: "Scarlett Roberts",
+    departmentId: 2,
+    siteId: 2,
   },
   {
     guid: "req-0023",
@@ -253,6 +302,8 @@ export const requests: RequestListItemModel[] = [
     justification: "replace",
     status: "Rejected",
     requesterFullName: "Sebastian Turner",
+    departmentId: 1,
+    siteId: 3,
   },
   {
     guid: "req-0024",
@@ -264,6 +315,8 @@ export const requests: RequestListItemModel[] = [
     justification: "create",
     status: "Pending",
     requesterFullName: "Grace Phillips",
+    departmentId: 4,
+    siteId: 4,
   },
   {
     guid: "req-0025",
@@ -275,6 +328,8 @@ export const requests: RequestListItemModel[] = [
     justification: "create",
     status: "Pending",
     requesterFullName: "Daniel Campbell",
+    departmentId: 5,
+    siteId: 5,
   },
   {
     guid: "req-0026",
@@ -286,6 +341,8 @@ export const requests: RequestListItemModel[] = [
     justification: "create",
     status: "Pending",
     requesterFullName: "Chloe Parker",
+    departmentId: 2,
+    siteId: 6,
   },
   {
     guid: "req-0027",
@@ -297,6 +354,8 @@ export const requests: RequestListItemModel[] = [
     justification: "replace",
     status: "Approved",
     requesterFullName: "Matthew Evans",
+    departmentId: 3,
+    siteId: 7,
   },
   {
     guid: "req-0028",
@@ -308,6 +367,8 @@ export const requests: RequestListItemModel[] = [
     justification: "seasonal_work",
     status: "Pending",
     requesterFullName: "Zoey Edwards",
+    departmentId: 3,
+    siteId: 8,
   },
   {
     guid: "req-0029",
@@ -319,6 +380,8 @@ export const requests: RequestListItemModel[] = [
     justification: "create",
     status: "Pending",
     requesterFullName: "Samuel Collins",
+    departmentId: 1,
+    siteId: 9,
   },
   {
     guid: "req-0030",
@@ -330,6 +393,8 @@ export const requests: RequestListItemModel[] = [
     justification: "create",
     status: "Approved",
     requesterFullName: "Victoria Stewart",
+    departmentId: 4,
+    siteId: 10,
   },
   {
     guid: "req-0031",
@@ -341,6 +406,8 @@ export const requests: RequestListItemModel[] = [
     justification: "replace",
     status: "Pending",
     requesterFullName: "Nathan Sanchez",
+    departmentId: 6,
+    siteId: 1,
   },
   {
     guid: "req-0032",
@@ -352,6 +419,8 @@ export const requests: RequestListItemModel[] = [
     justification: "create",
     status: "Pending",
     requesterFullName: "Hannah Morris",
+    departmentId: 2,
+    siteId: 2,
   },
   {
     guid: "req-0033",
@@ -363,6 +432,8 @@ export const requests: RequestListItemModel[] = [
     justification: "replace",
     status: "Approved",
     requesterFullName: "Andrew Rogers",
+    departmentId: 5,
+    siteId: 3,
   },
   {
     guid: "req-0034",
@@ -374,5 +445,7 @@ export const requests: RequestListItemModel[] = [
     justification: "create",
     status: "Pending",
     requesterFullName: "Aria Reed",
+    departmentId: 3,
+    siteId: 4,
   },
 ];

@@ -63,10 +63,10 @@ const RequestForm = ({
     endDate: z.coerce.date({
       required_error: `${t("requests.endDate")} ${t("common.isRequired")}`,
     }),
-    site: string().min(1, `${t("requests.site")} ${t("common.isRequired")}`),
+    site: string().min(1, `${t("common.site")} ${t("common.isRequired")}`),
     department: string().min(
       1,
-      `${t("requests.department")} ${t("common.isRequired")}`
+      `${t("common.department")} ${t("common.isRequired")}`
     ),
     desiredProfile: string().min(
       1,
@@ -168,6 +168,8 @@ const RequestForm = ({
         view: {
           setLoading,
           setRequestDetails: (requestDetails) => {
+            console.log(requestDetails);
+
             form.reset({
               contractType: requestDetails?.contractType || "",
               startDate: requestDetails?.startDate || new Date(),
@@ -211,23 +213,25 @@ const RequestForm = ({
             )}
           />
 
-          <FormField
-            control={form.control}
-            name="numberOfProfiles"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t("requests.numberOfProfiles")}</FormLabel>
-                <FormControl>
-                  <Input
-                    type="number"
-                    disabled={loading || state?.contractId}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          {!contractDetails && (
+            <FormField
+              control={form.control}
+              name="numberOfProfiles"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t("requests.numberOfProfiles")}</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="number"
+                      disabled={loading || state?.contractId}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
 
           <FormField
             control={form.control}

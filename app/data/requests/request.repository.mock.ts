@@ -3,6 +3,7 @@ import { getEnvironment } from "../environment";
 import { requests } from "./requests";
 import type { ListResponseModel } from "../utils/GetUsersListResponseModel";
 import type { RequestListItemModel } from "./model/response/RequestModel";
+import type { RequestDetailsModel } from "./model/request/RequestDetailsModel";
 
 const { RequestsAPI } = getEnvironment();
 const { base, endpoints } = RequestsAPI;
@@ -77,6 +78,19 @@ export const RequestRepositoryMock = [
 
     const requestDetails = requests.find((req) => req.guid === guid);
 
+    const responseDto: RequestDetailsModel = {
+      contractType: requestDetails?.contractType || "",
+      endDate: new Date(requestDetails?.endDate || ""),
+      startDate: new Date(requestDetails?.startDate || ""),
+      guid: requestDetails?.guid || "",
+      contractGuid: "",
+      siteId: requestDetails?.siteId || 0,
+      departmentId: requestDetails?.departmentId || 0,
+      desiredProfile: requestDetails?.desiredProfile || "",
+      justification: requestDetails?.justification || "",
+      numberOfProfiles: 1,
+    };
+
     if (!requestDetails) {
       return HttpResponse.json("Request not found", {
         status: 404,
@@ -85,7 +99,7 @@ export const RequestRepositoryMock = [
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    return HttpResponse.json(requestDetails, {
+    return HttpResponse.json(responseDto, {
       status: 200,
     });
   }),

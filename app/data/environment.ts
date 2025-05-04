@@ -56,6 +56,7 @@ export const getEnvironment = () => {
         save: "/save",
         close: "/close?guid=<guid>",
         extend: "/extend?guid=<guid>&newEndDate=<newEndDate>",
+        details: "/getDetails?guid=<guid>",
       },
     },
   };

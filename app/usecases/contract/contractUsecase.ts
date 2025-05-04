@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { contractHttpRepository } from "@/data/contracts/contract.repository";
 import type {
   ContractUseCaseInterface,
+  GetContractDetailsView,
   GetListView,
   LoadingView,
   SaveContractView,
@@ -11,6 +12,7 @@ import type {
 import type { ContractDetailsModel } from "@/data/contracts/model/response/ContractDetailsModel";
 import type { ListPaginationRequestModel } from "@/data/utils/ListPaginationRequestModel";
 import type { ExtendContractRequestModel } from "@/data/contracts/model/request/ExtendContractRequestModel";
+import type { GetContractDetailsRequestModel } from "@/data/contracts/model/request/GetContractDetailsRequestModel";
 
 export const useContractUsecase = (): ContractUseCaseInterface => {
   const { t } = useTranslation();
@@ -100,10 +102,31 @@ export const useContractUsecase = (): ContractUseCaseInterface => {
     }
   };
 
+  const getContractDetails = async ({
+    request,
+    view,
+  }: {
+    request: GetContractDetailsRequestModel;
+    view: GetContractDetailsView;
+  }) => {
+    view.setLoading(true);
+    try {
+      const response = await contractHttpRepository.GetContractDetails(request);
+      view.setContractDetails(response);
+    } catch (error) {
+      toast.error(t("contracts.errors.listFetch.title"), {
+        description: t("contracts.errors.listFetch.description"),
+      });
+    } finally {
+      view.setLoading(false);
+    }
+  };
+
   return {
     saveContract,
     getList,
     closeContract,
     extendContract,
+    getContractDetails,
   };
 };

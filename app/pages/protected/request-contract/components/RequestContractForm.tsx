@@ -71,9 +71,9 @@ const ContractContractForm = ({
       endDate: new Date(data.endDate),
       startDate: new Date(data.startDate),
       contractType: data.contractType,
-      providerFirstName: data.providerFirstName,
-      providerLastName: data.providerLastName,
-      providerEmail: data.providerEmail,
+      contractedFirstName: data.providerFirstName,
+      contractedLastName: data.providerLastName,
+      contractedEmail: data.providerEmail,
       cvFile: data.cvFile || null,
 
       requestGuid: requestGuid,
@@ -92,9 +92,9 @@ const ContractContractForm = ({
       contractType: values.contractType,
       endDate: new Date(values.endDate),
       startDate: new Date(values.startDate),
-      providerFirstName: values.providerFirstName,
-      providerLastName: values.providerLastName,
-      providerEmail: values.providerEmail,
+      contractedFirstName: values.providerFirstName,
+      contractedLastName: values.providerLastName,
+      contractedEmail: values.providerEmail,
       requestGuid: requestGuid,
       cvFile: values.cvFile || null,
     };
@@ -171,7 +171,7 @@ const ContractContractForm = ({
               <FormLabel>{t("contracts.providerFirstName")}</FormLabel>
               <FormControl>
                 <Input
-                  defaultValue={contractDetails?.providerFirstName}
+                  defaultValue={contractDetails?.contractedFirstName}
                   {...field}
                 />
               </FormControl>
@@ -188,7 +188,7 @@ const ContractContractForm = ({
               <FormLabel>{t("contracts.providerLastName")}</FormLabel>
               <FormControl>
                 <Input
-                  defaultValue={contractDetails?.providerLastName}
+                  defaultValue={contractDetails?.contractedLastName}
                   {...field}
                 />
               </FormControl>
@@ -206,7 +206,7 @@ const ContractContractForm = ({
               <FormControl>
                 <Input
                   type="email"
-                  defaultValue={contractDetails?.providerEmail}
+                  defaultValue={contractDetails?.contractedEmail}
                   {...field}
                 />
               </FormControl>

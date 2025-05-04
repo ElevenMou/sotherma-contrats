@@ -5,6 +5,7 @@ import type { ContractDetailsModel } from "./model/response/ContractDetailsModel
 import type { ListPaginationRequestModel } from "../utils/ListPaginationRequestModel";
 import type { ListResponseModel } from "../utils/GetUsersListResponseModel";
 import type { ContractListItemModel } from "./model/response/ContractListItemModel";
+import type { GetContractDetailsRequestModel } from "./model/request/GetContractDetailsRequestModel";
 
 // HttpService instance
 const httpService = HttpService.getInstance();
@@ -27,9 +28,9 @@ class ContractHttpRepository implements IContractRepository {
       );
       formData.append("endDate", contract.endDate.toISOString().split("T")[0]);
       formData.append("contractType", contract.contractType);
-      formData.append("providerFirstName", contract.providerFirstName);
-      formData.append("providerLastName", contract.providerLastName);
-      formData.append("providerEmail", contract.providerEmail);
+      formData.append("providerFirstName", contract.contractedFirstName);
+      formData.append("providerLastName", contract.contractedLastName);
+      formData.append("providerEmail", contract.contractedEmail);
       formData.append("cvFile", contract.cvFile);
 
       await httpService.post(url, formData, {
@@ -75,6 +76,20 @@ class ContractHttpRepository implements IContractRepository {
         newEndDate: new Date(newEndDate).toISOString().split("T")[0],
       });
       await httpService.post(url);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async GetContractDetails(
+    request: GetContractDetailsRequestModel
+  ): Promise<ContractDetailsModel> {
+    try {
+      const url = generateUrl(`${base}${endpoints.details}`, {
+        guid: request.guid,
+      });
+      const response = await httpService.get(url);
+      return response;
     } catch (error) {
       throw error;
     }

@@ -195,6 +195,7 @@
     "providerFirstName": "Candidate First Name",
     "providerLastName": "Candidate Last Name",
     "providerEmail": "Candidate Email",
+    "details": "Contract Details",
     "confirmExtend": {
       "title": "Confirmer la prolongation",
       "description": "Enter the new end date for the contract."

@@ -10,6 +10,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import Loading from "@/components/layout/Loading";
 import type { Route } from "./+types/request-details";
 import RequestForm from "./components/RequestForm";
+import { useRequestUsecase } from "@/usecases/request/requestUsecase";
+import type { RequestDetailsModel } from "@/data/requests/model/request/RequestDetailsModel";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -22,18 +24,20 @@ export default function RequestDetails({ params }: Route.ComponentProps) {
   const { t } = useTranslation();
   const [loading, setLoading] = useState<boolean>(true);
 
-  const [requestDetails, setRequestDetails] = useState<UserDetailsModel | null>(
-    null
-  );
+  const [requestDetails, setRequestDetails] =
+    useState<RequestDetailsModel | null>(null);
 
-  const handleFetchError = () => {
-    setLoading(false);
-    setRequestDetails(null);
-  };
+  const { getRequestDetails } = useRequestUsecase();
 
   useEffect(() => {
     if (params.id !== "create") {
-      console.log("Fetching request details for id: ", params.id);
+      getRequestDetails({
+        requestGuid: params.id,
+        view: {
+          setLoading,
+          setRequestDetails,
+        },
+      });
     } else {
       setRequestDetails(null);
       setLoading(false);
@@ -58,7 +62,7 @@ export default function RequestDetails({ params }: Route.ComponentProps) {
             ) : loading ? (
               <Skeleton className="h-8 w-40" />
             ) : (
-              `${requestDetails?.firstName} ${requestDetails?.lastName}`
+              `${requestDetails?.desiredProfile} - ${requestDetails?.justification}`
             )}
           </h1>
         </div>
@@ -70,7 +74,7 @@ export default function RequestDetails({ params }: Route.ComponentProps) {
           </div>
         )}
 
-        {!loading && <RequestForm requestDetails={null} />}
+        {!loading && <RequestForm requestDetails={requestDetails} />}
       </div>
     </>
   );

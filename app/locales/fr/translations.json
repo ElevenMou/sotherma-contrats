@@ -196,6 +196,7 @@
     "providerFirstName": "Prénom du candidat",
     "providerLastName": "Nom du candidat",
     "providerEmail": "Email du candidat",
+    "details": "Détails du contrat",
     "confirmExtend": {
       "title": "Confirmer la prolongation",
       "description": "Entrez la nouvelle date de fin pour le contrat."

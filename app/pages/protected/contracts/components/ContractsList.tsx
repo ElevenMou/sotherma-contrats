@@ -18,6 +18,7 @@ import type { ContractListItemModel } from "@/data/contracts/model/response/Cont
 import ExtendContract from "./ExtendContract";
 import { useGlobalContext } from "@/contexts/GlobalContext";
 import { userRoles } from "@/data/users/model/response/CurrentUserInfoResponseModel";
+import { useNavigate } from "react-router";
 
 const MAX_RECORDS = 13;
 
@@ -25,6 +26,7 @@ const ContractsList = () => {
   const { t } = useTranslation();
   const { getList, closeContract } = useContractUsecase();
   const { userInfo } = useGlobalContext();
+  const navigate = useNavigate();
 
   const [constractsList, setContractsList] = useState<ContractListItemModel[]>(
     []
@@ -33,8 +35,15 @@ const ContractsList = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [startIndex, setStartIndex] = useState<number>(0);
 
+  const handleExtendContract = async (contractId: string) => {
+    navigate(`/requests/create`, {
+      state: {
+        contractId: contractId,
+      },
+    });
+  };
+
   const fetchContracts = async () => {
-    setLoading(true);
     await getList({
       request: {
         startIndex: startIndex,
@@ -53,7 +62,6 @@ const ContractsList = () => {
   };
 
   const handleCloseContract = async (contractId: string) => {
-    setLoading(true);
     await closeContract({
       guid: contractId,
       view: {
@@ -78,7 +86,7 @@ const ContractsList = () => {
           <TableHead>{t("contracts.providerLastName")}</TableHead>
           <TableHead>{t("contracts.providerEmail")}</TableHead>
           <TableHead>{t("common.status")}</TableHead>
-          {isHR && <TableHead className="w-[200px]" />}
+          <TableHead className="w-[200px]" />
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -98,33 +106,31 @@ const ContractsList = () => {
             <TableRow key={contract.guid}>
               <TableCell>{formatDateWithoutTime(contract.startDate)}</TableCell>
               <TableCell>{formatDateWithoutTime(contract.endDate)}</TableCell>
-              <TableCell>{contract.providerFirstName}</TableCell>
-              <TableCell>{contract.providerLastName}</TableCell>
-              <TableCell>{contract.providerEmail}</TableCell>
+              <TableCell>{contract.contractedFirstName}</TableCell>
+              <TableCell>{contract.contractedLastName}</TableCell>
+              <TableCell>{contract.contractedEmail}</TableCell>
               <TableCell>
                 {t(`status.${contract?.statusLabel?.toLocaleLowerCase()}`, {
                   defaultValue: contract.statusLabel,
                 })}
               </TableCell>
-              {isHR && (
-                <TableCell className="w-[200px]">
-                  <div className="flex justify-end gap-2">
-                    {contract.statusLabel !== "Closed" && (
-                      <Button
-                        variant="destructive"
-                        onClick={() => handleCloseContract(contract.guid || "")}
-                      >
-                        {t("common.close")}
-                      </Button>
-                    )}
-                    <ExtendContract
-                      contractId={contract.guid || ""}
-                      endDate={new Date(contract.endDate)}
-                      refreshContracts={fetchContracts}
-                    />
-                  </div>
-                </TableCell>
-              )}
+              <TableCell className="w-[200px]">
+                <div className="flex justify-end gap-2">
+                  {isHR && contract.statusLabel !== "Closed" && (
+                    <Button
+                      variant="destructive"
+                      onClick={() => handleCloseContract(contract.guid || "")}
+                    >
+                      {t("common.close")}
+                    </Button>
+                  )}
+                  <Button
+                    onClick={() => handleExtendContract(contract.guid || "")}
+                  >
+                    {t("common.extend")}
+                  </Button>
+                </div>
+              </TableCell>
             </TableRow>
           ))}
       </TableBody>

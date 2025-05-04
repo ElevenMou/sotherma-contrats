@@ -4,9 +4,10 @@ export interface ContractDetailsModel {
   startDate: Date;
   endDate: Date;
   contractType: string;
-  providerFirstName: string;
-  providerLastName: string;
-  providerEmail: string;
+  contractedFirstName: string;
+  contractedLastName: string;
+  contractedEmail: string;
+  providerEmail?: string;
   statusLabel?: string;
   cvFile: File;
 }

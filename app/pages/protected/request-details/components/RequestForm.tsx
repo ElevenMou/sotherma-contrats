@@ -25,9 +25,13 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import JustificationSelect from "@/components/form/JustificationSelect";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { routes } from "@/lib/router/routes";
 import { DatePicker } from "@/components/form/DatePicker";
+import { useEffect, useState } from "react";
+import { useContractUsecase } from "@/usecases/contract/contractUsecase";
+import type { ContractDetailsModel } from "@/data/contracts/model/response/ContractDetailsModel";
+import ContractDetialsCard from "../../contracts/components/ContractDetialsCard";
 
 const RequestForm = ({
   requestDetails,
@@ -35,8 +39,14 @@ const RequestForm = ({
   requestDetails: RequestDetailsModel | null;
 }) => {
   const { t } = useTranslation();
-  const { saveRequest } = useRequestUsecase();
+  const { saveRequest, getRequestDetails } = useRequestUsecase();
+  const { getContractDetails } = useContractUsecase();
   const navigate = useNavigate();
+  const { state } = useLocation();
+
+  const [contractDetails, setContractDetails] =
+    useState<ContractDetailsModel>();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const requestDetailsSchema = object({
     contractType: string().min(
@@ -73,26 +83,25 @@ const RequestForm = ({
     candidateFirstName: string().optional(),
     candidateLastName: string().optional(),
     cvFile: z.instanceof(File).optional(),
-  }).refine((data) => {
-    const requestDetails: Omit<RequestDetailsModel, "guid"> = {
-      contractType: data.contractType,
-      endDate: new Date(data.endDate),
-      startDate: new Date(data.startDate),
-      siteId: Number(data.site),
-      departmentId: Number(data.department),
-      desiredProfile: data.desiredProfile,
-      justification: data.justification,
-      numberOfProfiles: Number(data.numberOfProfiles),
-      candidateFirstName: data.candidateFirstName || null,
-      candidateLastName: data.candidateLastName || null,
-      cvFile: data.cvFile || null,
-    };
-    return requestDetails;
   });
 
   const form = useForm<z.infer<typeof requestDetailsSchema>>({
     resolver: zodResolver(requestDetailsSchema),
-    defaultValues: {},
+    defaultValues: requestDetails
+      ? {
+          contractType: requestDetails.contractType,
+          startDate: requestDetails.startDate,
+          endDate: requestDetails.endDate,
+          site: String(requestDetails.siteId),
+          department: String(requestDetails.departmentId),
+          desiredProfile: requestDetails.desiredProfile,
+          justification: requestDetails.justification,
+          numberOfProfiles: String(requestDetails.numberOfProfiles),
+          candidateFirstName: requestDetails.candidateFirstName || "",
+          candidateLastName: requestDetails.candidateLastName || "",
+          cvFile: requestDetails.cvFile || undefined,
+        }
+      : {},
   });
 
   async function onSubmit(values: z.infer<typeof requestDetailsSchema>) {
@@ -109,6 +118,7 @@ const RequestForm = ({
       candidateFirstName: values.candidateFirstName || null,
       candidateLastName: values.candidateLastName || null,
       cvFile: values.cvFile || null,
+      contractGuid: state.contractId,
     };
     await saveRequest({
       request: requestData,
@@ -128,236 +138,277 @@ const RequestForm = ({
 
   const minEndDate = () => {
     const startDate = form.watch("startDate");
+
     if (!startDate)
       return new Date(minStartDate().getTime() + 48 * 60 * 60 * 1000);
 
-    const minEndDate = new Date(startDate.getTime() + 48 * 60 * 60 * 1000);
+    const minEndDate = new Date(
+      new Date(startDate).getTime() + 48 * 60 * 60 * 1000
+    );
 
     return minEndDate;
   };
 
+  useEffect(() => {
+    if (state?.contractId) {
+      getContractDetails({
+        request: { guid: state?.contractId },
+        view: {
+          setLoading: setLoading,
+          setContractDetails,
+        },
+      });
+    }
+  }, [state?.contractId]);
+
+  useEffect(() => {
+    if (contractDetails) {
+      getRequestDetails({
+        requestGuid: contractDetails.requestGuid,
+        view: {
+          setLoading,
+          setRequestDetails: (requestDetails) => {
+            form.reset({
+              contractType: requestDetails?.contractType || "",
+              startDate: requestDetails?.startDate || new Date(),
+              endDate: requestDetails?.endDate || new Date(),
+              site: String(requestDetails?.siteId || ""),
+              department: String(requestDetails?.departmentId || ""),
+              desiredProfile: requestDetails?.desiredProfile || "",
+              justification: requestDetails?.justification || "",
+              numberOfProfiles: String(requestDetails?.numberOfProfiles || ""),
+              candidateFirstName: requestDetails?.candidateFirstName || "",
+              candidateLastName: requestDetails?.candidateLastName || "",
+              cvFile: requestDetails?.cvFile || undefined,
+            });
+          },
+        },
+      });
+    }
+  }, [contractDetails]);
+
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 grid grid-cols-1 md:grid-cols-3 gap-4"
-      >
-        <FormField
-          control={form.control}
-          name="desiredProfile"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t("requests.desiredProfile")}</FormLabel>
-              <FormControl>
-                <Input
-                  defaultValue={requestDetails?.desiredProfile}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="numberOfProfiles"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t("requests.numberOfProfiles")}</FormLabel>
-              <FormControl>
-                <Input
-                  type="number"
-                  defaultValue={requestDetails?.numberOfProfiles}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="justification"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t("requests.justification")}</FormLabel>
-              <FormControl>
-                <JustificationSelect
-                  defaultValue={requestDetails?.justification}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="contractType"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t("requests.contractType")}</FormLabel>
-              <FormControl>
-                <ContractTypeSelect
-                  defaultValue={requestDetails?.contractType}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="department"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t("common.department")}</FormLabel>
-              <FormControl>
-                <DepartmentsSelect
-                  defaultValue={String(requestDetails?.departmentId) || ""}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="site"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t("common.site")}</FormLabel>
-              <FormControl>
-                <SitesSelect
-                  defaultValue={String(requestDetails?.siteId) || ""}
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="startDate"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t("common.startDate")}</FormLabel>
-              <FormControl>
-                <DatePicker
-                  minDate={minStartDate()}
-                  date={field.value ?? requestDetails?.startDate}
-                  setDate={field.onChange}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="endDate"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t("common.endDate")}</FormLabel>
-              <FormControl>
-                <DatePicker
-                  minDate={minEndDate()}
-                  date={field.value ?? requestDetails?.endDate}
-                  setDate={field.onChange}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <Accordion
-          type="single"
-          collapsible
-          className="col-span-1 md:col-span-full"
+    <>
+      {contractDetails && (
+        <ContractDetialsCard contractDetails={contractDetails} />
+      )}
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-4 grid grid-cols-1 md:grid-cols-3 gap-4"
         >
-          <AccordionItem value="recomandation">
-            <AccordionTrigger>
-              {t("requests.haveRecomandation")}
-            </AccordionTrigger>
-            <AccordionContent className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <FormField
-                control={form.control}
-                name="candidateFirstName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t("requests.candidateFirstName")}</FormLabel>
-                    <FormControl>
-                      <Input
-                        defaultValue={requestDetails?.candidateFirstName || ""}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+          <FormField
+            control={form.control}
+            name="desiredProfile"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t("requests.desiredProfile")}</FormLabel>
+                <FormControl>
+                  <Input disabled={loading || state?.contractId} {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-              <FormField
-                control={form.control}
-                name="candidateLastName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t("requests.candidateLastName")}</FormLabel>
-                    <FormControl>
-                      <Input
-                        defaultValue={requestDetails?.candidateLastName || ""}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+          <FormField
+            control={form.control}
+            name="numberOfProfiles"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t("requests.numberOfProfiles")}</FormLabel>
+                <FormControl>
+                  <Input
+                    type="number"
+                    disabled={loading || state?.contractId}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
-              <FormField
-                control={form.control}
-                name="cvFile"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t("requests.cvFile")}</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="file"
-                        accept=".pdf,.doc,.docx"
-                        onChange={(e) => {
-                          if (e.target.files && e.target.files[0]) {
-                            field.onChange(e.target.files[0]);
-                          }
-                        }}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </AccordionContent>
-          </AccordionItem>
-        </Accordion>
-        <Button
-          type="submit"
-          className="w-full col-span-1 md:col-span-full"
-          disabled={form.formState.isSubmitting}
-        >
-          {t("common.save")} {form.formState.isSubmitting && <Loading />}
-        </Button>
-      </form>
-    </Form>
+          <FormField
+            control={form.control}
+            name="justification"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t("requests.justification")}</FormLabel>
+                <FormControl>
+                  <JustificationSelect
+                    disabled={loading || state?.contractId}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="contractType"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t("requests.contractType")}</FormLabel>
+                <FormControl>
+                  <ContractTypeSelect
+                    disabled={loading || state?.contractId}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="department"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t("common.department")}</FormLabel>
+                <FormControl>
+                  <DepartmentsSelect
+                    disabled={loading || state?.contractId}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="site"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t("common.site")}</FormLabel>
+                <FormControl>
+                  <SitesSelect
+                    disabled={loading || state?.contractId}
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="startDate"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t("common.startDate")}</FormLabel>
+                <FormControl>
+                  <DatePicker
+                    minDate={minStartDate()}
+                    date={field.value ?? requestDetails?.startDate}
+                    setDate={field.onChange}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="endDate"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{t("common.endDate")}</FormLabel>
+                <FormControl>
+                  <DatePicker
+                    minDate={minEndDate()}
+                    date={field.value ?? requestDetails?.endDate}
+                    setDate={field.onChange}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {!contractDetails && (
+            <Accordion
+              type="single"
+              collapsible
+              className="col-span-1 md:col-span-full"
+            >
+              <AccordionItem value="recomandation">
+                <AccordionTrigger>
+                  {t("requests.haveRecomandation")}
+                </AccordionTrigger>
+                <AccordionContent className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="candidateFirstName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>
+                          {t("requests.candidateFirstName")}
+                        </FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="candidateLastName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t("requests.candidateLastName")}</FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="cvFile"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t("requests.cvFile")}</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="file"
+                            accept=".pdf,.doc,.docx"
+                            onChange={(e) => {
+                              if (e.target.files && e.target.files[0]) {
+                                field.onChange(e.target.files[0]);
+                              }
+                            }}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+          )}
+          <Button
+            type="submit"
+            className="w-full col-span-1 md:col-span-full"
+            disabled={form.formState.isSubmitting}
+          >
+            {t("common.save")} {form.formState.isSubmitting && <Loading />}
+          </Button>
+        </form>
+      </Form>
+    </>
   );
 };
 

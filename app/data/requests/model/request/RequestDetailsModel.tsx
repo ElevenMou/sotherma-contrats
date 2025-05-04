@@ -3,6 +3,7 @@ export interface RequestDetailsModel {
   endDate: Date;
   startDate: Date;
   guid?: string;
+  contractGuid?: string;
   siteId: number;
   departmentId: number;
   desiredProfile: string;

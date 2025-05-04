@@ -36,12 +36,6 @@ const RequestDetailsCard = ({
           </span>
         </div>
         <div className="flex items-center gap-2">
-          <span>{t("requests.desiredStartDate")}</span>
-          <span className="text-muted-foreground">
-            {formatDateWithoutTime(requestDetails.desiredStartDate)}
-          </span>
-        </div>
-        <div className="flex items-center gap-2">
           <span>{t("requests.desiredProfile")}</span>
           <span className="text-muted-foreground">
             {requestDetails.desiredProfile}

@@ -9,6 +9,28 @@ const { base, endpoints } = ContractsAPI;
 const baseUrl = `${import.meta.env.VITE_API_URL}/${base}`;
 
 export const ContractRepositoryMock = [
+  http.get(`${baseUrl}${endpoints.list}`, ({ request }) => {
+    const searchParams = new URL(request.url).searchParams;
+    const startIndex = parseInt(searchParams.get("startIndex") || "0", 10);
+    const maxRecords = parseInt(searchParams.get("maxRecords") || "10", 10);
+
+    const paginatedContracts = contracts.slice(
+      startIndex,
+      startIndex + maxRecords
+    );
+
+    const totalRecords = contracts.length;
+
+    const response: ListResponseModel<ContractListItemModel, "contractList"> = {
+      contractList: paginatedContracts,
+      totalCount: totalRecords,
+    };
+
+    return HttpResponse.json(response, {
+      status: 200,
+    });
+  }),
+
   http.post(`${baseUrl}${endpoints.save}`, () => {
     return HttpResponse.json("Contract saved successfully", {
       status: 200,
@@ -61,6 +83,24 @@ export const ContractRepositoryMock = [
 
   http.post(`${baseUrl}${endpoints.extend}`, () => {
     return HttpResponse.json("Contract extended successfully", {
+      status: 200,
+    });
+  }),
+
+  http.get(`${baseUrl}${endpoints.details}`, ({ request }) => {
+    const searchParams = new URL(request.url).searchParams;
+    const guid = searchParams.get("guid") || "";
+
+    const contract = contracts.find((contract) => contract.guid === guid);
+
+    if (!contract) {
+      return HttpResponse.json(
+        { error: "Contract not found" },
+        { status: 404 }
+      );
+    }
+
+    return HttpResponse.json(contract, {
       status: 200,
     });
   }),

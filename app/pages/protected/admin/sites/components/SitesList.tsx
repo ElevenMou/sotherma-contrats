@@ -64,7 +64,7 @@ const SitesList = () => {
         {!loading &&
           sites?.length > 0 &&
           sites.map((site) => (
-            <TableRow className="cursor-pointer hover:bg-muted/50">
+            <TableRow className="hover:bg-muted/50">
               <TableCell>{site.code}</TableCell>
               <TableCell>{site.name}</TableCell>
               <TableCell className="text-right">

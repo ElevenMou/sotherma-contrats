@@ -1,4 +1,5 @@
 import type { ExtendContractRequestModel } from "@/data/contracts/model/request/ExtendContractRequestModel";
+import type { GetContractDetailsRequestModel } from "@/data/contracts/model/request/GetContractDetailsRequestModel";
 import type { ContractDetailsModel } from "@/data/contracts/model/response/ContractDetailsModel";
 import type { ContractListItemModel } from "@/data/contracts/model/response/ContractListItemModel";
 import type { ListPaginationRequestModel } from "@/data/utils/ListPaginationRequestModel";
@@ -14,6 +15,11 @@ export interface GetListView {
 }
 
 export interface LoadingView {
+  setLoading: (loading: boolean) => void;
+}
+
+export interface GetContractDetailsView {
+  setContractDetails: (contractDetails: ContractDetailsModel) => void;
   setLoading: (loading: boolean) => void;
 }
 
@@ -46,5 +52,13 @@ export interface ContractUseCaseInterface {
     request,
   }: {
     request: ExtendContractRequestModel;
+  }) => Promise<void>;
+
+  getContractDetails: ({
+    request,
+    view,
+  }: {
+    request: GetContractDetailsRequestModel;
+    view: GetContractDetailsView;
   }) => Promise<void>;
 }

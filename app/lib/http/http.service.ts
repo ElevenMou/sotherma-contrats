@@ -62,15 +62,6 @@ class HttpService {
           config.headers.Authorization = `Bearer ${token}`;
         }
 
-        if (import.meta.env.DEV) {
-          console.log(
-            "☁ HTTP Request",
-            config.method,
-            config.url,
-            config.data ? config.data : ""
-          );
-        }
-
         return config;
       },
       (error) => Promise.reject(error)
@@ -79,10 +70,6 @@ class HttpService {
     // Response interceptor
     this.client.interceptors.response.use(
       (response) => {
-        if (import.meta.env.DEV) {
-          console.log("☁ HTTP Response", response.data, response.status);
-        }
-
         return response;
       },
       (error) => {

@@ -47,11 +47,11 @@ const DelegationsSelect = ({
   useEffect(() => {
     if (defaultValue) {
       const selectedSite = delegations.find(
-        (delegation) => delegation.userId === defaultValue
+        (delegation) => delegation.userId === Number(defaultValue)
       );
 
       if (selectedSite) {
-        onChange(selectedSite.userId);
+        onChange(String(selectedSite.userId));
       }
     }
   }, [delegations]);
@@ -63,9 +63,7 @@ const DelegationsSelect = ({
         <Select
           onValueChange={handleChangeLanguage}
           disabled={disabled}
-          defaultValue={delegations
-            .find((delegation) => delegation.userId === defaultValue)
-            ?.userId?.toString()}
+          defaultValue={defaultValue}
           i18nIsDynamicList={true}
           name="delegation"
         >
@@ -74,7 +72,10 @@ const DelegationsSelect = ({
           </SelectTrigger>
           <SelectContent>
             {delegations.map((delegation) => (
-              <SelectItem key={delegation.userId} value={delegation.userId}>
+              <SelectItem
+                key={delegation.userId}
+                value={String(delegation.userId)}
+              >
                 {delegation.fullName}
               </SelectItem>
             ))}

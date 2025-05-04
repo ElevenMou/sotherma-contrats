@@ -1,4 +1,4 @@
 export interface DelegationUserModel {
-  userId: string;
+  userId: number;
   fullName: string;
 }

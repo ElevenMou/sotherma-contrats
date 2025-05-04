@@ -48,7 +48,7 @@ const SitesSelect = ({
     if (defaultValue) {
       const selectedSite = sites.find((site) => site.id === defaultValue);
       if (selectedSite) {
-        onChange(selectedSite.id);
+        onChange(String(selectedSite.id));
       }
     }
   }, [sites]);

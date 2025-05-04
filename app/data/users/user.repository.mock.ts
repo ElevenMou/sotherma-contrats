@@ -19,7 +19,7 @@ export const UserRepositoryMock = [
       firstName: "Moussa",
       lastName: "Saidi",
       email: "moussa.saidi.01@gmail.com",
-      profile: userRoles.hr,
+      profile: userRoles.admin,
       delegated: false,
     };
 
@@ -86,7 +86,7 @@ export const UserRepositoryMock = [
 
   http.get(`${baseUrl}${endpoints.delegationUsers}`, async () => {
     const responseDto: DelegationUserModel[] = employees.map((user) => ({
-      userId: user.guid || "",
+      userId: Number(user.guid) || 0,
       fullName: `${user.firstName} ${user.lastName}`,
     }));
     await new Promise((resolve) => setTimeout(resolve, 1000));

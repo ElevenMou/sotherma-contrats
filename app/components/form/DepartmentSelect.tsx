@@ -24,7 +24,9 @@ const DepartmentsSelect = ({
   const { t } = useTranslation();
   const { getAllDepartments } = useDepartmentUseCase();
 
-  const [departments, setDepartments] = useState<DepartmentSlectItemModel[]>([]);
+  const [departments, setDepartments] = useState<DepartmentSlectItemModel[]>(
+    []
+  );
   const [loading, setLoading] = useState<boolean>(true);
 
   const handleChangeLanguage = (selectedLanguage: string) => {
@@ -51,7 +53,7 @@ const DepartmentsSelect = ({
       );
 
       if (selectedSite) {
-        onChange(selectedSite.id);
+        onChange(String(selectedSite.id));
       }
     }
   }, [departments]);

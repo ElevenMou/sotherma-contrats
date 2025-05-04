@@ -275,6 +275,7 @@
     "first_validator": "Premier validateur",
     "second_validator": "Deuxième validateur",
     "hr": "RH",
+    "provider_email": "Email du prestataire",
     "errors": {
       "listFetch": {
         "title": "Erreur de récupération",

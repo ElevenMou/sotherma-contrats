@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import type {
   GetRequestDetailsView,
   GetRequestsListView,
+  GetRequestTimelineView,
   RequestUseCaseInterface,
   SaveRequestView,
 } from "./requestUsecase.interface";
@@ -141,6 +142,28 @@ export const useRequestUsecase = (): RequestUseCaseInterface => {
     }
   };
 
+  const getRequestTimeline = async ({
+    requestGuid,
+    view,
+  }: {
+    requestGuid: string;
+    view: GetRequestTimelineView;
+  }) => {
+    view.setLoading(true);
+    try {
+      const response = await requestHttpRepository.GetRequestTimeline(
+        requestGuid
+      );
+      view.setRequestTimeline(response);
+    } catch (error) {
+      toast.error(t("requests.errors.listFetch.title"), {
+        description: t("requests.errors.listFetch.description"),
+      });
+    } finally {
+      view.setLoading(false);
+    }
+  };
+
   return {
     getRequestsList,
     getRequestsListToValidate,
@@ -148,5 +171,6 @@ export const useRequestUsecase = (): RequestUseCaseInterface => {
     rejectRequest,
     saveRequest,
     getRequestDetails,
+    getRequestTimeline,
   };
 };

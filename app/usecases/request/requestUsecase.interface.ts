@@ -1,5 +1,6 @@
 import type { ChangeRequestStatusModel } from "@/data/requests/model/request/ChangeRequestStatusModel";
 import type { RequestDetailsModel } from "@/data/requests/model/request/RequestDetailsModel";
+import type { RequestTimeLineModel } from "@/data/requests/model/response/RequestTimeLineModel";
 import type { ListPaginationRequestModel } from "@/data/utils/ListPaginationRequestModel";
 
 export interface GetRequestsListView {
@@ -13,6 +14,11 @@ export interface SaveRequestView {
 export interface GetRequestDetailsView {
   setLoading: (loading: boolean) => void;
   setRequestDetails: (requestDetails: RequestDetailsModel) => void;
+}
+
+export interface GetRequestTimelineView {
+  setLoading: (loading: boolean) => void;
+  setRequestTimeline: (requestTimeline: RequestTimeLineModel[]) => void;
 }
 
 export interface RequestUseCaseInterface {
@@ -57,5 +63,13 @@ export interface RequestUseCaseInterface {
   }: {
     requestGuid: string;
     view: GetRequestDetailsView;
+  }) => Promise<void>;
+
+  getRequestTimeline: ({
+    requestGuid,
+    view,
+  }: {
+    requestGuid: string;
+    view: GetRequestTimelineView;
   }) => Promise<void>;
 }

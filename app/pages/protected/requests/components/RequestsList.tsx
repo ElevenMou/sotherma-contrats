@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { Check, X } from "lucide-react";
 import RejectRequest from "./RejectRequest";
 import { formatDateWithoutTime } from "@/lib/utils";
+import { useNavigate } from "react-router";
 
 const MAX_RECORDS = 13;
 
@@ -26,6 +27,7 @@ const RequestsList = () => {
   const [loading, setLoading] = useState(true);
   const { requestsToValidate, requestsToValidateCount } = useRequestsContext();
   const [startIndex, setStartIndex] = useState(0);
+  const navigate = useNavigate();
 
   const fetchRequests = async () => {
     setLoading(true);
@@ -51,6 +53,10 @@ const RequestsList = () => {
 
   const handlePageChange = (page: number) => {
     setStartIndex((page - 1) * MAX_RECORDS);
+  };
+
+  const handleRowClick = (requestId: string) => {
+    navigate(`/requests/${requestId}`);
   };
 
   useEffect(() => {
@@ -87,16 +93,42 @@ const RequestsList = () => {
         {!loading &&
           requestsToValidate.map((request) => (
             <TableRow key={request.guid}>
-              <TableCell>{request.desiredProfile}</TableCell>
-              <TableCell>{request.department}</TableCell>
-              <TableCell>
+              <TableCell
+                onClick={() => handleRowClick(request.guid)}
+                className="cursor-pointer"
+              >
+                {request.desiredProfile}
+              </TableCell>
+              <TableCell
+                onClick={() => handleRowClick(request.guid)}
+                className="cursor-pointer"
+              >
+                {request.department}
+              </TableCell>
+              <TableCell
+                onClick={() => handleRowClick(request.guid)}
+                className="cursor-pointer"
+              >
                 {t(`contracts.${request.contractType}`, {
                   defaultValue: request.contractType,
                 })}
               </TableCell>
-              <TableCell>{formatDateWithoutTime(request.startDate)}</TableCell>
-              <TableCell>{formatDateWithoutTime(request.endDate)}</TableCell>
-              <TableCell>
+              <TableCell
+                onClick={() => handleRowClick(request.guid)}
+                className="cursor-pointer"
+              >
+                {formatDateWithoutTime(request.startDate)}
+              </TableCell>
+              <TableCell
+                onClick={() => handleRowClick(request.guid)}
+                className="cursor-pointer"
+              >
+                {formatDateWithoutTime(request.endDate)}
+              </TableCell>
+              <TableCell
+                onClick={() => handleRowClick(request.guid)}
+                className="cursor-pointer"
+              >
                 {t(`justifications.${request.justification}`, {
                   defaultValue: request.justification,
                 })}
@@ -106,14 +138,22 @@ const RequestsList = () => {
                   defaultValue: request.status,
                 })}
               </TableCell>
-              <TableCell>{request.requesterFullName}</TableCell>
+              <TableCell
+                onClick={() => handleRowClick(request.guid)}
+                className="cursor-pointer"
+              >
+                {request.requesterFullName}
+              </TableCell>
               <TableCell className="w-[100px]">
                 <RejectRequest requestId={request.guid} />
                 <Button
                   size="icon"
                   variant="default"
                   className="ml-2"
-                  onClick={() => handleAcceptRequest(request.guid)}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleAcceptRequest(request.guid);
+                  }}
                 >
                   <Check className="h-4 w-4" />
                 </Button>

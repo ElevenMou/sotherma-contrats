@@ -2,6 +2,7 @@ import type { ListResponseModel } from "../utils/GetUsersListResponseModel";
 import type { ListPaginationRequestModel } from "../utils/ListPaginationRequestModel";
 import type { RequestDetailsModel } from "./model/request/RequestDetailsModel";
 import type { RequestListItemModel } from "./model/response/RequestModel";
+import type { RequestTimeLineModel } from "./model/response/RequestTimeLineModel";
 
 export interface IRequestRepository {
   GetListByUser(
@@ -19,4 +20,6 @@ export interface IRequestRepository {
   SaveRequest(request: RequestDetailsModel): Promise<void>;
 
   GetRequestDetails(requestGuid: string): Promise<RequestDetailsModel>;
+
+  GetRequestTimeline(requestGuid: string): Promise<RequestTimeLineModel[]>;
 }

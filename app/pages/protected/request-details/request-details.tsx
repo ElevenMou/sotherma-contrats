@@ -12,6 +12,7 @@ import type { Route } from "./+types/request-details";
 import RequestForm from "./components/RequestForm";
 import { useRequestUsecase } from "@/usecases/request/requestUsecase";
 import type { RequestDetailsModel } from "@/data/requests/model/request/RequestDetailsModel";
+import RequestReview from "./components/RequestReview";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -23,26 +24,23 @@ export function meta({}: Route.MetaArgs) {
 export default function RequestDetails({ params }: Route.ComponentProps) {
   const { t } = useTranslation();
   const [loading, setLoading] = useState<boolean>(true);
+  const { requestId } = params;
 
-  const [requestDetails, setRequestDetails] =
-    useState<RequestDetailsModel | null>(null);
+  const [requestDetails, setRequestDetails] = useState<RequestDetailsModel>();
 
   const { getRequestDetails } = useRequestUsecase();
 
   useEffect(() => {
-    if (params.id !== "create") {
+    if (requestId !== "create") {
       getRequestDetails({
-        requestGuid: params.id,
+        requestGuid: requestId,
         view: {
           setLoading,
           setRequestDetails,
         },
       });
-    } else {
-      setRequestDetails(null);
-      setLoading(false);
     }
-  }, [params.id]);
+  }, [requestId]);
   return (
     <>
       <header className="flex h-16 shrink-0 items-center gap-2">
@@ -57,12 +55,17 @@ export default function RequestDetails({ params }: Route.ComponentProps) {
             className="mr-2 h-4 w-[1px] bg-ring"
           />
           <h1>
-            {params.id === "create" ? (
+            {requestId === "create" ? (
               t("requests.add_request")
             ) : loading ? (
               <Skeleton className="h-8 w-40" />
             ) : (
-              `${requestDetails?.desiredProfile} - ${requestDetails?.justification}`
+              `${requestDetails?.desiredProfile} - ${t(
+                `justifications.${requestDetails?.justification}`,
+                {
+                  defaultValue: requestDetails?.justification,
+                }
+              )}`
             )}
           </h1>
         </div>
@@ -74,7 +77,13 @@ export default function RequestDetails({ params }: Route.ComponentProps) {
           </div>
         )}
 
-        {!loading && <RequestForm requestDetails={requestDetails} />}
+        {!loading && requestId === "create" && (
+          <RequestForm requestDetails={requestDetails} />
+        )}
+
+        {!loading && requestId !== "create" && (
+          <RequestReview requestDetails={requestDetails} />
+        )}
       </div>
     </>
   );

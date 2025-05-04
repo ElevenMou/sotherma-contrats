@@ -57,7 +57,15 @@ const RejectRequest = ({ requestId }: { requestId: string }) => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <Button size="icon" variant="destructive" asChild>
+      <Button
+        onClick={(e) => {
+          e.stopPropagation();
+          setOpen(true);
+        }}
+        size="icon"
+        variant="destructive"
+        asChild
+      >
         <DialogTrigger>
           <X className="h-4 w-4" />
         </DialogTrigger>

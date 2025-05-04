@@ -46,6 +46,7 @@ export const getEnvironment = () => {
         rejectRequest: "/reject",
         saveRequest: "/save",
         requestDetails: "/details?guid=<guid>",
+        timeline: "/timeline?guid=<guid>",
       },
     },
     ContractsAPI: {

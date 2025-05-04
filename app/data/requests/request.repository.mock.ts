@@ -4,6 +4,7 @@ import { requests } from "./requests";
 import type { ListResponseModel } from "../utils/GetUsersListResponseModel";
 import type { RequestListItemModel } from "./model/response/RequestModel";
 import type { RequestDetailsModel } from "./model/request/RequestDetailsModel";
+import type { RequestTimeLineModel } from "./model/response/RequestTimeLineModel";
 
 const { RequestsAPI } = getEnvironment();
 const { base, endpoints } = RequestsAPI;
@@ -100,6 +101,41 @@ export const RequestRepositoryMock = [
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     return HttpResponse.json(responseDto, {
+      status: 200,
+    });
+  }),
+
+  http.get(`${baseUrl}${endpoints.timeline}`, async ({ request }) => {
+    const requestDetails: RequestTimeLineModel[] = [
+      {
+        actionCode: 1,
+        actionLabel: "Create",
+        actionDate: new Date(),
+        actionUser: "User1",
+      },
+      {
+        actionCode: 2,
+        actionLabel: "Approve",
+        actionDate: new Date(),
+        actionUser: "User2",
+      },
+      {
+        actionCode: 3,
+        actionLabel: "Reject",
+        actionDate: new Date(),
+        actionUser: "User3",
+      },
+      {
+        actionCode: 4,
+        actionLabel: "Create Contract",
+        actionDate: new Date(),
+        actionUser: "User4",
+      },
+    ];
+
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    return HttpResponse.json(requestDetails, {
       status: 200,
     });
   }),

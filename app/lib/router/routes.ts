@@ -1,7 +1,7 @@
 export const routes = {
   login: "/",
   requests: "/requests",
-  requestDetails: "/requests/:id",
+  requestDetails: "/requests/:requestId",
   requestContract: "/requests/:requestId/contract",
   employees: "/employees",
   employeeDetails: "/employees/:id",

@@ -5,6 +5,7 @@ import type { ListPaginationRequestModel } from "../utils/ListPaginationRequestM
 import type { ListResponseModel } from "../utils/GetUsersListResponseModel";
 import type { RequestListItemModel } from "./model/response/RequestModel";
 import type { RequestDetailsModel } from "./model/request/RequestDetailsModel";
+import type { RequestTimeLineModel } from "./model/response/RequestTimeLineModel";
 
 // HttpService instance
 const httpService = HttpService.getInstance();
@@ -111,6 +112,19 @@ class RequestHttpRepository implements IRequestRepository {
     });
     try {
       return httpService.get<RequestDetailsModel>(url);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async GetRequestTimeline(
+    requestGuid: string
+  ): Promise<RequestTimeLineModel[]> {
+    const url = generateUrl(`${base}${endpoints.timeline}`, {
+      guid: requestGuid,
+    });
+    try {
+      return httpService.get<RequestTimeLineModel[]>(url);
     } catch (error) {
       throw error;
     }

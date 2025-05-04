@@ -22,7 +22,7 @@
     "hr": "Human Resources",
     "manager": "Manager",
     "requester": "Requester",
-    "hr_deleagate": "HR Delegate"
+    "hr_delegate": "HR Delegate"
   },
   "errors": {
     "not_found": "The requested page was not found.",

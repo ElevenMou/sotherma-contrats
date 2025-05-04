@@ -22,7 +22,7 @@
     "hr": "Ressources Humaines",
     "manager": "Manager",
     "requester": "Demandeur",
-    "hr_deleagate": "Délégué RH"
+    "hr_delegate": "Délégué RH"
   },
   "errors": {
     "not_found": "La page demandée est introuvable.",

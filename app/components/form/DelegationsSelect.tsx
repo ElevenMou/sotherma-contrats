@@ -8,7 +8,7 @@ import {
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Skeleton } from "../ui/skeleton";
-import { useUserUsecase } from "@/usecases/user/userUsecase";
+import { useUserAdminUsecase } from "@/usecases/user/userUsecase";
 import type { DelegationUserModel } from "@/data/users/model/response/DelegationUserModel";
 
 const DelegationsSelect = ({
@@ -22,7 +22,7 @@ const DelegationsSelect = ({
   onChange: (value: string) => void;
 }) => {
   const { t } = useTranslation();
-  const { getDelegationUsers } = useUserUsecase();
+  const { getDelegationUsers } = useUserAdminUsecase();
 
   const [delegations, setDelegations] = useState<DelegationUserModel[]>([]);
   const [loading, setLoading] = useState<boolean>(true);

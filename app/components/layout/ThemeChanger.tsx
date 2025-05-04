@@ -52,7 +52,12 @@ const ThemeChanger: React.FC = () => {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="ghost" size="icon" aria-label="Change theme">
+        <Button
+          variant="ghost"
+          size="icon"
+          aria-label="Change theme"
+          className="fixed bottom-4 right-4"
+        >
           {theme === "light" ? <Sun /> : <Moon />}
           <VisuallyHidden>Toggle Theme</VisuallyHidden>
         </Button>

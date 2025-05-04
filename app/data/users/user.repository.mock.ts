@@ -94,4 +94,11 @@ export const UserRepositoryMock = [
       status: 200,
     });
   }),
+
+  http.post(`${baseUrl}${endpoints.setDelegated}`, async ({}) => {
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    return HttpResponse.json("success", {
+      status: 200,
+    });
+  }),
 ];

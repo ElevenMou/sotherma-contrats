@@ -79,6 +79,10 @@
     "employee_site": "Site",
     "employee_department": "Department",
     "employee_delegation": "Delegation",
+    "delegation": {
+      "stopDelegation": "Stop Delegation",
+      "startDelegation": "Start Delegation"
+    },
     "errors": {
       "listFetch": {
         "title": "Fetch Error",
@@ -99,6 +103,10 @@
       "listSites": {
         "title": "Fetch Error",
         "description": "Error fetching the list of sites."
+      },
+      "setDelegated": {
+        "title": "Delegation Error",
+        "description": "Error setting delegation."
       }
     },
     "success": {

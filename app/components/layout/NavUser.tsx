@@ -22,6 +22,7 @@ import ChangeLanguage from "@/lib/localization/components/ChangeLanguage";
 import { useAuthUsecase } from "@/usecases/auth/authUsecase";
 import { useTranslation } from "react-i18next";
 import { useGlobalContext } from "@/contexts/GlobalContext";
+import DelegationChanger from "./DelegationChanger";
 
 export function NavUser() {
   const { isMobile } = useSidebar();
@@ -82,6 +83,10 @@ export function NavUser() {
               <DropdownMenuSeparator />
               <DropdownMenuItem className="p-0">
                 <ChangeLanguage />
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem className="p-0">
+                <DelegationChanger />
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem className="p-0">

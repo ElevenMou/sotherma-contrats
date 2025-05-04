@@ -4,15 +4,19 @@ import type {
   GetDelegationUsersView,
   GetUserDetailsView,
   SaveUserDetailsView,
-  UserUseCaseInterface,
+  SetIsDelegetedView,
+  UserAdminUseCaseInterface,
+  UserPublicUseCaseInterface,
 } from "./userUsecase.interface";
 import type { ListPaginationRequestModel } from "@/data/utils/ListPaginationRequestModel";
 import { userHttpRepository } from "@/data/users/user.repository";
 import { useEmployeesContext } from "@/pages/protected/admin/employees/contexts/EmployeesProvider";
 import type { GetUserDetailsRequestModel } from "@/data/users/model/request/GetUserDetailsRequestModel";
 import type { UserDetailsModel } from "@/data/users/model/response/UserDetailsModel";
+import type { SetIsDelegetedRequestModel } from "@/data/users/model/request/SetIsDelegetedRequestModel";
+import { useGlobalContext } from "@/contexts/GlobalContext";
 
-export const useUserUsecase = (): UserUseCaseInterface => {
+export const useUserAdminUsecase = (): UserAdminUseCaseInterface => {
   const { t } = useTranslation();
   const ctx = useEmployeesContext();
 
@@ -111,5 +115,41 @@ export const useUserUsecase = (): UserUseCaseInterface => {
     }
   };
 
-  return { getUsersList, getUserDetails, saveUserDetails, getDelegationUsers };
+  return {
+    getUsersList,
+    getUserDetails,
+    saveUserDetails,
+    getDelegationUsers,
+  };
+};
+
+export const useUserPublicUsecase = (): UserPublicUseCaseInterface => {
+  const { t } = useTranslation();
+  const ctx = useGlobalContext();
+
+  const setIsDelegated = async ({
+    request,
+    view,
+  }: {
+    request: SetIsDelegetedRequestModel;
+    view: SetIsDelegetedView;
+  }) => {
+    try {
+      view.setLoading(true);
+      await userHttpRepository.SetIsDelegated(request);
+      const res = await userHttpRepository.GetCurrentUserInfo();
+      ctx.setUserInfo(res);
+      view.onSuccess();
+    } catch (error) {
+      toast.error(t("employees.errors.setDelegated.title"), {
+        description: t("employees.errors.setDelegated.description"),
+      });
+    } finally {
+      view.setLoading(false);
+    }
+  };
+
+  return {
+    setIsDelegated,
+  };
 };

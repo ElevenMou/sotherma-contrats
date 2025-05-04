@@ -6,7 +6,7 @@ import { routes } from "@/lib/router/routes";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import type { UserDetailsModel } from "@/data/users/model/response/UserDetailsModel";
-import { useUserUsecase } from "@/usecases/user/userUsecase";
+import { useUserAdminUsecase } from "@/usecases/user/userUsecase";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import Loading from "@/components/layout/Loading";
@@ -22,7 +22,7 @@ export function meta({}: Route.MetaArgs) {
 export default function EmployeeDetails({ params }: Route.ComponentProps) {
   const { t } = useTranslation();
   const [loading, setLoading] = useState<boolean>(true);
-  const { getUserDetails } = useUserUsecase();
+  const { getUserDetails } = useUserAdminUsecase();
 
   const [employeeDetails, setEmployeeDetails] =
     useState<UserDetailsModel | null>(null);

@@ -3,6 +3,7 @@ import type { ListPaginationRequestModel } from "@/data/utils/ListPaginationRequ
 import type { UserDetailsModel } from "@/data/users/model/response/UserDetailsModel";
 import type React from "react";
 import type { DelegationUserModel } from "@/data/users/model/response/DelegationUserModel";
+import type { SetIsDelegetedRequestModel } from "@/data/users/model/request/SetIsDelegetedRequestModel";
 
 export interface GetUserDetailsView {
   setLoading: (loading: boolean) => void;
@@ -20,7 +21,12 @@ export interface GetDelegationUsersView {
     React.SetStateAction<DelegationUserModel[]>
   >;
 }
-export interface UserUseCaseInterface {
+
+export interface SetIsDelegetedView {
+  setLoading: (loading: boolean) => void;
+  onSuccess: () => void;
+}
+export interface UserAdminUseCaseInterface {
   getUsersList: ({
     request,
   }: {
@@ -47,5 +53,15 @@ export interface UserUseCaseInterface {
     view,
   }: {
     view: GetDelegationUsersView;
+  }) => Promise<void>;
+}
+
+export interface UserPublicUseCaseInterface {
+  setIsDelegated: ({
+    request,
+    view,
+  }: {
+    request: SetIsDelegetedRequestModel;
+    view: SetIsDelegetedView;
   }) => Promise<void>;
 }

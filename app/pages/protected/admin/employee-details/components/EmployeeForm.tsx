@@ -17,7 +17,7 @@ import { useTranslation } from "react-i18next";
 import DepartmentsSelect from "@/components/form/DepartmentSelect";
 import SitesSelect from "@/components/form/SiteSelect";
 import RoleSelect from "@/components/form/RoleSelect";
-import { useUserUsecase } from "@/usecases/user/userUsecase";
+import { useUserAdminUsecase } from "@/usecases/user/userUsecase";
 import { useNavigate } from "react-router";
 import { routes } from "@/lib/router/routes";
 import { userRoles } from "@/data/users/model/response/CurrentUserInfoResponseModel";
@@ -29,7 +29,7 @@ const EmployeeForm = ({
   employeeDetails: UserDetailsModel | null;
 }) => {
   const { t } = useTranslation();
-  const { saveUserDetails } = useUserUsecase();
+  const { saveUserDetails } = useUserAdminUsecase();
   const navigate = useNavigate();
 
   const employeeDetailsSchema = object({

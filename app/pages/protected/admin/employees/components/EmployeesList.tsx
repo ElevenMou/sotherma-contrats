@@ -8,7 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useUserUsecase } from "@/usecases/user/userUsecase";
+import { useUserAdminUsecase } from "@/usecases/user/userUsecase";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
@@ -21,7 +21,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 const EmployeesList = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { getUsersList } = useUserUsecase();
+  const { getUsersList } = useUserAdminUsecase();
 
   const { employees, totalCount, loading } = useEmployeesContext();
   const [startIndex, setStartIndex] = useState(0);

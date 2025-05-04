@@ -14,6 +14,7 @@ export const getEnvironment = () => {
         userDetails: "/details?guid=<guid>",
         save: "/save",
         delegationUsers: "/get-delegation-users",
+        setDelegated: "/set-is-delegated",
       },
     },
     DepartmentsAPI: {

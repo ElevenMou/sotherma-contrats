@@ -13,7 +13,7 @@ export const userRoles = {
   manager: "manager",
   hr: "hr",
   requester: "requester",
-  hr_deleagate: "hr_deleagate",
+  hr_deleagate: "hr_delegate",
 };
 
 export type UserRole = EnumToType<keyof typeof userRoles>;

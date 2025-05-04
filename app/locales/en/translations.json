@@ -135,6 +135,12 @@
     "cvFile": "CV File",
     "details": "Request Details",
     "recommendation": "Recommendation",
+    "actions": {
+      "Create": "Create",
+      "Approve": "Approve",
+      "Reject": "Reject",
+      "Create Contract": "Create Contract"
+    },
     "tab": {
       "activeRequests": "My Pending Requests",
       "completedRequests": "My Validated Requests"

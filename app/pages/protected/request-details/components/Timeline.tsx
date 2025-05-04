@@ -1,6 +1,49 @@
+import type { RequestTimeLineModel } from "@/data/requests/model/response/RequestTimeLineModel";
+import { formatDate } from "@/lib/utils";
+import { useRequestUsecase } from "@/usecases/request/requestUsecase";
 import Stepper from "@keyvaluesystems/react-stepper";
+import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
-const Timeline = () => {
+const Timeline = ({ requestGuid }: { requestGuid: string }) => {
+  const [timeline, setTimeline] = useState<RequestTimeLineModel[]>();
+  const [loading, setLoading] = useState<boolean>(true);
+  const { getRequestTimeline } = useRequestUsecase();
+  const { t } = useTranslation();
+
+  useEffect(() => {
+    getRequestTimeline({
+      requestGuid,
+      view: {
+        setLoading,
+        setRequestTimeline: (timeline) => {
+          setTimeline(timeline);
+        },
+      },
+    });
+  }, [requestGuid]);
+
+  const getStepLabel = (step: RequestTimeLineModel) => {
+    return t(`requests.actions.${step.actionLabel}`);
+  };
+
+  const getStepDescription = (step: RequestTimeLineModel) => {
+    return step.actionDate
+      ? `${formatDate(step.actionDate!)}: ${step.actionUser}`
+      : t("status.pending");
+  };
+
+  const getStepCompleted = (step: RequestTimeLineModel) => {
+    return step.actionDate ? true : false;
+  };
+
+  const getCurrentStepIndex = () => {
+    const currentStepIndex = timeline?.findIndex((step) => {
+      return step.actionDate === null;
+    });
+    return currentStepIndex !== -1 ? currentStepIndex : 0;
+  };
+
   const styles = {
     LineSeparator: () => ({
       backgroundColor: "#5fbcff",
@@ -13,30 +56,22 @@ const Timeline = () => {
     }),
   };
   return (
-    <Stepper
-      steps={[
-        {
-          stepLabel: "Step 1",
-          stepDescription: "This is Step 1",
-          completed: true,
-        },
-        {
-          stepLabel: "Step 2",
-          stepDescription: "This is Step 2",
-          completed: false,
-        },
-        {
-          stepLabel: "Step 3",
-          stepDescription: "This is Step 3",
-          completed: false,
-        },
-      ]}
-      currentStepIndex={1}
-      orientation="horizontal"
-      labelPosition="bottom"
-      styles={styles}
-      showDescriptionsForAllSteps
-    />
+    !loading && (
+      <Stepper
+        steps={
+          timeline?.map((step) => ({
+            stepLabel: getStepLabel(step),
+            stepDescription: getStepDescription(step),
+            completed: getStepCompleted(step),
+          })) ?? []
+        }
+        currentStepIndex={getCurrentStepIndex()}
+        orientation="horizontal"
+        labelPosition="bottom"
+        styles={styles}
+        showDescriptionsForAllSteps
+      />
+    )
   );
 };
 

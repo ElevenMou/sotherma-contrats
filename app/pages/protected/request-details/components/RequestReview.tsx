@@ -32,7 +32,7 @@ export default function RequestReview({
 
   return (
     <>
-      <Timeline />
+      {requestDetails.guid && <Timeline requestGuid={requestDetails.guid} />}
       {requestDetails.contractGuid && contractDetails && !loading && (
         <ContractDetialsCard contractDetails={contractDetails} />
       )}

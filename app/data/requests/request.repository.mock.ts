@@ -122,14 +122,14 @@ export const RequestRepositoryMock = [
       {
         actionCode: 3,
         actionLabel: "Reject",
-        actionDate: new Date(),
-        actionUser: "User3",
+        actionDate: null,
+        actionUser: null,
       },
       {
         actionCode: 4,
         actionLabel: "Create Contract",
-        actionDate: new Date(),
-        actionUser: "User4",
+        actionDate: null,
+        actionUser: null,
       },
     ];
 

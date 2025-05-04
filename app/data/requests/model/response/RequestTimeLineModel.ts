@@ -1,6 +1,6 @@
 export interface RequestTimeLineModel {
   actionCode: number;
   actionLabel: string;
-  actionDate: Date;
-  actionUser: string;
+  actionDate: Date | null;
+  actionUser: string | null;
 }

@@ -122,8 +122,8 @@ export const RequestRepositoryMock = [
       {
         actionCode: 3,
         actionLabel: "Reject",
-        actionDate: null,
-        actionUser: null,
+        actionDate: new Date(),
+        actionUser: "user 3",
       },
       {
         actionCode: 4,

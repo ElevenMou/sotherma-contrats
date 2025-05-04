@@ -2,6 +2,7 @@ import type { RequestTimeLineModel } from "@/data/requests/model/response/Reques
 import { formatDate } from "@/lib/utils";
 import { useRequestUsecase } from "@/usecases/request/requestUsecase";
 import Stepper from "@keyvaluesystems/react-stepper";
+import { fail } from "assert";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -34,12 +35,16 @@ const Timeline = ({ requestGuid }: { requestGuid: string }) => {
   };
 
   const getStepCompleted = (step: RequestTimeLineModel) => {
-    return step.actionDate ? true : false;
+    return step.actionDate && step.actionCode !== 3 ? true : false;
   };
 
   const getCurrentStepIndex = () => {
-    const currentStepIndex = timeline?.findIndex((step) => {
-      return step.actionDate === null;
+    const currentStepIndex = timeline?.findIndex((step, index) => {
+      if (step.actionDate === null) {
+        const previousStep = timeline[index - 1];
+        return !previousStep || previousStep.actionCode !== 3;
+      }
+      return false;
     });
     return currentStepIndex !== -1 ? currentStepIndex : 0;
   };
@@ -63,6 +68,7 @@ const Timeline = ({ requestGuid }: { requestGuid: string }) => {
             stepLabel: getStepLabel(step),
             stepDescription: getStepDescription(step),
             completed: getStepCompleted(step),
+            failed: step.actionCode === 3,
           })) ?? []
         }
         currentStepIndex={getCurrentStepIndex()}

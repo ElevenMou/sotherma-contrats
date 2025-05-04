@@ -134,6 +134,7 @@
     "candidateLastName": "Nom du candidat",
     "cvFile": "Fichier CV",
     "details": "Détails de la demande",
+    "recommendation": "Recommandation",
     "tab": {
       "activeRequests": "Mes demandes en cours",
       "completedRequests": "Mes demandes validées"

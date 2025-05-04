@@ -16,6 +16,24 @@ const RequestDetailsCard = ({
       </CardHeader>
       <CardContent className="grid gap-4 grid-cols-1 md:grid-cols-3">
         <div className="flex items-center gap-2">
+          <span>{t("common.site")}</span>
+          <span className="text-muted-foreground">{requestDetails.site}</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span>{t("common.department")}</span>
+          <span className="text-muted-foreground">
+            {requestDetails.department}
+          </span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span>{t("requests.contractType")}</span>
+          <span className="text-muted-foreground">
+            {t(`contracts.${requestDetails.contractType}`, {
+              defaultValue: requestDetails.contractType,
+            })}
+          </span>
+        </div>
+        <div className="flex items-center gap-2">
           <span>{t("requests.justification")}</span>
           <span className="text-muted-foreground">
             {t(`justifications.${requestDetails.justification}`, {
@@ -41,7 +59,35 @@ const RequestDetailsCard = ({
             {requestDetails.desiredProfile}
           </span>
         </div>
+        <div className="flex items-center gap-2">
+          <span>{t("requests.numberOfProfiles")}</span>
+          <span className="text-muted-foreground">
+            {requestDetails.numberOfProfiles}
+          </span>
+        </div>
       </CardContent>
+      {requestDetails.candidateFirstName &&
+        requestDetails.candidateLastName && (
+          <>
+            <CardHeader>
+              <CardTitle>{t("requests.recommendation")}</CardTitle>
+            </CardHeader>
+            <CardContent className="grid gap-4 grid-cols-1 md:grid-cols-3">
+              <div className="flex items-center gap-2">
+                <span>{t("common.firstName")}</span>
+                <span className="text-muted-foreground">
+                  {requestDetails.candidateFirstName}
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span>{t("common.lastName")}</span>
+                <span className="text-muted-foreground">
+                  {requestDetails.candidateLastName}
+                </span>
+              </div>
+            </CardContent>
+          </>
+        )}
     </Card>
   );
 };

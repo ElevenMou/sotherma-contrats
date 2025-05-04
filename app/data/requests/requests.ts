@@ -4,6 +4,7 @@ export const requests: Array<
   RequestListItemModel & {
     departmentId: number;
     siteId: number;
+    contractGuid?: string;
   }
 > = [
   {
@@ -18,6 +19,7 @@ export const requests: Array<
     requesterFullName: "John Doe",
     departmentId: 1,
     siteId: 1,
+    contractGuid: "guid-0002",
   },
   {
     guid: "req-0002",

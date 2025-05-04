@@ -4,7 +4,6 @@ import { ArrowLeftCircle } from "lucide-react";
 import { routes } from "@/lib/router/routes";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
-import type { UserDetailsModel } from "@/data/users/model/response/UserDetailsModel";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import Loading from "@/components/layout/Loading";
@@ -77,11 +76,9 @@ export default function RequestDetails({ params }: Route.ComponentProps) {
           </div>
         )}
 
-        {!loading && requestId === "create" && (
-          <RequestForm requestDetails={requestDetails} />
-        )}
+        {!loading && requestId === "create" && <RequestForm />}
 
-        {!loading && requestId !== "create" && (
+        {!loading && requestId !== "create" && requestDetails && (
           <RequestReview requestDetails={requestDetails} />
         )}
       </div>

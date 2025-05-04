@@ -134,6 +134,7 @@
     "candidateLastName": "Candidate Last Name",
     "cvFile": "CV File",
     "details": "Request Details",
+    "recommendation": "Recommendation",
     "tab": {
       "activeRequests": "My Pending Requests",
       "completedRequests": "My Validated Requests"

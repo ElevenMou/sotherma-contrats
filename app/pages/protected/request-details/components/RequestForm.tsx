@@ -33,11 +33,7 @@ import { useContractUsecase } from "@/usecases/contract/contractUsecase";
 import type { ContractDetailsModel } from "@/data/contracts/model/response/ContractDetailsModel";
 import ContractDetialsCard from "../../contracts/components/ContractDetialsCard";
 
-const RequestForm = ({
-  requestDetails,
-}: {
-  requestDetails: RequestDetailsModel | null;
-}) => {
+const RequestForm = ({}: {}) => {
   const { t } = useTranslation();
   const { saveRequest, getRequestDetails } = useRequestUsecase();
   const { getContractDetails } = useContractUsecase();
@@ -87,31 +83,16 @@ const RequestForm = ({
 
   const form = useForm<z.infer<typeof requestDetailsSchema>>({
     resolver: zodResolver(requestDetailsSchema),
-    defaultValues: requestDetails
-      ? {
-          contractType: requestDetails.contractType,
-          startDate: requestDetails.startDate,
-          endDate: requestDetails.endDate,
-          site: String(requestDetails.siteId),
-          department: String(requestDetails.departmentId),
-          desiredProfile: requestDetails.desiredProfile,
-          justification: requestDetails.justification,
-          numberOfProfiles: String(requestDetails.numberOfProfiles),
-          candidateFirstName: requestDetails.candidateFirstName || "",
-          candidateLastName: requestDetails.candidateLastName || "",
-          cvFile: requestDetails.cvFile || undefined,
-        }
-      : {},
+    defaultValues: {},
   });
 
   async function onSubmit(values: z.infer<typeof requestDetailsSchema>) {
     const requestData: RequestDetailsModel = {
-      guid: requestDetails?.guid || "",
       contractType: values.contractType,
       endDate: values.endDate,
       startDate: values.startDate,
-      siteId: Number(values.site),
-      departmentId: Number(values.department),
+      site: Number(values.site),
+      department: Number(values.department),
       desiredProfile: values.desiredProfile,
       justification: values.justification,
       numberOfProfiles: Number(values.numberOfProfiles),
@@ -174,8 +155,8 @@ const RequestForm = ({
               contractType: requestDetails?.contractType || "",
               startDate: requestDetails?.startDate || new Date(),
               endDate: requestDetails?.endDate || new Date(),
-              site: String(requestDetails?.siteId || ""),
-              department: String(requestDetails?.departmentId || ""),
+              site: String(requestDetails?.site || ""),
+              department: String(requestDetails?.department || ""),
               desiredProfile: requestDetails?.desiredProfile || "",
               justification: requestDetails?.justification || "",
               numberOfProfiles: String(requestDetails?.numberOfProfiles || ""),
@@ -310,7 +291,7 @@ const RequestForm = ({
                 <FormControl>
                   <DatePicker
                     minDate={minStartDate()}
-                    date={field.value ?? requestDetails?.startDate}
+                    date={field.value}
                     setDate={field.onChange}
                   />
                 </FormControl>
@@ -328,7 +309,7 @@ const RequestForm = ({
                 <FormControl>
                   <DatePicker
                     minDate={minEndDate()}
-                    date={field.value ?? requestDetails?.endDate}
+                    date={field.value}
                     setDate={field.onChange}
                   />
                 </FormControl>

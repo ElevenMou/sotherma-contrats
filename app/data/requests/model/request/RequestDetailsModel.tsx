@@ -4,8 +4,8 @@ export interface RequestDetailsModel {
   startDate: Date;
   guid?: string;
   contractGuid?: string;
-  siteId: number;
-  departmentId: number;
+  site: number;
+  department: number;
   desiredProfile: string;
   justification: string;
   numberOfProfiles: number;

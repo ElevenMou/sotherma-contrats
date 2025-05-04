@@ -105,6 +105,7 @@ const EmployeeForm = ({
       site: values.site,
       email: values.email,
       profile: values.profile,
+      delegationUserId: values.delegationUserId,
     };
     await saveUserDetails({ request: userDetails, view: { onSuccess } });
   }

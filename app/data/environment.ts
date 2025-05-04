@@ -60,6 +60,14 @@ export const getEnvironment = () => {
         details: "/getDetails?guid=<guid>",
       },
     },
+    NotificationsAPI: {
+      base: "notifications",
+      endpoints: {
+        numberOfNotifications: "/user-notifications-number",
+        notificationsList:
+          "/user-notifications?startIndex=<startIndex>&maxRecords=<maxRecords>",
+      },
+    },
   };
 };
 

@@ -10,6 +10,7 @@ import { userHttpRepository } from "@/data/users/user.repository";
 import { RequestsProvider } from "./requests/contexts/RequestsProvider";
 import { SitesProvider } from "./admin/sites/contexts/SitesProvider";
 import { DepartmentsProvider } from "./admin/departments/contexts/DepartmentsProvider";
+import { notificationHttpRepository } from "@/data/notifications/notifications.repository";
 
 export async function clientLoader({}: Route.LoaderArgs) {
   const accessToken = localStorage.getItem(ACCESS_TOKEN_STORAGE_KEY);
@@ -17,8 +18,10 @@ export async function clientLoader({}: Route.LoaderArgs) {
     throw new Response("Unauthorized", { status: 401 });
   }
   try {
-    const res = await userHttpRepository.GetCurrentUserInfo();
-    return res;
+    const userInfo = await userHttpRepository.GetCurrentUserInfo();
+    const numberOfUnreadNotifications =
+      await notificationHttpRepository.GetNumberOfUnreadNotifications();
+    return { userInfo, numberOfUnreadNotifications };
   } catch (error) {
     throw new Response("Unauthorized", { status: 401 });
   }
@@ -33,13 +36,14 @@ export function HydrateFallback() {
 }
 
 const ProtecedLayout = ({ loaderData }: Route.ComponentProps) => {
-  const { setUserInfo } = useGlobalContext();
+  const { setUserInfo, setNumberOfUnreadNotifications } = useGlobalContext();
   const { location } = useNavigation();
   const isNavigating = Boolean(location);
 
   useEffect(() => {
     if (!loaderData) return;
-    setUserInfo(loaderData);
+    setUserInfo(loaderData.userInfo);
+    setNumberOfUnreadNotifications(loaderData.numberOfUnreadNotifications);
   }, [isNavigating]);
 
   return (

@@ -16,6 +16,7 @@ import { NavUser } from "./NavUser";
 import DelegationChanger from "./DelegationChanger";
 import { useGlobalContext } from "@/contexts/GlobalContext";
 import { userRoles } from "@/data/users/model/response/CurrentUserInfoResponseModel";
+import { NotificationsDrawer } from "./NotificationsDrawer";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { userInfo } = useGlobalContext();
@@ -28,9 +29,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavMain />
       </SidebarContent>
       <SidebarFooter>
-        <div className="w-full">
+        <div className="w-full flex flex-col gap-2">
+          <div className="flex items-center justify-between">
+            <NotificationsDrawer />
+            <ThemeChanger />
+          </div>
           {userInfo?.profile === userRoles.hr && <DelegationChanger />}
-          <ThemeChanger />
         </div>
         <NavUser />
       </SidebarFooter>

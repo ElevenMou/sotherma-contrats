@@ -19,7 +19,7 @@ export const UserRepositoryMock = [
       firstName: "Moussa",
       lastName: "Saidi",
       email: "moussa.saidi.01@gmail.com",
-      profile: userRoles.admin,
+      profile: userRoles.hr,
       delegated: false,
     };
 

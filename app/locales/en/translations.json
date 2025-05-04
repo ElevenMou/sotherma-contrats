@@ -14,7 +14,8 @@
     "close": "Close",
     "extend": "Extend",
     "pickDate": "Pick a date",
-    "define": "(Define)"
+    "define": "(Define)",
+    "loadMore": "Load more"
   },
   "roles": {
     "admin": "Administrator",

@@ -6,6 +6,9 @@ export interface GlobalContextModel {
   setUserInfo: React.Dispatch<
     React.SetStateAction<CurrentUserInfoModel | null>
   >;
+
+  numberOfUnreadNotifications: number;
+  setNumberOfUnreadNotifications: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const GlobalContext = createContext<GlobalContextModel | null>(null);
@@ -14,11 +17,16 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [userInfo, setUserInfo] = useState<CurrentUserInfoModel | null>(null);
+  const [numberOfUnreadNotifications, setNumberOfUnreadNotifications] =
+    useState<number>(0);
 
   const value = useMemo(
     () => ({
       userInfo,
       setUserInfo,
+
+      numberOfUnreadNotifications,
+      setNumberOfUnreadNotifications,
     }),
     [userInfo]
   );

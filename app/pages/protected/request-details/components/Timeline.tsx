@@ -29,7 +29,7 @@ const Timeline = ({ requestGuid }: { requestGuid: string }) => {
 
   const getStepDescription = (step: RequestTimeLineModel) => {
     return step.actionDate
-      ? `${formatDate(step.actionDate!)}: ${step.actionUser}`
+      ? `${formatDate(step.actionDate!)} \n ${step.actionUser}`
       : t("status.pending");
   };
 

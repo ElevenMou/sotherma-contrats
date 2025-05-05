@@ -28,7 +28,7 @@ const HrSelect = ({
   };
 
   useEffect(() => {
-    if (defaultValue) {
+    if (defaultValue && usersList.hrList) {
       const selectedHr = usersList.hrList.find(
         (validator) => String(validator.userId) === defaultValue
       );

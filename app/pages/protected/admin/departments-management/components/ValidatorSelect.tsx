@@ -28,7 +28,7 @@ const ValidatorSelect = ({
   };
 
   useEffect(() => {
-    if (defaultValue) {
+    if (defaultValue && usersList.validatorsList) {
       const selectedValidator = usersList.validatorsList.find(
         (validator) => String(validator.userId) === defaultValue
       );

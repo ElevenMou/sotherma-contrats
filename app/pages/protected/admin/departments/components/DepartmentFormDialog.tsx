@@ -57,7 +57,7 @@ const DepartmentFormDialog = ({
     name: string().min(1, {
       message: `${t("departments.department_name")} ${t("common.isRequired")}`,
     }),
-    providerEmail: string().optional(),
+    providerEmail: string().email().optional(),
   });
 
   const form = useForm<z.infer<typeof departmentDetailsSchema>>({

@@ -30,7 +30,6 @@ export function NotificationsDrawer() {
   const [startIndex, setStartIndex] = useState<number>(0);
   const [hasMore, setHasMore] = useState<boolean>(true);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const isMounted = useRef(false);
 
   const handleLoadMore = () => {
     setStartIndex((prev) => prev + MAX_RECORDS);
@@ -61,7 +60,6 @@ export function NotificationsDrawer() {
       setNotifications([]);
       setStartIndex(0);
       setHasMore(true);
-      isMounted.current = false;
     }
   }, [isOpen, startIndex]);
 

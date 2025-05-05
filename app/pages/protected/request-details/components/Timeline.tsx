@@ -2,7 +2,6 @@ import type { RequestTimeLineModel } from "@/data/requests/model/response/Reques
 import { formatDate } from "@/lib/utils";
 import { useRequestUsecase } from "@/usecases/request/requestUsecase";
 import Stepper from "@keyvaluesystems/react-stepper";
-import { fail } from "assert";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -59,7 +58,11 @@ const Timeline = ({ requestGuid }: { requestGuid: string }) => {
     CompletedNode: () => ({
       backgroundColor: "#028A0F",
     }),
+    LabelDescription: () => ({
+      paddingInline: "1rem",
+    }),
   };
+
   return (
     !loading && (
       <Stepper

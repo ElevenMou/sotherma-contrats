@@ -26,6 +26,7 @@ const MyRequestsList = () => {
   const { t } = useTranslation();
   const { getRequestsList } = useRequestUsecase();
   const { userInfo } = useGlobalContext();
+  const navigate = useNavigate();
 
   const [loading, setLoading] = useState(true);
   const { requests, totalCount } = useRequestsContext();
@@ -33,6 +34,10 @@ const MyRequestsList = () => {
 
   const handlePageChange = (page: number) => {
     setStartIndex((page - 1) * MAX_RECORDS);
+  };
+
+  const handleRowClick = (requestId: string) => {
+    navigate(`/requests/${requestId}`);
   };
 
   useEffect(() => {
@@ -86,26 +91,51 @@ const MyRequestsList = () => {
 
         {!loading &&
           requests.map((request) => (
-            <TableRow
-              key={request.guid}
-              // onClick={() => navigate(`/requests/${request.guid}`)}
-              // className="cursor-pointer"
-            >
-              <TableCell>{request.desiredProfile}</TableCell>
-              <TableCell>{request.department}</TableCell>
-              <TableCell>
+            <TableRow key={request.guid}>
+              <TableCell
+                onClick={() => handleRowClick(request.guid)}
+                className="cursor-pointer"
+              >
+                {request.desiredProfile}
+              </TableCell>
+              <TableCell
+                onClick={() => handleRowClick(request.guid)}
+                className="cursor-pointer"
+              >
+                {request.department}
+              </TableCell>
+              <TableCell
+                onClick={() => handleRowClick(request.guid)}
+                className="cursor-pointer"
+              >
                 {t(`contracts.${request.contractType}`, {
                   defaultValue: request.contractType,
                 })}
               </TableCell>
-              <TableCell>{formatDateWithoutTime(request.startDate)}</TableCell>
-              <TableCell>{formatDateWithoutTime(request.endDate)}</TableCell>
-              <TableCell>
+              <TableCell
+                onClick={() => handleRowClick(request.guid)}
+                className="cursor-pointer"
+              >
+                {formatDateWithoutTime(request.startDate)}
+              </TableCell>
+              <TableCell
+                onClick={() => handleRowClick(request.guid)}
+                className="cursor-pointer"
+              >
+                {formatDateWithoutTime(request.endDate)}
+              </TableCell>
+              <TableCell
+                onClick={() => handleRowClick(request.guid)}
+                className="cursor-pointer"
+              >
                 {t(`justifications.${request.justification}`, {
                   defaultValue: request.justification,
                 })}
               </TableCell>
-              <TableCell>
+              <TableCell
+                onClick={() => handleRowClick(request.guid)}
+                className="cursor-pointer"
+              >
                 {t(`status.${request.status.toLocaleLowerCase()}`, {
                   defaultValue: request.status,
                 })}

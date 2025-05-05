@@ -28,7 +28,7 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
       numberOfUnreadNotifications,
       setNumberOfUnreadNotifications,
     }),
-    [userInfo]
+    [userInfo, numberOfUnreadNotifications]
   );
 
   return (

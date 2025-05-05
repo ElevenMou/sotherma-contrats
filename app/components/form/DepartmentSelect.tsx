@@ -49,11 +49,11 @@ const DepartmentsSelect = ({
   useEffect(() => {
     if (defaultValue) {
       const selectedSite = departments.find(
-        (department) => department.name === defaultValue
+        (department) => department.id === defaultValue
       );
 
       if (selectedSite) {
-        onChange(selectedSite.name);
+        onChange(String(selectedSite.id));
       }
     }
   }, [departments]);
@@ -66,7 +66,7 @@ const DepartmentsSelect = ({
           onValueChange={handleChangeLanguage}
           disabled={disabled}
           defaultValue={departments
-            .find((department) => department.name === defaultValue)
+            .find((department) => department.id === defaultValue)
             ?.id?.toString()}
           i18nIsDynamicList={true}
           name="department"

@@ -46,8 +46,10 @@ export default function EmployeeDetails({ params }: Route.ComponentProps) {
           <h1>
             {loading ? (
               <Skeleton className="h-8 w-40" />
-            ) : (
+            ) : departmentManagement ? (
               departmentManagement?.departmentName
+            ) : (
+              t("departments.edit_department")
             )}
           </h1>
         </div>
@@ -59,7 +61,7 @@ export default function EmployeeDetails({ params }: Route.ComponentProps) {
           </div>
         )}
 
-        {!loading && departmentManagement && <DepartmentManagementForm />}
+        {!loading && <DepartmentManagementForm />}
       </div>
     </>
   );

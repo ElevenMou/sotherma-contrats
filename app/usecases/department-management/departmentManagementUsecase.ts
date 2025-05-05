@@ -47,9 +47,7 @@ export const useDepartmentManagementUseCase =
           );
         ctx.setDepartmentManagement(response);
       } catch (error) {
-        toast.error(t("departments.errors.detailsFetch.title"), {
-          description: t("departments.errors.detailsFetch.description"),
-        });
+        ctx.setDepartmentManagement(undefined);
       } finally {
         ctx.setLoading(false);
       }

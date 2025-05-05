@@ -30,7 +30,7 @@ const ValidatorSelect = ({
   useEffect(() => {
     if (defaultValue && usersList.validatorsList) {
       const selectedValidator = usersList.validatorsList.find(
-        (validator) => String(validator.userId) === defaultValue
+        (validator) => String(validator.userId) === String(defaultValue)
       );
 
       if (selectedValidator) {
@@ -46,7 +46,7 @@ const ValidatorSelect = ({
         <Select
           onValueChange={handleChangeLanguage}
           disabled={disabled}
-          defaultValue={defaultValue}
+          defaultValue={String(defaultValue)}
           i18nIsDynamicList={true}
           name="validator"
         >

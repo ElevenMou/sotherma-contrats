@@ -30,7 +30,7 @@ const HrSelect = ({
   useEffect(() => {
     if (defaultValue && usersList.hrList) {
       const selectedHr = usersList.hrList.find(
-        (validator) => String(validator.userId) === defaultValue
+        (validator) => String(validator.userId) === String(defaultValue)
       );
 
       if (selectedHr) {
@@ -46,7 +46,7 @@ const HrSelect = ({
         <Select
           onValueChange={handleChangeLanguage}
           disabled={disabled}
-          defaultValue={defaultValue}
+          defaultValue={String(defaultValue)}
           i18nIsDynamicList={true}
           name="validator"
         >

@@ -22,7 +22,7 @@ export function meta({}: Route.MetaArgs) {
 
 export default function RequestDetails({ params }: Route.ComponentProps) {
   const { t } = useTranslation();
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const { requestId } = params;
 
   const [requestDetails, setRequestDetails] = useState<RequestDetailsModel>();

@@ -37,7 +37,7 @@ const ValidatorSelect = ({
         onChange(String(selectedValidator.userId));
       }
     }
-  }, [usersList.validatorsList, loading]);
+  }, [usersList.validatorsList]);
 
   return (
     <>

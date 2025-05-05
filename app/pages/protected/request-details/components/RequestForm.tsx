@@ -39,6 +39,7 @@ const RequestForm = ({}: {}) => {
   const { getContractDetails } = useContractUsecase();
   const navigate = useNavigate();
   const { state } = useLocation();
+  const { contractId } = state || {};
 
   const [contractDetails, setContractDetails] =
     useState<ContractDetailsModel>();
@@ -99,7 +100,7 @@ const RequestForm = ({}: {}) => {
       candidateFirstName: values.candidateFirstName || null,
       candidateLastName: values.candidateLastName || null,
       cvFile: values.cvFile || null,
-      contractGuid: state.contractId,
+      contractGuid: contractId || undefined,
     };
     await saveRequest({
       request: requestData,

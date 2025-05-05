@@ -43,7 +43,7 @@ export const DepartmentManagementProvider: React.FC<{
       loading,
       setLoading,
     }),
-    [departmentManagement, loading]
+    [departmentManagement, loading, usersList]
   );
 
   return (

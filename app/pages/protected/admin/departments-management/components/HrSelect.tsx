@@ -37,7 +37,7 @@ const HrSelect = ({
         onChange(String(selectedHr.userId));
       }
     }
-  }, [usersList.hrList]);
+  }, [usersList]);
 
   return (
     <>

@@ -55,12 +55,6 @@ export function NotificationsDrawer() {
   };
 
   useEffect(() => {
-    if (isMounted.current && startIndex === 0) return;
-    fetchNotifications();
-    isMounted.current = true;
-  }, [startIndex]);
-
-  useEffect(() => {
     if (isOpen) {
       fetchNotifications();
     } else {
@@ -69,7 +63,7 @@ export function NotificationsDrawer() {
       setHasMore(true);
       isMounted.current = false;
     }
-  }, [isOpen]);
+  }, [isOpen, startIndex]);
 
   return (
     <Drawer direction="right" open={isOpen} onOpenChange={setIsOpen}>

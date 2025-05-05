@@ -29,7 +29,7 @@ const Timeline = ({ requestGuid }: { requestGuid: string }) => {
 
   const getStepDescription = (step: RequestTimeLineModel) => {
     return step.actionDate ? (
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-0.5 items-center justify-center">
         <span> {formatDate(step.actionDate!)}</span>
         <span>{step.actionUser}</span>
       </div>

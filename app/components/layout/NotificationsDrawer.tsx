@@ -22,7 +22,8 @@ const MAX_RECORDS = 10;
 
 export function NotificationsDrawer() {
   const { t } = useTranslation();
-  const { numberOfUnreadNotifications } = useGlobalContext();
+  const { numberOfUnreadNotifications, setNumberOfUnreadNotifications } =
+    useGlobalContext();
   const [notifications, setNotifications] = useState<
     NotificationListItemModel[]
   >([]);
@@ -56,7 +57,14 @@ export function NotificationsDrawer() {
   useEffect(() => {
     if (isOpen) {
       fetchNotifications();
+      setNumberOfUnreadNotifications(0);
     } else {
+      notificationHttpRepository
+        .GetNumberOfUnreadNotifications()
+        .then((count) => {
+          setNumberOfUnreadNotifications(count);
+        });
+
       setNotifications([]);
       setStartIndex(0);
       setHasMore(true);

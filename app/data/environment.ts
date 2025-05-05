@@ -26,6 +26,14 @@ export const getEnvironment = () => {
         details: "/details?guid=<guid>",
       },
     },
+    DepartmentManagementAPI: {
+      base: "department-management",
+      endpoints: {
+        details: "/details?guid=<guid>",
+        save: "/save",
+        getUsersList: "/getUsersList",
+      },
+    },
     SitesAPI: {
       base: "site",
       endpoints: {

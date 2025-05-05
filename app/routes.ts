@@ -40,6 +40,10 @@ export default [
             path: routes.departments,
           },
           {
+            file: "pages/protected/admin/departments-management/departments-management.tsx",
+            path: routes.departmentManagement,
+          },
+          {
             file: "pages/protected/admin/sites/sites.tsx",
             path: routes.sites,
           },

@@ -264,6 +264,7 @@
     "second_validator": "Second Validator",
     "hr": "HR",
     "provider_email": "Provider Email",
+    "selectUser": "Select User",
     "errors": {
       "listFetch": {
         "title": "Fetch Error",

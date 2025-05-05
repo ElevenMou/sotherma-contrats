@@ -3,6 +3,7 @@ import Loading from "@/components/layout/Loading";
 import { useGlobalContext } from "@/contexts/GlobalContext";
 import { userRoles } from "@/data/users/model/response/CurrentUserInfoResponseModel";
 import { EmployeesProvider } from "./employees/contexts/EmployeesProvider";
+import { DepartmentManagementProvider } from "./departments-management/contexts/DepartmentManagementProvider";
 
 const ProtecedAdminLayout = () => {
   const { userInfo } = useGlobalContext();
@@ -34,9 +35,11 @@ const ProtecedAdminLayout = () => {
         </div>
       )}
       {!isNavigating && (
-        <EmployeesProvider>
-          <Outlet />
-        </EmployeesProvider>
+        <DepartmentManagementProvider>
+          <EmployeesProvider>
+            <Outlet />
+          </EmployeesProvider>
+        </DepartmentManagementProvider>
       )}
     </>
   );

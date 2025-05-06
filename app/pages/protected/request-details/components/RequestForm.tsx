@@ -150,8 +150,6 @@ const RequestForm = ({}: {}) => {
         view: {
           setLoading,
           setRequestDetails: (requestDetails) => {
-            console.log(requestDetails);
-
             form.reset({
               contractType: requestDetails?.contractType || "",
               startDate: requestDetails?.startDate || new Date(),
@@ -258,6 +256,7 @@ const RequestForm = ({}: {}) => {
                 <FormControl>
                   <DepartmentsSelect
                     disabled={loading || state?.contractId}
+                    defaultValue={field.value}
                     {...field}
                   />
                 </FormControl>
@@ -275,6 +274,7 @@ const RequestForm = ({}: {}) => {
                 <FormControl>
                   <SitesSelect
                     disabled={loading || state?.contractId}
+                    defaultValue={field.value}
                     {...field}
                   />
                 </FormControl>

@@ -46,7 +46,9 @@ const SitesSelect = ({
 
   useEffect(() => {
     if (defaultValue) {
-      const selectedSite = sites.find((site) => site.id === defaultValue);
+      const selectedSite = sites.find(
+        (site) => String(site.id) === defaultValue || site.name === defaultValue
+      );
       if (selectedSite) {
         onChange(String(selectedSite.id));
       }
@@ -61,7 +63,10 @@ const SitesSelect = ({
           onValueChange={handleChangeLanguage}
           disabled={disabled}
           defaultValue={sites
-            .find((site) => site.id === defaultValue)
+            .find(
+              (site) =>
+                String(site.id) === defaultValue || site.name === defaultValue
+            )
             ?.id?.toString()}
           i18nIsDynamicList={true}
           name="site"

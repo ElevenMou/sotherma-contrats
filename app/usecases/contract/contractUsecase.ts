@@ -47,8 +47,6 @@ export const useContractUsecase = (): ContractUseCaseInterface => {
     try {
       view.setLoading(true);
       const response = await contractHttpRepository.GetList(request);
-      console.log(response);
-
       view.setContractsList(response.contractList);
       view.setTotalCount(response.totalCount);
     } catch (error) {

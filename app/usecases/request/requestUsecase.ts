@@ -112,8 +112,6 @@ export const useRequestUsecase = (): RequestUseCaseInterface => {
       });
       view.navigateToRequestsList();
     } catch (error) {
-      console.log(error);
-
       toast.error(t("requests.errors.saveRequest.title"), {
         description: t("requests.errors.saveRequest.description"),
       });

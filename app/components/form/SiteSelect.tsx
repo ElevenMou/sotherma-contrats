@@ -46,9 +46,9 @@ const SitesSelect = ({
 
   useEffect(() => {
     if (defaultValue) {
-      const selectedSite = sites.find(
-        (site) => String(site.id) === defaultValue || site.name === defaultValue
-      );
+      const selectedSite = sites.find((site) => {
+        return String(site.id) === defaultValue || site.name === defaultValue;
+      });
       if (selectedSite) {
         onChange(String(selectedSite.id));
       }

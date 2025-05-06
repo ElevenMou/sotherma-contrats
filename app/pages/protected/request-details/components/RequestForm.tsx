@@ -174,35 +174,61 @@ const RequestForm = ({}: {}) => {
       {contractDetails && (
         <ContractDetialsCard contractDetails={contractDetails} />
       )}
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-4 grid grid-cols-1 md:grid-cols-3 gap-4"
-        >
-          <FormField
-            control={form.control}
-            name="desiredProfile"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t("requests.desiredProfile")}</FormLabel>
-                <FormControl>
-                  <Input disabled={loading || state?.contractId} {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
 
-          {!contractDetails && (
+      {loading && (
+        <div className="flex h-full w-full items-center justify-center">
+          <Loading />
+        </div>
+      )}
+
+      {!loading && (
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-4 grid grid-cols-1 md:grid-cols-3 gap-4"
+          >
             <FormField
               control={form.control}
-              name="numberOfProfiles"
+              name="desiredProfile"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t("requests.numberOfProfiles")}</FormLabel>
+                  <FormLabel>{t("requests.desiredProfile")}</FormLabel>
                   <FormControl>
-                    <Input
-                      type="number"
+                    <Input disabled={loading || state?.contractId} {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {!contractDetails && (
+              <FormField
+                control={form.control}
+                name="numberOfProfiles"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t("requests.numberOfProfiles")}</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        disabled={loading || state?.contractId}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
+
+            <FormField
+              control={form.control}
+              name="justification"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t("requests.justification")}</FormLabel>
+                  <FormControl>
+                    <JustificationSelect
                       disabled={loading || state?.contractId}
                       {...field}
                     />
@@ -211,189 +237,174 @@ const RequestForm = ({}: {}) => {
                 </FormItem>
               )}
             />
-          )}
 
-          <FormField
-            control={form.control}
-            name="justification"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t("requests.justification")}</FormLabel>
-                <FormControl>
-                  <JustificationSelect
-                    disabled={loading || state?.contractId}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
+            <FormField
+              control={form.control}
+              name="contractType"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t("requests.contractType")}</FormLabel>
+                  <FormControl>
+                    <ContractTypeSelect
+                      disabled={loading || state?.contractId}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="department"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t("common.department")}</FormLabel>
+                  <FormControl>
+                    <DepartmentsSelect
+                      disabled={loading || state?.contractId}
+                      defaultValue={field.value}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="site"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t("common.site")}</FormLabel>
+                  <FormControl>
+                    <SitesSelect
+                      disabled={loading || state?.contractId}
+                      defaultValue={field.value}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="startDate"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t("common.startDate")}</FormLabel>
+                  <FormControl>
+                    <DatePicker
+                      minDate={minStartDate()}
+                      date={field.value}
+                      setDate={field.onChange}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="endDate"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>{t("common.endDate")}</FormLabel>
+                  <FormControl>
+                    <DatePicker
+                      minDate={minEndDate()}
+                      date={field.value}
+                      setDate={field.onChange}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            {!contractDetails && (
+              <Accordion
+                type="single"
+                collapsible
+                className="col-span-1 md:col-span-full"
+              >
+                <AccordionItem value="recomandation">
+                  <AccordionTrigger>
+                    {t("requests.haveRecomandation")}
+                  </AccordionTrigger>
+                  <AccordionContent className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="candidateFirstName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>
+                            {t("requests.candidateFirstName")}
+                          </FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="candidateLastName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>
+                            {t("requests.candidateLastName")}
+                          </FormLabel>
+                          <FormControl>
+                            <Input {...field} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="cvFile"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>{t("requests.cvFile")}</FormLabel>
+                          <FormControl>
+                            <Input
+                              type="file"
+                              accept=".pdf,.doc,.docx"
+                              onChange={(e) => {
+                                if (e.target.files && e.target.files[0]) {
+                                  field.onChange(e.target.files[0]);
+                                }
+                              }}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
             )}
-          />
-
-          <FormField
-            control={form.control}
-            name="contractType"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t("requests.contractType")}</FormLabel>
-                <FormControl>
-                  <ContractTypeSelect
-                    disabled={loading || state?.contractId}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="department"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t("common.department")}</FormLabel>
-                <FormControl>
-                  <DepartmentsSelect
-                    disabled={loading || state?.contractId}
-                    defaultValue={field.value}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="site"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t("common.site")}</FormLabel>
-                <FormControl>
-                  <SitesSelect
-                    disabled={loading || state?.contractId}
-                    defaultValue={field.value}
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="startDate"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t("common.startDate")}</FormLabel>
-                <FormControl>
-                  <DatePicker
-                    minDate={minStartDate()}
-                    date={field.value}
-                    setDate={field.onChange}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="endDate"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t("common.endDate")}</FormLabel>
-                <FormControl>
-                  <DatePicker
-                    minDate={minEndDate()}
-                    date={field.value}
-                    setDate={field.onChange}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          {!contractDetails && (
-            <Accordion
-              type="single"
-              collapsible
-              className="col-span-1 md:col-span-full"
+            <Button
+              type="submit"
+              className="w-full col-span-1 md:col-span-full"
+              disabled={form.formState.isSubmitting}
             >
-              <AccordionItem value="recomandation">
-                <AccordionTrigger>
-                  {t("requests.haveRecomandation")}
-                </AccordionTrigger>
-                <AccordionContent className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <FormField
-                    control={form.control}
-                    name="candidateFirstName"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>
-                          {t("requests.candidateFirstName")}
-                        </FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="candidateLastName"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{t("requests.candidateLastName")}</FormLabel>
-                        <FormControl>
-                          <Input {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-
-                  <FormField
-                    control={form.control}
-                    name="cvFile"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{t("requests.cvFile")}</FormLabel>
-                        <FormControl>
-                          <Input
-                            type="file"
-                            accept=".pdf,.doc,.docx"
-                            onChange={(e) => {
-                              if (e.target.files && e.target.files[0]) {
-                                field.onChange(e.target.files[0]);
-                              }
-                            }}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-          )}
-          <Button
-            type="submit"
-            className="w-full col-span-1 md:col-span-full"
-            disabled={form.formState.isSubmitting}
-          >
-            {t("common.save")} {form.formState.isSubmitting && <Loading />}
-          </Button>
-        </form>
-      </Form>
+              {t("common.save")} {form.formState.isSubmitting && <Loading />}
+            </Button>
+          </form>
+        </Form>
+      )}
     </>
   );
 };

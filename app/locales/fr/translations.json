@@ -200,11 +200,17 @@
     "delete_contract": "Supprimer le contrat",
     "contract_id": "ID du contrat",
     "contract_type": "Type de contrat",
-    "temporary": "Intérimaire",
     "providerFirstName": "Prénom du candidat",
     "providerLastName": "Nom du candidat",
     "providerEmail": "Email du candidat",
     "details": "Détails du contrat",
+    "type": {
+      "temporary": "Temporaire",
+      "tectra": "Tectra",
+      "anapec": "Anapec Stagiaire",
+      "intern": "Stagiaire",
+      "provider": "Prestataire de travail"
+    },
     "confirmExtend": {
       "title": "Confirmer la prolongation",
       "description": "Entrez la nouvelle date de fin pour le contrat."

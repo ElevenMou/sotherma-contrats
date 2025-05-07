@@ -28,7 +28,7 @@ const RequestDetailsCard = ({
         <div className="flex items-center gap-2">
           <span>{t("requests.contractType")}</span>
           <span className="text-muted-foreground">
-            {t(`contracts.${requestDetails.contractType}`, {
+            {t(`contracts.type.${requestDetails.contractType}`, {
               defaultValue: requestDetails.contractType,
             })}
           </span>

@@ -199,11 +199,17 @@
     "edit_contract": "Edit Contract",
     "contract_id": "Contract ID",
     "contract_type": "Contract Type",
-    "temporary": "Temporary",
     "providerFirstName": "Candidate First Name",
     "providerLastName": "Candidate Last Name",
     "providerEmail": "Candidate Email",
     "details": "Contract Details",
+    "type": {
+      "temporary": "Temporary",
+      "tectra": "Tectra",
+      "anapec": "Anapec Intern",
+      "intern": "Intern",
+      "provider": "Work Provider"
+    },
     "confirmExtend": {
       "title": "Confirmer la prolongation",
       "description": "Enter the new end date for the contract."

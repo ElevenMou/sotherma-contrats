@@ -109,7 +109,7 @@ const RequestsList = () => {
                 onClick={() => handleRowClick(request.guid)}
                 className="cursor-pointer"
               >
-                {t(`contracts.${request.contractType}`, {
+                {t(`contracts.type.${request.contractType}`, {
                   defaultValue: request.contractType,
                 })}
               </TableCell>

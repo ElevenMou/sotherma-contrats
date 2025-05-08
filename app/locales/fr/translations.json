@@ -80,6 +80,10 @@
     "employee_site": "Site",
     "employee_department": "Département",
     "employee_delegation": "Délégation",
+    "setStatus": {
+      "disable": "Désactiver",
+      "enable": "Activer"
+    },
     "delegation": {
       "stopDelegation": "Arrêter la délégation",
       "enableDelegation": "Délégation"
@@ -106,6 +110,14 @@
         "description": "Erreur lors de la récupération de la liste des sites."
       },
       "setDelegated": {
+        "title": "Erreur de délégation",
+        "description": "Erreur lors de la définition de la délégation."
+      },
+      "setStatus": {
+        "title": "Erreur de statut",
+        "description": "Erreur lors de la définition du statut de l'employé."
+      },
+      "setDelegation": {
         "title": "Erreur de délégation",
         "description": "Erreur lors de la définition de la délégation."
       }

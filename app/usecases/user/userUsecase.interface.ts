@@ -4,6 +4,7 @@ import type { UserDetailsModel } from "@/data/users/model/response/UserDetailsMo
 import type React from "react";
 import type { DelegationUserModel } from "@/data/users/model/response/DelegationUserModel";
 import type { SetIsDelegetedRequestModel } from "@/data/users/model/request/SetIsDelegetedRequestModel";
+import type { SetActiveStatusRequestModel } from "@/data/users/model/request/SetActiveStatusRequestModel";
 
 export interface GetUserDetailsView {
   setLoading: (loading: boolean) => void;
@@ -24,7 +25,6 @@ export interface GetDelegationUsersView {
 
 export interface SetIsDelegetedView {
   setLoading: (loading: boolean) => void;
-  onSuccess: () => void;
 }
 export interface UserAdminUseCaseInterface {
   getUsersList: ({
@@ -53,6 +53,14 @@ export interface UserAdminUseCaseInterface {
     view,
   }: {
     view: GetDelegationUsersView;
+  }) => Promise<void>;
+
+  setActiveStatus: ({
+    request,
+    view,
+  }: {
+    request: SetActiveStatusRequestModel;
+    view: SetIsDelegetedView;
   }) => Promise<void>;
 }
 

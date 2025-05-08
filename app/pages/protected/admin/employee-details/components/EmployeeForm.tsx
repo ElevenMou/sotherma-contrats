@@ -183,7 +183,7 @@ const EmployeeForm = ({
               <FormLabel>{t("employees.employee_department")}</FormLabel>
               <FormControl>
                 <DepartmentsSelect
-                  defaultValue={employeeDetails?.department}
+                  defaultValue={String(field.value)}
                   {...field}
                 />
               </FormControl>
@@ -195,15 +195,19 @@ const EmployeeForm = ({
         <FormField
           control={form.control}
           name="site"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{t("employees.employee_site")}</FormLabel>
-              <FormControl>
-                <SitesSelect defaultValue={employeeDetails?.site} {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+          render={({ field }) => {
+            console.log(field.value);
+
+            return (
+              <FormItem>
+                <FormLabel>{t("employees.employee_site")}</FormLabel>
+                <FormControl>
+                  <SitesSelect defaultValue={String(field.value)} {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            );
+          }}
         />
 
         <FormField
@@ -213,10 +217,7 @@ const EmployeeForm = ({
             <FormItem>
               <FormLabel>Role</FormLabel>
               <FormControl>
-                <RoleSelect
-                  defaultValue={employeeDetails?.profile}
-                  {...field}
-                />
+                <RoleSelect defaultValue={field.value} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

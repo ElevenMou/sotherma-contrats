@@ -80,6 +80,10 @@
     "employee_site": "Site",
     "employee_department": "Department",
     "employee_delegation": "Delegation",
+    "setStatus": {
+      "disable": "Disable",
+      "enable": "Enable"
+    },
     "delegation": {
       "stopDelegation": "Stop Delegation",
       "startDelegation": "Start Delegation"
@@ -106,6 +110,14 @@
         "description": "Error fetching the list of sites."
       },
       "setDelegated": {
+        "title": "Delegation Error",
+        "description": "Error setting delegation."
+      },
+      "setStatus": {
+        "title": "Status Error",
+        "description": "Error setting status."
+      },
+      "setDelegation": {
         "title": "Delegation Error",
         "description": "Error setting delegation."
       }

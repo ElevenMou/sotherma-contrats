@@ -17,6 +17,7 @@ import {
   useEmployeesContext,
 } from "../contexts/EmployeesProvider";
 import { Skeleton } from "@/components/ui/skeleton";
+import SetActiveStatus from "./SetActiveStatus";
 
 const EmployeesList = () => {
   const navigate = useNavigate();
@@ -54,6 +55,7 @@ const EmployeesList = () => {
           <TableHead>{t("employees.employee_email")}</TableHead>
           <TableHead>{t("employees.employee_site")}</TableHead>
           <TableHead>Role</TableHead>
+          <TableHead />
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -71,21 +73,53 @@ const EmployeesList = () => {
         {!loading &&
           employees?.length > 0 &&
           employees.map((employee) => (
-            <TableRow
-              key={employee.code}
-              onClick={() => navigate(`/employees/${employee.guid}`)}
-              className="cursor-pointer hover:bg-muted/50"
-            >
-              <TableCell>{employee.code}</TableCell>
-              <TableCell>{employee.department}</TableCell>
-              <TableCell>{employee.lastName}</TableCell>
-              <TableCell>{employee.firstName}</TableCell>
-              <TableCell>{employee.email}</TableCell>
-              <TableCell>{employee.site}</TableCell>
+            <TableRow key={employee.code} className="hover:bg-muted/50">
+              <TableCell
+                onClick={() => navigate(`/employees/${employee.guid}`)}
+                className="cursor-pointer"
+              >
+                {employee.code}
+              </TableCell>
+              <TableCell
+                onClick={() => navigate(`/employees/${employee.guid}`)}
+                className="cursor-pointer"
+              >
+                {employee.department}
+              </TableCell>
+              <TableCell
+                onClick={() => navigate(`/employees/${employee.guid}`)}
+                className="cursor-pointer"
+              >
+                {employee.lastName}
+              </TableCell>
+              <TableCell
+                onClick={() => navigate(`/employees/${employee.guid}`)}
+                className="cursor-pointer"
+              >
+                {employee.firstName}
+              </TableCell>
+              <TableCell
+                onClick={() => navigate(`/employees/${employee.guid}`)}
+                className="cursor-pointer"
+              >
+                {employee.email}
+              </TableCell>
+              <TableCell
+                onClick={() => navigate(`/employees/${employee.guid}`)}
+                className="cursor-pointer"
+              >
+                {employee.site}
+              </TableCell>
               <TableCell>
                 {t(`roles.${employee.profile}`, {
                   defaultValue: employee.profile,
                 })}
+              </TableCell>
+              <TableCell>
+                <SetActiveStatus
+                  userGuid={employee.guid || ""}
+                  isDisabled={employee.isDisabled || false}
+                />
               </TableCell>
             </TableRow>
           ))}

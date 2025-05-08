@@ -15,6 +15,7 @@ import type { GetUserDetailsRequestModel } from "@/data/users/model/request/GetU
 import type { UserDetailsModel } from "@/data/users/model/response/UserDetailsModel";
 import type { SetIsDelegetedRequestModel } from "@/data/users/model/request/SetIsDelegetedRequestModel";
 import { useGlobalContext } from "@/contexts/GlobalContext";
+import type { SetActiveStatusRequestModel } from "@/data/users/model/request/SetActiveStatusRequestModel";
 
 export const useUserAdminUsecase = (): UserAdminUseCaseInterface => {
   const { t } = useTranslation();
@@ -102,13 +103,32 @@ export const useUserAdminUsecase = (): UserAdminUseCaseInterface => {
       if (res) {
         view.setDelegationUsers(res);
       } else {
-        toast.error(t("employees.errors.delegationUsersFetch.title"), {
-          description: t("employees.errors.delegationUsersFetch.description"),
+        toast.error(t("employees.errors.setDelegation.title"), {
+          description: t("employees.errors.setDelegation.description"),
         });
       }
     } catch (error) {
-      toast.error(t("employees.errors.delegationUsersFetch.title"), {
-        description: t("employees.errors.delegationUsersFetch.description"),
+      toast.error(t("employees.errors.setDelegation.title"), {
+        description: t("employees.errors.setDelegation.description"),
+      });
+    } finally {
+      view.setLoading(false);
+    }
+  };
+
+  const setActiveStatus = async ({
+    request,
+    view,
+  }: {
+    request: SetActiveStatusRequestModel;
+    view: SetIsDelegetedView;
+  }) => {
+    try {
+      view.setLoading(true);
+      await userHttpRepository.SetActiveStatus(request);
+    } catch (error) {
+      toast.error(t("employees.errors.setStatus.title"), {
+        description: t("employees.errors.setStatus.description"),
       });
     } finally {
       view.setLoading(false);
@@ -120,6 +140,7 @@ export const useUserAdminUsecase = (): UserAdminUseCaseInterface => {
     getUserDetails,
     saveUserDetails,
     getDelegationUsers,
+    setActiveStatus,
   };
 };
 
@@ -139,7 +160,6 @@ export const useUserPublicUsecase = (): UserPublicUseCaseInterface => {
       await userHttpRepository.SetIsDelegated(request);
       const res = await userHttpRepository.GetCurrentUserInfo();
       ctx.setUserInfo(res);
-      view.onSuccess();
     } catch (error) {
       toast.error(t("employees.errors.setDelegated.title"), {
         description: t("employees.errors.setDelegated.description"),

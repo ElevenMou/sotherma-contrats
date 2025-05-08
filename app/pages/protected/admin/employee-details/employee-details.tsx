@@ -21,7 +21,7 @@ export function meta({}: Route.MetaArgs) {
 
 export default function EmployeeDetails({ params }: Route.ComponentProps) {
   const { t } = useTranslation();
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const { getUserDetails } = useUserAdminUsecase();
 
   const [employeeDetails, setEmployeeDetails] =

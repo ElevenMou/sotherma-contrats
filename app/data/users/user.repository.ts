@@ -8,6 +8,7 @@ import type { GetUserDetailsRequestModel } from "./model/request/GetUserDetailsR
 import type { UserDetailsModel } from "./model/response/UserDetailsModel";
 import type { DelegationUserModel } from "./model/response/DelegationUserModel";
 import type { SetIsDelegetedRequestModel } from "./model/request/SetIsDelegetedRequestModel";
+import type { SetActiveStatusRequestModel } from "./model/request/SetActiveStatusRequestModel";
 
 // HttpService instance
 const httpService = HttpService.getInstance();
@@ -78,6 +79,15 @@ class UserHttpRepository implements IUserRepository {
 
   SetIsDelegated(request: SetIsDelegetedRequestModel): Promise<void> {
     const url = `${base}${endpoints.setDelegated}`;
+    try {
+      return httpService.post<void>(url, request);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  SetActiveStatus(request: SetActiveStatusRequestModel): Promise<void> {
+    const url = `${base}${endpoints.setActiveStatus}`;
     try {
       return httpService.post<void>(url, request);
     } catch (error) {

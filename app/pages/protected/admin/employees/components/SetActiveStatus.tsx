@@ -1,21 +1,26 @@
-import { useGlobalContext } from "@/contexts/GlobalContext";
-import { useUserPublicUsecase } from "@/usecases/user/userUsecase";
+import Loading from "@/components/layout/Loading";
+import { Button } from "@/components/ui/button";
+import { useUserAdminUsecase } from "@/usecases/user/userUsecase";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Button } from "../ui/button";
-import Loading from "./Loading";
 
-const DelegationChanger = () => {
+const SetActiveStatus = ({
+  userGuid,
+  isDisabled,
+}: {
+  userGuid: string;
+  isDisabled: boolean;
+}) => {
   const { t } = useTranslation();
-  const { userInfo } = useGlobalContext();
-  const { setIsDelegated } = useUserPublicUsecase();
+  const { setActiveStatus } = useUserAdminUsecase();
 
   const [loading, setLoading] = useState<boolean>(false);
 
   const handleDelegationChange = async () => {
-    await setIsDelegated({
+    await setActiveStatus({
       request: {
-        delegated: !userInfo?.delegated,
+        guid: userGuid,
+        isDisabled: !isDisabled,
       },
       view: {
         setLoading,
@@ -23,14 +28,14 @@ const DelegationChanger = () => {
     });
   };
 
-  return userInfo?.delegated ? (
+  return !isDisabled ? (
     <Button
       variant="destructive"
       className="w-full"
       onClick={handleDelegationChange}
       disabled={loading}
     >
-      {t("employees.delegation.stopDelegation")}
+      {t("employees.setStatus.disable")}
       {loading && <Loading />}
     </Button>
   ) : (
@@ -40,10 +45,10 @@ const DelegationChanger = () => {
       onClick={handleDelegationChange}
       disabled={loading}
     >
-      {t("employees.delegation.enableDelegation")}
+      {t("employees.setStatus.enable")}
       {loading && <Loading />}
     </Button>
   );
 };
 
-export default DelegationChanger;
+export default SetActiveStatus;

@@ -22,7 +22,7 @@ export function meta({}: Route.MetaArgs) {
 
 export default function RequestDetails({ params }: Route.ComponentProps) {
   const { t } = useTranslation();
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const { requestId } = params;
 
   const [requestDetails, setRequestDetails] = useState<RequestDetailsModel>();
@@ -38,6 +38,8 @@ export default function RequestDetails({ params }: Route.ComponentProps) {
           setRequestDetails,
         },
       });
+    } else {
+      setLoading(false);
     }
   }, [requestId]);
   return (

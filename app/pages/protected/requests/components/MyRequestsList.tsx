@@ -19,6 +19,7 @@ import { userRoles } from "@/data/users/model/response/CurrentUserInfoResponseMo
 import { Button } from "@/components/ui/button";
 import { routes } from "@/lib/router/routes";
 import { formatDateWithoutTime } from "@/lib/utils";
+import RequestHistory from "./RequestHistory";
 
 const MAX_RECORDS = 16;
 
@@ -132,13 +133,13 @@ const MyRequestsList = () => {
                   defaultValue: request.justification,
                 })}
               </TableCell>
-              <TableCell
-                onClick={() => handleRowClick(request.guid)}
-                className="cursor-pointer"
-              >
-                {t(`status.${request.status.toLocaleLowerCase()}`, {
-                  defaultValue: request.status,
-                })}
+              <TableCell>
+                <span className="flex justify-between items-center gap-1">
+                  {t(`status.${request.status.toLocaleLowerCase()}`, {
+                    defaultValue: request.status,
+                  })}
+                  <RequestHistory requestGuid={request.guid} />
+                </span>
               </TableCell>
               <TableCell>{request.requesterFullName}</TableCell>
               {userInfo?.profile === userRoles.hr &&

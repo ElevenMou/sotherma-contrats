@@ -18,6 +18,7 @@ import { Check, X } from "lucide-react";
 import RejectRequest from "./RejectRequest";
 import { formatDateWithoutTime } from "@/lib/utils";
 import { useNavigate } from "react-router";
+import RequestHistory from "./RequestHistory";
 
 const MAX_RECORDS = 13;
 
@@ -134,9 +135,12 @@ const RequestsList = () => {
                 })}
               </TableCell>
               <TableCell>
-                {t(`status.${request.status.toLocaleLowerCase()}`, {
-                  defaultValue: request.status,
-                })}
+                <span className="flex justify-between items-center gap-1">
+                  {t(`status.${request.status.toLocaleLowerCase()}`, {
+                    defaultValue: request.status,
+                  })}
+                  <RequestHistory requestGuid={request.guid} />
+                </span>
               </TableCell>
               <TableCell
                 onClick={() => handleRowClick(request.guid)}

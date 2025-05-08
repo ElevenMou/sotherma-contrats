@@ -18,6 +18,7 @@ import ContractTypeSelect from "@/components/form/ContractTypeSelect";
 import { useNavigate } from "react-router";
 import { routes } from "@/lib/router/routes";
 import type { ContractDetailsModel } from "@/data/contracts/model/response/ContractDetailsModel";
+import { DatePicker } from "@/components/form/DatePicker";
 
 const ContractContractForm = ({
   contractDetails,
@@ -31,13 +32,21 @@ const ContractContractForm = ({
   const navigate = useNavigate();
 
   const contractDetailsSchema = object({
-    endDate: string({
-      required_error: `${t("contracts.endDate")} ${t("common.isRequired")}`,
-    }).min(1),
+    endDate: z.coerce
+      .date({
+        required_error: `${t("contracts.endDate")} ${t("common.isRequired")}`,
+      })
+      .min(new Date(), {
+        message: `${t("requests.startDate")} ${t("common.isRequired")}`,
+      }),
 
-    startDate: string({
-      required_error: `${t("common.startDate")} ${t("common.isRequired")}`,
-    }).min(1),
+    startDate: z.coerce
+      .date({
+        required_error: `${t("common.startDate")} ${t("common.isRequired")}`,
+      })
+      .min(new Date(), {
+        message: `${t("requests.startDate")} ${t("common.isRequired")}`,
+      }),
 
     contractType: string({
       required_error: `${t("requests.contractType")} ${t("common.isRequired")}`,
@@ -134,10 +143,10 @@ const ContractContractForm = ({
             <FormItem>
               <FormLabel>{t("common.startDate")}</FormLabel>
               <FormControl>
-                <Input
-                  type="date"
-                  defaultValue={contractDetails?.startDate.toString()}
-                  {...field}
+                <DatePicker
+                  minDate={new Date()}
+                  date={field.value}
+                  setDate={field.onChange}
                 />
               </FormControl>
               <FormMessage />
@@ -152,10 +161,10 @@ const ContractContractForm = ({
             <FormItem>
               <FormLabel>{t("common.endDate")}</FormLabel>
               <FormControl>
-                <Input
-                  type="date"
-                  defaultValue={contractDetails?.endDate.toString()}
-                  {...field}
+                <DatePicker
+                  minDate={new Date(form.watch("startDate"))}
+                  date={field.value}
+                  setDate={field.onChange}
                 />
               </FormControl>
               <FormMessage />

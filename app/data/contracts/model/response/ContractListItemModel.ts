@@ -6,4 +6,5 @@ export interface ContractListItemModel {
   contractedLastName: string;
   contractedEmail: string;
   statusLabel?: string;
+  extendable: boolean;
 }

@@ -124,11 +124,13 @@ const ContractsList = () => {
                       {t("common.close")}
                     </Button>
                   )}
-                  <Button
-                    onClick={() => handleExtendContract(contract.guid || "")}
-                  >
-                    {t("common.extend")}
-                  </Button>
+                  {contract.extendable && (
+                    <Button
+                      onClick={() => handleExtendContract(contract.guid || "")}
+                    >
+                      {t("common.extend")}
+                    </Button>
+                  )}
                 </div>
               </TableCell>
             </TableRow>

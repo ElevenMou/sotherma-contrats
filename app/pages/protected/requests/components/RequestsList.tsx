@@ -14,7 +14,7 @@ import { useTranslation } from "react-i18next";
 import { useRequestsContext } from "../contexts/RequestsProvider";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
-import { Check, X } from "lucide-react";
+import { Check } from "lucide-react";
 import RejectRequest from "./RejectRequest";
 import { formatDateWithoutTime } from "@/lib/utils";
 import { useNavigate } from "react-router";

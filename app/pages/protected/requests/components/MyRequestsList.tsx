@@ -21,7 +21,7 @@ import { routes } from "@/lib/router/routes";
 import { formatDateWithoutTime } from "@/lib/utils";
 import RequestHistory from "./RequestHistory";
 
-const MAX_RECORDS = 16;
+const MAX_RECORDS = 14;
 
 const MyRequestsList = () => {
   const { t } = useTranslation();

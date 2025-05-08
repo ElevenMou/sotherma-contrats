@@ -48,32 +48,30 @@ export default function Requests() {
         </div>
       </header>
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-        {userInfo?.profile !== userRoles.requester &&
-          userInfo?.profile !== userRoles.hr && (
-            <Tabs
-              defaultValue="account"
-              value={activeTab}
-              onValueChange={(value) => setActiveTab(value)}
-            >
-              <TabsList className="w-full">
-                <TabsTrigger value="requests">
-                  {t("requests.tab.activeRequests")}
-                </TabsTrigger>
-                <TabsTrigger value="myRequests">
-                  {t("requests.tab.completedRequests")}
-                </TabsTrigger>
-              </TabsList>
-              <TabsContent value="requests">
-                <RequestsList />
-              </TabsContent>
-              <TabsContent value="myRequests">
-                <MyRequestsList />
-              </TabsContent>
-            </Tabs>
-          )}
+        {userInfo?.profile === userRoles.manager && (
+          <Tabs
+            defaultValue="account"
+            value={activeTab}
+            onValueChange={(value) => setActiveTab(value)}
+          >
+            <TabsList className="w-full">
+              <TabsTrigger value="requests">
+                {t("requests.tab.activeRequests")}
+              </TabsTrigger>
+              <TabsTrigger value="myRequests">
+                {t("requests.tab.completedRequests")}
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="requests">
+              <RequestsList />
+            </TabsContent>
+            <TabsContent value="myRequests">
+              <MyRequestsList />
+            </TabsContent>
+          </Tabs>
+        )}
 
-        {(userInfo?.profile === userRoles.requester ||
-          userInfo?.profile === userRoles.hr) && <MyRequestsList />}
+        {userInfo?.profile !== userRoles.manager && <MyRequestsList />}
       </div>
     </>
   );

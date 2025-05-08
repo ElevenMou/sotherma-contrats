@@ -25,7 +25,13 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { object, string, z } from "zod";
 
-const RejectRequest = ({ requestId }: { requestId: string }) => {
+const RejectRequest = ({
+  requestId,
+  refreshList,
+}: {
+  requestId: string;
+  refreshList: () => void;
+}) => {
   const { t } = useTranslation();
   const { rejectRequest } = useRequestUsecase();
 
@@ -53,6 +59,7 @@ const RejectRequest = ({ requestId }: { requestId: string }) => {
     });
     setOpen(false);
     form.reset();
+    refreshList();
   };
 
   return (

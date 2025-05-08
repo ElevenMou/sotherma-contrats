@@ -31,7 +31,6 @@ const RequestsList = () => {
   const navigate = useNavigate();
 
   const fetchRequests = async () => {
-    setLoading(true);
     await getRequestsListToValidate({
       request: {
         startIndex: startIndex,
@@ -149,7 +148,10 @@ const RequestsList = () => {
                 {request.requesterFullName}
               </TableCell>
               <TableCell className="w-[100px]">
-                <RejectRequest requestId={request.guid} />
+                <RejectRequest
+                  requestId={request.guid}
+                  refreshList={fetchRequests}
+                />
                 <Button
                   size="icon"
                   variant="default"

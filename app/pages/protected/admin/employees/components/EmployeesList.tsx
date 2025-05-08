@@ -126,7 +126,7 @@ const EmployeesList = () => {
       </TableBody>
       <TableFooter>
         <TableRow>
-          <TableCell colSpan={7}>
+          <TableCell colSpan={8}>
             <Pagination
               totalItems={totalCount}
               itemsPerPage={EMPLOYEES_MAX_RECORDS}

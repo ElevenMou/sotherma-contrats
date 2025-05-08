@@ -122,10 +122,10 @@ const RequestForm = ({}: {}) => {
     const startDate = form.watch("startDate");
 
     if (!startDate)
-      return new Date(minStartDate().getTime() + 48 * 60 * 60 * 1000);
+      return new Date(minStartDate().getTime() + 24 * 60 * 60 * 1000);
 
     const minEndDate = new Date(
-      new Date(startDate).getTime() + 48 * 60 * 60 * 1000
+      new Date(startDate).getTime() + 24 * 60 * 60 * 1000
     );
 
     return minEndDate;

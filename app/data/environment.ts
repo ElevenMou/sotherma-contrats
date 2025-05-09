@@ -15,7 +15,7 @@ export const getEnvironment = () => {
         save: "/save",
         delegationUsers: "/get-delegation-users",
         setDelegated: "/set-is-delegated",
-        setActiveStatus: "/set-active-status",
+        setActiveStatus: "/set-is-active",
       },
     },
     DepartmentsAPI: {

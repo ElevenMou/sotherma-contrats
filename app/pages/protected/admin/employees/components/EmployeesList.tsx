@@ -31,16 +31,16 @@ const EmployeesList = () => {
     setStartIndex((page - 1) * EMPLOYEES_MAX_RECORDS);
   };
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      await getUsersList({
-        request: {
-          startIndex: startIndex,
-          maxRecords: EMPLOYEES_MAX_RECORDS,
-        },
-      });
-    };
+  const fetchUsers = async () => {
+    await getUsersList({
+      request: {
+        startIndex: startIndex,
+        maxRecords: EMPLOYEES_MAX_RECORDS,
+      },
+    });
+  };
 
+  useEffect(() => {
     fetchUsers();
   }, [startIndex, EMPLOYEES_MAX_RECORDS]);
 
@@ -119,6 +119,7 @@ const EmployeesList = () => {
                 <SetActiveStatus
                   userGuid={employee.guid || ""}
                   isDisabled={employee.disabled || false}
+                  refreshList={fetchUsers}
                 />
               </TableCell>
             </TableRow>

@@ -7,9 +7,11 @@ import { useTranslation } from "react-i18next";
 const SetActiveStatus = ({
   userGuid,
   isDisabled,
+  refreshList,
 }: {
   userGuid: string;
   isDisabled: boolean;
+  refreshList: () => void;
 }) => {
   const { t } = useTranslation();
   const { setActiveStatus } = useUserAdminUsecase();
@@ -26,6 +28,7 @@ const SetActiveStatus = ({
         setLoading,
       },
     });
+    refreshList();
   };
 
   return !isDisabled ? (

@@ -8,5 +8,5 @@ export interface UserDetailsModel {
   department: string;
   code: string;
   delegationUserId?: string;
-  isDisabled?: boolean;
+  disabled?: boolean;
 }

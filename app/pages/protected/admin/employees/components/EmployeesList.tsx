@@ -118,7 +118,7 @@ const EmployeesList = () => {
               <TableCell>
                 <SetActiveStatus
                   userGuid={employee.guid || ""}
-                  isDisabled={employee.isDisabled || false}
+                  isDisabled={employee.disabled || false}
                 />
               </TableCell>
             </TableRow>

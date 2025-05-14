@@ -47,7 +47,7 @@ const DelegationsSelect = ({
   useEffect(() => {
     if (defaultValue) {
       const selectedDelegation = delegations.find(
-        (delegation) => String(delegation.userId) === defaultValue
+        (delegation) => String(delegation.userId) === String(defaultValue)
       );
 
       if (selectedDelegation) {

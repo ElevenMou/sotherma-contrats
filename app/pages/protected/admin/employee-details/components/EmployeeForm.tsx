@@ -195,19 +195,15 @@ const EmployeeForm = ({
         <FormField
           control={form.control}
           name="site"
-          render={({ field }) => {
-            console.log(field.value);
-
-            return (
-              <FormItem>
-                <FormLabel>{t("employees.employee_site")}</FormLabel>
-                <FormControl>
-                  <SitesSelect defaultValue={String(field.value)} {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            );
-          }}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{t("employees.employee_site")}</FormLabel>
+              <FormControl>
+                <SitesSelect defaultValue={String(field.value)} {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
         />
 
         <FormField

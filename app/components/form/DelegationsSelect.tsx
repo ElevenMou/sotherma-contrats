@@ -45,30 +45,25 @@ const DelegationsSelect = ({
   }, []);
 
   useEffect(() => {
-    console.log(delegations, defaultValue);
-
     if (defaultValue) {
-      const selectedDelegation = delegations.find((delegation) => {
-        console.log(delegation.userId, defaultValue);
-        console.log(String(delegation.userId) === String(defaultValue));
-
-        return String(delegation.userId) === String(defaultValue);
-      });
+      const selectedDelegation = delegations.find(
+        (delegation) => String(delegation.userId) === String(defaultValue)
+      );
 
       if (selectedDelegation) {
         onChange(String(selectedDelegation.userId));
       }
     }
-  }, [delegations]);
+  }, [delegations, defaultValue]);
 
   return (
     <>
       {loading && <Skeleton className="h-9 w-full rounded-md" />}
-      {!loading && (
+      {!loading && delegations && (
         <Select
           onValueChange={handleChangeLanguage}
           disabled={disabled}
-          defaultValue={defaultValue}
+          defaultValue={String(defaultValue)}
           i18nIsDynamicList={true}
           name="delegation"
         >

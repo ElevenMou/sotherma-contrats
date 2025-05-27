@@ -94,17 +94,16 @@ class RequestHttpRepository implements IRequestRepository {
       formData.forEach((value, key) => {
         console.log(`${key}: ${value}`);
       });
-      console.log("request", request);
 
-      // if (request.cvFile) {
-      //   await httpService.post(url, formData, {
-      //     headers: {
-      //       "Content-Type": "multipart/form-data",
-      //     },
-      //   });
-      // } else {
-      //   await httpService.post(url, formData);
-      // }
+      if (request.cvFile) {
+        await httpService.post(url, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+      } else {
+        await httpService.post(url, formData);
+      }
     } catch (error) {
       throw error;
     }

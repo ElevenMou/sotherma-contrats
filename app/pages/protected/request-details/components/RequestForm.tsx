@@ -32,6 +32,7 @@ import { useEffect, useState } from "react";
 import { useContractUsecase } from "@/usecases/contract/contractUsecase";
 import type { ContractDetailsModel } from "@/data/contracts/model/response/ContractDetailsModel";
 import ContractDetialsCard from "../../contracts/components/ContractDetialsCard";
+import { addDays } from "date-fns";
 
 const RequestForm = ({}: {}) => {
   const { t } = useTranslation();
@@ -88,8 +89,6 @@ const RequestForm = ({}: {}) => {
   });
 
   async function onSubmit(values: z.infer<typeof requestDetailsSchema>) {
-    console.log("Form Values:", values);
-
     const requestData: RequestDetailsModel = {
       contractType: values.contractType,
       endDate: values.endDate,
@@ -104,7 +103,6 @@ const RequestForm = ({}: {}) => {
       cvFile: values.cvFile || null,
       contractGuid: contractId || undefined,
     };
-    console.log("Request Data:", requestData);
 
     await saveRequest({
       request: requestData,
@@ -117,7 +115,7 @@ const RequestForm = ({}: {}) => {
     const dayOfWeek = today.getDay();
 
     const daysToAdd = dayOfWeek === 5 || dayOfWeek === 4 ? 4 : 2;
-    const minDate = new Date(today.getTime() + daysToAdd * 24 * 60 * 60 * 1000);
+    const minDate = addDays(today, daysToAdd);
 
     return minDate;
   };
@@ -125,14 +123,9 @@ const RequestForm = ({}: {}) => {
   const minEndDate = () => {
     const startDate = form.watch("startDate");
 
-    if (!startDate)
-      return new Date(minStartDate().getTime() + 24 * 60 * 60 * 1000);
+    if (!startDate) return addDays(minStartDate(), 1);
 
-    const minEndDate = new Date(
-      new Date(startDate).getTime() + 24 * 60 * 60 * 1000
-    );
-
-    return minEndDate;
+    return addDays(startDate, 1);
   };
 
   useEffect(() => {
@@ -156,17 +149,11 @@ const RequestForm = ({}: {}) => {
           setRequestDetails: (requestDetails) => {
             form.reset({
               contractType: requestDetails?.contractType || "",
-              startDate: requestDetails?.endDate
-                ? new Date(
-                    new Date(requestDetails.endDate).getTime() +
-                      24 * 60 * 60 * 1000
-                  )
+              startDate: contractDetails?.endDate
+                ? addDays(contractDetails?.endDate, 1)
                 : new Date(),
-              endDate: requestDetails?.endDate
-                ? new Date(
-                    new Date(requestDetails.endDate).getTime() +
-                      2 * 24 * 60 * 60 * 1000
-                  )
+              endDate: contractDetails?.endDate
+                ? addDays(contractDetails?.endDate, 2)
                 : new Date(),
               site: String(requestDetails?.site || ""),
               department: String(requestDetails?.department || ""),

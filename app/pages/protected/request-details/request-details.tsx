@@ -1,5 +1,5 @@
 import { Separator } from "@radix-ui/react-separator";
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import { ArrowLeftCircle } from "lucide-react";
 import { routes } from "@/lib/router/routes";
 import { useTranslation } from "react-i18next";
@@ -24,6 +24,8 @@ export default function RequestDetails({ params }: Route.ComponentProps) {
   const { t } = useTranslation();
   const [loading, setLoading] = useState<boolean>(true);
   const { requestId } = params;
+  const { state } = useLocation();
+  const { contractId } = state || {};
 
   const [requestDetails, setRequestDetails] = useState<RequestDetailsModel>();
 
@@ -47,7 +49,7 @@ export default function RequestDetails({ params }: Route.ComponentProps) {
       <header className="flex h-16 shrink-0 items-center gap-2">
         <div className="flex items-center gap-2 px-4">
           <Button asChild variant="ghost" size="icon" title={t("common.back")}>
-            <Link to={routes.requests}>
+            <Link to={contractId ? routes.contracts : routes.requests}>
               <ArrowLeftCircle className="size-5" />
             </Link>
           </Button>

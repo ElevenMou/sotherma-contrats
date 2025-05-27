@@ -90,11 +90,6 @@ class RequestHttpRepository implements IRequestRepository {
 
       request.contractGuid &&
         formData.append("contractGuid", request.contractGuid || "");
-
-      formData.forEach((value, key) => {
-        console.log(`${key}: ${value}`);
-      });
-
       if (request.cvFile) {
         await httpService.post(url, formData, {
           headers: {

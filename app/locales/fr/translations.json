@@ -11,7 +11,7 @@
     "site": "Site",
     "department": "Département",
     "status": "Statut",
-    "close": "Fermer",
+    "close": "Résilier",
     "extend": "Prolonger",
     "pickDate": "Choisir une date",
     "define": "(Définir)",
@@ -50,9 +50,9 @@
     "approved": "Approuvé",
     "rejected": "Rejeté",
     "in_progress": "En cours",
-    "completed": "Terminé",
+    "completed": "Complété",
     "active": "Actif",
-    "closed": "Fermé"
+    "closed": "Clôturé"
   },
   "login": {
     "title": "Connectez-vous à votre compte",
@@ -132,15 +132,15 @@
   "requests": {
     "title": "Mes Demandes",
     "add_request": "Ajouter une demande",
-    "desiredProfile": "Profil souhaité",
+    "desiredProfile": "Profil demandé",
     "needFrom": "Besoin à partir de",
     "numberOfProfiles": "Nombre de profils",
     "contractType": "Type de contrat",
     "justification": "Justification",
     "requesterFullName": "Nom du demandeur",
     "desiredStartDate": "Date de début souhaitée",
-    "reject": "Rejeter",
-    "accept": "Accepter",
+    "reject": "Rejeté",
+    "accept": "Accepté",
     "reason": "Raison",
     "haveRecomandation": "Avez-vous une recommandation ?",
     "candidateFirstName": "Prénom du candidat",
@@ -149,9 +149,9 @@
     "details": "Détails de la demande",
     "recommendation": "Recommandation",
     "actions": {
-      "Create": "Créer",
-      "Approve": "Approuver",
-      "Reject": "Rejeter",
+      "Create": "Créé",
+      "Approve": "Approuvé",
+      "Reject": "Rejeté",
       "Create Contract": "Créer un contrat"
     },
     "tab": {

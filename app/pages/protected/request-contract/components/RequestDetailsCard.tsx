@@ -59,12 +59,6 @@ const RequestDetailsCard = ({
             {requestDetails.desiredProfile}
           </span>
         </div>
-        <div className="flex items-center gap-2">
-          <span>{t("requests.numberOfProfiles")}</span>
-          <span className="text-muted-foreground">
-            {requestDetails.numberOfProfiles}
-          </span>
-        </div>
       </CardContent>
       {requestDetails.candidateFirstName &&
         requestDetails.candidateLastName && (

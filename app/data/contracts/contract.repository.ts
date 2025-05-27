@@ -6,6 +6,7 @@ import type { ListPaginationRequestModel } from "../utils/ListPaginationRequestM
 import type { ListResponseModel } from "../utils/GetUsersListResponseModel";
 import type { ContractListItemModel } from "./model/response/ContractListItemModel";
 import type { GetContractDetailsRequestModel } from "./model/request/GetContractDetailsRequestModel";
+import { formatLocalDate } from "@/lib/utils";
 
 // HttpService instance
 const httpService = HttpService.getInstance();
@@ -22,11 +23,8 @@ class ContractHttpRepository implements IContractRepository {
       const formData = new FormData();
       formData.append("guid", contract.guid || "");
       formData.append("requestGuid", contract.requestGuid);
-      formData.append(
-        "startDate",
-        contract.startDate.toISOString().split("T")[0]
-      );
-      formData.append("endDate", contract.endDate.toISOString().split("T")[0]);
+      formData.append("endDate", formatLocalDate(contract.endDate));
+      formData.append("startDate", formatLocalDate(contract.startDate));
       formData.append("contractType", contract.contractType);
       formData.append("providerFirstName", contract.contractedFirstName);
       formData.append("providerLastName", contract.contractedLastName);

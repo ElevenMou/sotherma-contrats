@@ -6,6 +6,7 @@ import type { ListResponseModel } from "../utils/GetUsersListResponseModel";
 import type { RequestListItemModel } from "./model/response/RequestModel";
 import type { RequestDetailsModel } from "./model/request/RequestDetailsModel";
 import type { RequestTimeLineModel } from "./model/response/RequestTimeLineModel";
+import { formatLocalDate } from "@/lib/utils";
 
 // HttpService instance
 const httpService = HttpService.getInstance();
@@ -72,11 +73,9 @@ class RequestHttpRepository implements IRequestRepository {
       const url = `${base}${endpoints.saveRequest}`;
       const formData = new FormData();
       formData.append("contractType", request.contractType);
-      formData.append("endDate", request.endDate.toISOString().split("T")[0]);
-      formData.append(
-        "startDate",
-        request.startDate.toISOString().split("T")[0]
-      );
+      formData.append("endDate", formatLocalDate(request.endDate));
+      formData.append("startDate", formatLocalDate(request.startDate));
+
       formData.append("guid", request.guid || "");
       formData.append("siteId", request.site.toString());
       formData.append("departmentId", request.department.toString());
@@ -92,15 +91,20 @@ class RequestHttpRepository implements IRequestRepository {
       request.contractGuid &&
         formData.append("contractGuid", request.contractGuid || "");
 
-      if (request.cvFile) {
-        await httpService.post(url, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
-      } else {
-        await httpService.post(url, formData);
-      }
+      formData.forEach((value, key) => {
+        console.log(`${key}: ${value}`);
+      });
+      console.log("request", request);
+
+      // if (request.cvFile) {
+      //   await httpService.post(url, formData, {
+      //     headers: {
+      //       "Content-Type": "multipart/form-data",
+      //     },
+      //   });
+      // } else {
+      //   await httpService.post(url, formData);
+      // }
     } catch (error) {
       throw error;
     }

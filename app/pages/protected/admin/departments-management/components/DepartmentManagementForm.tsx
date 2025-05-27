@@ -13,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import Loading from "@/components/layout/Loading";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { routes } from "@/lib/router/routes";
 import type { DepartmentManagementDetailsModel } from "@/data/department-management/model/request/DepartmentManagementDetailsModel";
 import { useDepartmentManagementContext } from "../contexts/DepartmentManagementProvider";
@@ -26,6 +26,7 @@ const DepartmentManagementForm = () => {
   const navigate = useNavigate();
   const { departmentManagement } = useDepartmentManagementContext();
   const { saveDepartmentManagementDetails } = useDepartmentManagementUseCase();
+  const { id } = useParams<"id">();
 
   const departmentManagementSchema = object({
     firstValidatorId: string().min(
@@ -55,7 +56,7 @@ const DepartmentManagementForm = () => {
 
   async function onSubmit(values: z.infer<typeof departmentManagementSchema>) {
     const departmentManagementDetails: DepartmentManagementDetailsModel = {
-      departmentGuid: departmentManagement?.departmentGuid || "",
+      departmentGuid: departmentManagement?.departmentGuid || id || "",
       firstValidatorId: values.firstValidatorId || "",
       secondValidatorId: values.secondValidatorId || "",
       hrId: values.hrId,

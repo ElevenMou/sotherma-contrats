@@ -88,6 +88,8 @@ const RequestForm = ({}: {}) => {
   });
 
   async function onSubmit(values: z.infer<typeof requestDetailsSchema>) {
+    console.log("Form Values:", values);
+
     const requestData: RequestDetailsModel = {
       contractType: values.contractType,
       endDate: values.endDate,
@@ -102,6 +104,8 @@ const RequestForm = ({}: {}) => {
       cvFile: values.cvFile || null,
       contractGuid: contractId || undefined,
     };
+    console.log("Request Data:", requestData);
+
     await saveRequest({
       request: requestData,
       view: { navigateToRequestsList: () => navigate(routes.requests) },
@@ -110,9 +114,9 @@ const RequestForm = ({}: {}) => {
 
   const minStartDate = () => {
     const today = new Date();
-    const dayOfWeek = today.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+    const dayOfWeek = today.getDay();
 
-    const daysToAdd = dayOfWeek === 5 || dayOfWeek === 4 ? 4 : 2; // Friday & Thursday: +4, other days: +2
+    const daysToAdd = dayOfWeek === 5 || dayOfWeek === 4 ? 4 : 2;
     const minDate = new Date(today.getTime() + daysToAdd * 24 * 60 * 60 * 1000);
 
     return minDate;
@@ -152,13 +156,23 @@ const RequestForm = ({}: {}) => {
           setRequestDetails: (requestDetails) => {
             form.reset({
               contractType: requestDetails?.contractType || "",
-              startDate: requestDetails?.startDate || new Date(),
-              endDate: requestDetails?.endDate || new Date(),
+              startDate: requestDetails?.endDate
+                ? new Date(
+                    new Date(requestDetails.endDate).getTime() +
+                      24 * 60 * 60 * 1000
+                  )
+                : new Date(),
+              endDate: requestDetails?.endDate
+                ? new Date(
+                    new Date(requestDetails.endDate).getTime() +
+                      2 * 24 * 60 * 60 * 1000
+                  )
+                : new Date(),
               site: String(requestDetails?.site || ""),
               department: String(requestDetails?.department || ""),
               desiredProfile: requestDetails?.desiredProfile || "",
               justification: requestDetails?.justification || "",
-              numberOfProfiles: String(requestDetails?.numberOfProfiles || ""),
+              numberOfProfiles: String(requestDetails?.numberOfProfiles || 1),
               candidateFirstName: requestDetails?.candidateFirstName || "",
               candidateLastName: requestDetails?.candidateLastName || "",
               cvFile: requestDetails?.cvFile || undefined,
@@ -302,6 +316,7 @@ const RequestForm = ({}: {}) => {
                       minDate={minStartDate()}
                       date={field.value}
                       setDate={field.onChange}
+                      disabled={loading || state?.contractId}
                     />
                   </FormControl>
                   <FormMessage />
@@ -320,6 +335,7 @@ const RequestForm = ({}: {}) => {
                       minDate={minEndDate()}
                       date={field.value}
                       setDate={field.onChange}
+                      disabled={loading}
                     />
                   </FormControl>
                   <FormMessage />

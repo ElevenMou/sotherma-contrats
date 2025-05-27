@@ -14,21 +14,24 @@ import { useTranslation } from "react-i18next";
 export function DatePicker({
   date,
   minDate,
+  disabled,
   setDate,
 }: {
   date: Date | undefined;
   minDate?: Date;
+  disabled?: boolean;
   setDate: (date: Date | undefined) => void;
 }) {
   const { t } = useTranslation();
   return (
     <Popover>
-      <PopoverTrigger asChild>
+      <PopoverTrigger asChild disabled={disabled}>
         <Button
-          variant={"outline"}
+          variant="outline"
           className={cn(
             "w-full justify-start text-left font-normal",
-            !date && "text-muted-foreground"
+            !date && "text-muted-foreground",
+            disabled && "cursor-not-allowed opacity-50"
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />

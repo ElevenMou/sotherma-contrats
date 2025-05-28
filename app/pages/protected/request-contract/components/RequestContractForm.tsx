@@ -72,9 +72,7 @@ const ContractContractForm = ({
       .email(`${t("contracts.providerEmail")} ${t("common.isRequired")}`)
       .min(1, `${t("contracts.providerEmail")} ${t("common.isRequired")}`),
 
-    cvFile: z.instanceof(File, {
-      message: `${t("requests.cvFile")} ${t("common.isRequired")}`,
-    }),
+    cvFile: z.instanceof(File).optional(),
   }).refine((data) => {
     const contractDetails: Omit<ContractDetailsModel, "guid"> = {
       endDate: new Date(data.endDate),
@@ -83,7 +81,7 @@ const ContractContractForm = ({
       contractedFirstName: data.providerFirstName,
       contractedLastName: data.providerLastName,
       contractedEmail: data.providerEmail,
-      cvFile: data.cvFile || null,
+      cvFile: data.cvFile,
 
       requestGuid: requestGuid,
     };
@@ -105,7 +103,7 @@ const ContractContractForm = ({
       contractedLastName: values.providerLastName,
       contractedEmail: values.providerEmail,
       requestGuid: requestGuid,
-      cvFile: values.cvFile || null,
+      cvFile: values.cvFile,
     };
     await saveContract({
       request: contractData,

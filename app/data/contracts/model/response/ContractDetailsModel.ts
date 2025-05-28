@@ -9,5 +9,5 @@ export interface ContractDetailsModel {
   contractedEmail: string;
   providerEmail?: string;
   statusLabel?: string;
-  cvFile: File;
+  cvFile?: File;
 }

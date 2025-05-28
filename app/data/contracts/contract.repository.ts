@@ -26,10 +26,12 @@ class ContractHttpRepository implements IContractRepository {
       formData.append("endDate", formatLocalDate(contract.endDate));
       formData.append("startDate", formatLocalDate(contract.startDate));
       formData.append("contractType", contract.contractType);
-      formData.append("providerFirstName", contract.contractedFirstName);
-      formData.append("providerLastName", contract.contractedLastName);
-      formData.append("providerEmail", contract.contractedEmail);
-      formData.append("cvFile", contract.cvFile);
+      formData.append("contractedFirstName", contract.contractedFirstName);
+      formData.append("contractedLastName", contract.contractedLastName);
+      formData.append("contractedEmail", contract.contractedEmail);
+      if (contract.cvFile) {
+        formData.append("cvFile", contract.cvFile);
+      }
 
       await httpService.post(url, formData, {
         headers: {

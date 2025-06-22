@@ -26,7 +26,7 @@ const ContractTypeSelect = ({
 
   const contractTypes = [
     { value: "CDD", label: "CDD" },
-    { value: "temporary", label: t("contracts.type.temporary") },
+    { value: "RED", label: t("contracts.type.RED") },
     { value: "tectra", label: t("contracts.type.tectra") },
     { value: "anapec", label: t("contracts.type.anapec") },
     { value: "intern", label: t("contracts.type.intern") },

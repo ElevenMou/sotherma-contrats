@@ -216,7 +216,7 @@
     "providerEmail": "Candidate Email",
     "details": "Contract Details",
     "type": {
-      "temporary": "Temporary",
+      "RED": "RED",
       "tectra": "Tectra",
       "anapec": "Anapec Intern",
       "intern": "Intern",

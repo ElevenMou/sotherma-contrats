@@ -217,7 +217,7 @@
     "providerEmail": "Email du candidat",
     "details": "Détails du contrat",
     "type": {
-      "temporary": "Temporaire",
+      "RED": "Temporaire",
       "tectra": "Tectra",
       "anapec": "Anapec Stagiaire",
       "intern": "Stagiaire",

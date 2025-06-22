@@ -63,12 +63,11 @@ export default function RequestDetails({ params }: Route.ComponentProps) {
             ) : loading ? (
               <Skeleton className="h-8 w-40" />
             ) : (
-              `${requestDetails?.desiredProfile} - ${t(
-                `justifications.${requestDetails?.justification}`,
-                {
-                  defaultValue: requestDetails?.justification,
-                }
-              )}`
+              `${t(`desiredProfil.${requestDetails?.desiredProfile}`, {
+                defaultValue: requestDetails?.desiredProfile,
+              })} - ${t(`justifications.${requestDetails?.justification}`, {
+                defaultValue: requestDetails?.justification,
+              })}`
             )}
           </h1>
         </div>

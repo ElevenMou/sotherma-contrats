@@ -303,5 +303,19 @@
         "description": "Department details saved successfully."
       }
     }
+  },
+  "desiredProfil": {
+    "delivery_assistant": "Delivery Assistant",
+    "driver_sales_assistant": "Driver Sales Assistant",
+    "sales_assistant": "Sales Assistant",
+    "forklift_operator": "Forklift Operator",
+    "warehouse_assistant": "Warehouse Assistant",
+    "material_handler": "Material Handler",
+    "operator": "Operator",
+    "machine_operator": "Machine Operator",
+    "maintenance_technician": "Maintenance Technician",
+    "warehouse_worker": "Warehouse Worker",
+    "invoice_operator": "Invoice Operator",
+    "other": "Other"
   }
 }

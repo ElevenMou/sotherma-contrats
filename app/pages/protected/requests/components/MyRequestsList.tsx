@@ -97,7 +97,9 @@ const MyRequestsList = () => {
                 onClick={() => handleRowClick(request.guid)}
                 className="cursor-pointer"
               >
-                {request.desiredProfile}
+                {t(`desiredProfil.${request.desiredProfile}`, {
+                  defaultValue: request.desiredProfile,
+                })}
               </TableCell>
               <TableCell
                 onClick={() => handleRowClick(request.guid)}

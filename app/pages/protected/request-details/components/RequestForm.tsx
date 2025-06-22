@@ -33,6 +33,7 @@ import { useContractUsecase } from "@/usecases/contract/contractUsecase";
 import type { ContractDetailsModel } from "@/data/contracts/model/response/ContractDetailsModel";
 import ContractDetialsCard from "../../contracts/components/ContractDetialsCard";
 import { addDays } from "date-fns";
+import DesiredProfilSelect from "@/components/form/DesiredProfilSelect";
 
 const RequestForm = ({}: {}) => {
   const { t } = useTranslation();
@@ -120,14 +121,6 @@ const RequestForm = ({}: {}) => {
     return minDate;
   };
 
-  const minEndDate = () => {
-    const startDate = form.watch("startDate");
-
-    if (!startDate) return addDays(minStartDate(), 1);
-
-    return addDays(startDate, 1);
-  };
-
   useEffect(() => {
     if (state?.contractId) {
       getContractDetails({
@@ -195,7 +188,11 @@ const RequestForm = ({}: {}) => {
                 <FormItem>
                   <FormLabel>{t("requests.desiredProfile")}</FormLabel>
                   <FormControl>
-                    <Input disabled={loading || state?.contractId} {...field} />
+                    <DesiredProfilSelect
+                      disabled={loading || state?.contractId}
+                      defaultValue={field.value}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -319,7 +316,7 @@ const RequestForm = ({}: {}) => {
                   <FormLabel>{t("common.endDate")}</FormLabel>
                   <FormControl>
                     <DatePicker
-                      minDate={minEndDate()}
+                      minDate={minStartDate()}
                       date={field.value}
                       setDate={field.onChange}
                       disabled={loading}

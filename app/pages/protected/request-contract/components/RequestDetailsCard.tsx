@@ -56,7 +56,9 @@ const RequestDetailsCard = ({
         <div className="flex items-center gap-2">
           <span>{t("requests.desiredProfile")}</span>
           <span className="text-muted-foreground">
-            {requestDetails.desiredProfile}
+            {t(`desiredProfil.${requestDetails.desiredProfile}`, {
+              defaultValue: requestDetails.desiredProfile,
+            })}
           </span>
         </div>
       </CardContent>

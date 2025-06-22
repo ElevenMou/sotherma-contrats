@@ -324,5 +324,19 @@
         "description": "Les détails du département ont été enregistrés avec succès."
       }
     }
+  },
+  "desiredProfil": {
+    "delivery_assistant": "Aide livreur",
+    "driver_sales_assistant": "Aide chauffeur-vendeur",
+    "sales_assistant": "Aide vendeur",
+    "forklift_operator": "Cariste",
+    "warehouse_assistant": "Aide magasinier",
+    "material_handler": "Manutentionnaire",
+    "operator": "Opérateur",
+    "machine_operator": "Opérateur machine",
+    "maintenance_technician": "Technicien de maintenance",
+    "warehouse_worker": "Magasinier",
+    "invoice_operator": "Facturier",
+    "other": "Autre"
   }
 }

@@ -86,7 +86,9 @@ const RequestForm = ({}: {}) => {
 
   const form = useForm<z.infer<typeof requestDetailsSchema>>({
     resolver: zodResolver(requestDetailsSchema),
-    defaultValues: {},
+    defaultValues: {
+      numberOfProfiles: "1",
+    },
   });
 
   async function onSubmit(values: z.infer<typeof requestDetailsSchema>) {
@@ -209,6 +211,7 @@ const RequestForm = ({}: {}) => {
                     <FormControl>
                       <Input
                         type="number"
+                        min={1}
                         disabled={loading || state?.contractId}
                         {...field}
                       />

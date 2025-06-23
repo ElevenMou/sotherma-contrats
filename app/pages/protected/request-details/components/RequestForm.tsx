@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import { object, string, z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
@@ -79,16 +79,29 @@ const RequestForm = ({}: {}) => {
       1,
       `${t("requests.numberOfProfiles")} ${t("common.isRequired")}`
     ),
-    candidateFirstName: string().optional(),
-    candidateLastName: string().optional(),
-    cvFile: z.instanceof(File).optional(),
+    recommendedProfiles: z
+      .array(
+        z.object({
+          candidateFirstName: z.string().optional(),
+          candidateLastName: z.string().optional(),
+          cvFile: z.instanceof(File).nullable().optional(),
+        })
+      )
+      .optional(),
   });
-
   const form = useForm<z.infer<typeof requestDetailsSchema>>({
     resolver: zodResolver(requestDetailsSchema),
     defaultValues: {
       numberOfProfiles: "1",
+      recommendedProfiles: [
+        { candidateFirstName: "", candidateLastName: "", cvFile: null },
+      ],
     },
+  });
+
+  const { fields, append, remove } = useFieldArray({
+    control: form.control,
+    name: "recommendedProfiles",
   });
 
   async function onSubmit(values: z.infer<typeof requestDetailsSchema>) {
@@ -101,10 +114,8 @@ const RequestForm = ({}: {}) => {
       desiredProfile: values.desiredProfile,
       justification: values.justification,
       numberOfProfiles: Number(values.numberOfProfiles),
-      candidateFirstName: values.candidateFirstName || null,
-      candidateLastName: values.candidateLastName || null,
-      cvFile: values.cvFile || null,
       contractGuid: contractId || undefined,
+      recommendedProfiles: [],
     };
 
     await saveRequest({
@@ -155,15 +166,35 @@ const RequestForm = ({}: {}) => {
               desiredProfile: requestDetails?.desiredProfile || "",
               justification: requestDetails?.justification || "",
               numberOfProfiles: String(requestDetails?.numberOfProfiles || 1),
-              candidateFirstName: requestDetails?.candidateFirstName || "",
-              candidateLastName: requestDetails?.candidateLastName || "",
-              cvFile: requestDetails?.cvFile || undefined,
             });
           },
         },
       });
     }
   }, [contractDetails]);
+
+  useEffect(() => {
+    const subscription = form.watch((value) => {
+      const num = parseInt(value.numberOfProfiles || "0", 10);
+      const currentLength = form.getValues("recommendedProfiles")?.length || 0;
+
+      if (num > currentLength) {
+        for (let i = currentLength; i < num; i++) {
+          append({
+            candidateFirstName: "",
+            candidateLastName: "",
+            cvFile: null,
+          });
+        }
+      } else if (num < currentLength) {
+        for (let i = currentLength - 1; i >= num; i--) {
+          remove(i);
+        }
+      }
+    });
+
+    return () => subscription.unsubscribe?.();
+  }, [form.watch, append, remove]);
 
   return (
     <>
@@ -341,59 +372,60 @@ const RequestForm = ({}: {}) => {
                     {t("requests.haveRecomandation")}
                   </AccordionTrigger>
                   <AccordionContent className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <FormField
-                      control={form.control}
-                      name="candidateFirstName"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>
-                            {t("requests.candidateFirstName")}
-                          </FormLabel>
-                          <FormControl>
-                            <Input {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                    {fields.map((field, index) => (
+                      <div
+                        key={field.id}
+                        className="grid grid-cols-1 md:grid-cols-3 gap-4 md:col-span-full border p-4 rounded-lg"
+                      >
+                        <FormField
+                          control={form.control}
+                          name={`recommendedProfiles.${index}.candidateFirstName`}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>{t("requests.candidateFirstName")}</FormLabel>
+                              <FormControl>
+                                <Input {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
 
-                    <FormField
-                      control={form.control}
-                      name="candidateLastName"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>
-                            {t("requests.candidateLastName")}
-                          </FormLabel>
-                          <FormControl>
-                            <Input {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                        <FormField
+                          control={form.control}
+                          name={`recommendedProfiles.${index}.candidateLastName`}
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>{t("requests.candidateLastName")}</FormLabel>
+                              <FormControl>
+                                <Input {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
 
-                    <FormField
-                      control={form.control}
-                      name="cvFile"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>{t("requests.cvFile")}</FormLabel>
-                          <FormControl>
-                            <Input
-                              type="file"
-                              accept=".pdf,.doc,.docx"
-                              onChange={(e) => {
-                                if (e.target.files && e.target.files[0]) {
-                                  field.onChange(e.target.files[0]);
-                                }
-                              }}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                        <FormField
+                          control={form.control}
+                          name={`recommendedProfiles.${index}.cvFile`}
+                          render={({ field: { onChange } }) => (
+                            <FormItem>
+                              <FormLabel>{t("requests.cvFile")}</FormLabel>
+                              <FormControl>
+                                <Input
+                                  type="file"
+                                  accept=".pdf,.doc,.docx"
+                                  onChange={(e) =>
+                                    onChange(e.target.files?.[0] || null)
+                                  }
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                    ))}
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>

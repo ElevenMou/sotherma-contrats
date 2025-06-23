@@ -82,23 +82,21 @@ class RequestHttpRepository implements IRequestRepository {
       formData.append("desiredProfile", request.desiredProfile);
       formData.append("justification", request.justification);
       formData.append("numberOfProfiles", request.numberOfProfiles.toString());
-
-      request.cvFile && formData.append("cvFile", request.cvFile);
-
-      formData.append("candidateFirstName", request.candidateFirstName || "");
-      formData.append("candidateLastName", request.candidateLastName || "");
-
       request.contractGuid &&
         formData.append("contractGuid", request.contractGuid || "");
-      if (request.cvFile) {
-        await httpService.post(url, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
-      } else {
-        await httpService.post(url, formData);
+
+      if (request.recommendedProfiles) {
+        formData.append(
+          "recommendedProfiles",
+          JSON.stringify(request.recommendedProfiles)
+        );
       }
+
+      await httpService.post(url, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
     } catch (error) {
       throw error;
     }

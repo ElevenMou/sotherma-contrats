@@ -38,7 +38,8 @@ export default function Requests() {
               ? t("menu.requests")
               : t("requests.title")}
           </h1>
-          {userInfo?.profile === userRoles.requester && (
+          {(userInfo?.profile === userRoles.requester ||
+            userInfo?.profile === userRoles.manager) && (
             <Button asChild className="!w-fit">
               <Link to="/requests/create" className="w-full">
                 {t("requests.add_request")}

@@ -12,6 +12,8 @@ import type { ListPaginationRequestModel } from "@/data/utils/ListPaginationRequ
 import { requestHttpRepository } from "@/data/requests/request.repository";
 import type { ChangeRequestStatusModel } from "@/data/requests/model/request/ChangeRequestStatusModel";
 import type { RequestDetailsModel } from "@/data/requests/model/request/RequestDetailsModel";
+import type { GetProfileFileRequestModel } from "@/data/requests/model/request/GetProfileFileRequestModel";
+import { isAxiosError } from "axios";
 
 export const useRequestUsecase = (): RequestUseCaseInterface => {
   const { t } = useTranslation();
@@ -112,9 +114,14 @@ export const useRequestUsecase = (): RequestUseCaseInterface => {
       });
       view.navigateToRequestsList();
     } catch (error) {
-      toast.error(t("requests.errors.saveRequest.title"), {
-        description: t("requests.errors.saveRequest.description"),
-      });
+      if (isAxiosError(error) && error.response?.data === "Invalid Data") {
+        toast.error(t("requests.errors.noDepartementManager.title"), {
+          description: t("requests.errors.noDepartementManager.description"),
+        });
+      } else
+        toast.error(t("requests.errors.saveRequest.title"), {
+          description: t("requests.errors.saveRequest.description"),
+        });
     }
   };
 
@@ -162,6 +169,42 @@ export const useRequestUsecase = (): RequestUseCaseInterface => {
     }
   };
 
+  const downloadProfileFile = async ({
+    request,
+    view,
+  }: {
+    request: GetProfileFileRequestModel;
+    view: GetRequestsListView;
+  }) => {
+    try {
+      view.setLoading(true);
+      const response = await requestHttpRepository.GetProfileFile(request);
+
+      const byteCharacters = atob(response.fileContent);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray]);
+      const url = window.URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = response.fileName;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      toast.error(t("requests.errors.downloadFile.title"), {
+        description: t("requests.errors.downloadFile.description"),
+      });
+    } finally {
+      view.setLoading(false);
+    }
+  };
+
   return {
     getRequestsList,
     getRequestsListToValidate,
@@ -170,5 +213,6 @@ export const useRequestUsecase = (): RequestUseCaseInterface => {
     saveRequest,
     getRequestDetails,
     getRequestTimeline,
+    downloadProfileFile,
   };
 };

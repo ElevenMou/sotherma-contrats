@@ -35,8 +35,8 @@ const DesiredProfilSelect = ({
     },
     { value: "sales_assistant", label: t("desiredProfil.sales_assistant") },
     {
-      value: "driver_sales_assistant",
-      label: t("desiredProfil.driver_sales_assistant"),
+      value: "driver_sales",
+      label: t("desiredProfil.driver_sales"),
     },
     { value: "forklift_operator", label: t("desiredProfil.forklift_operator") },
     {

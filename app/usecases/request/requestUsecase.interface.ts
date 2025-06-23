@@ -1,4 +1,5 @@
 import type { ChangeRequestStatusModel } from "@/data/requests/model/request/ChangeRequestStatusModel";
+import type { GetProfileFileRequestModel } from "@/data/requests/model/request/GetProfileFileRequestModel";
 import type { RequestDetailsModel } from "@/data/requests/model/request/RequestDetailsModel";
 import type { RequestTimeLineModel } from "@/data/requests/model/response/RequestTimeLineModel";
 import type { ListPaginationRequestModel } from "@/data/utils/ListPaginationRequestModel";
@@ -71,5 +72,13 @@ export interface RequestUseCaseInterface {
   }: {
     requestGuid: string;
     view: GetRequestTimelineView;
+  }) => Promise<void>;
+
+  downloadProfileFile: ({
+    request,
+    view,
+  }: {
+    request: GetProfileFileRequestModel;
+    view: GetRequestsListView;
   }) => Promise<void>;
 }

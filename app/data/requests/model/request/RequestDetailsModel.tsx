@@ -26,4 +26,5 @@ export interface RecommendedProfile {
   candidateFirstName: string;
   candidateLastName: string;
   cvFile?: File | null;
+  fileName?: string;
 }

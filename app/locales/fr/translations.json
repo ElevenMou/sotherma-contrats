@@ -175,6 +175,10 @@
         "title": "Erreur de sauvegarde",
         "description": "Erreur lors de la sauvegarde des détails de la demande."
       },
+      "noDepartementManager": {
+        "title": "Gestionnaires de département non définis",
+        "description": "Veuillez définir les gestionnaires de département avant de créer une demande."
+      },
       "rejectRequest": {
         "title": "Erreur de rejet",
         "description": "Erreur lors du rejet de la demande."
@@ -328,6 +332,7 @@
   "desiredProfil": {
     "delivery_assistant": "Aide livreur",
     "driver_sales_assistant": "Aide chauffeur-vendeur",
+    "driver_sales": "Chauffeur-vendeur",
     "sales_assistant": "Aide vendeur",
     "forklift_operator": "Cariste",
     "warehouse_assistant": "Aide magasinier",

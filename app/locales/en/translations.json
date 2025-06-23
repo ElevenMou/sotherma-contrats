@@ -175,6 +175,10 @@
         "title": "Save Error",
         "description": "Error saving request details."
       },
+      "noDepartementManager": {
+        "title": "Department Managers not defined",
+        "description": "Please define department managers before creating a request."
+      },
       "rejectRequest": {
         "title": "Reject Error",
         "description": "Error rejecting the request."
@@ -307,6 +311,7 @@
   "desiredProfil": {
     "delivery_assistant": "Delivery Assistant",
     "driver_sales_assistant": "Driver Sales Assistant",
+    "driver_sales": "Driver Sales",
     "sales_assistant": "Sales Assistant",
     "forklift_operator": "Forklift Operator",
     "warehouse_assistant": "Warehouse Assistant",

@@ -7,6 +7,8 @@ import type { RequestListItemModel } from "./model/response/RequestModel";
 import type { RequestDetailsModel } from "./model/request/RequestDetailsModel";
 import type { RequestTimeLineModel } from "./model/response/RequestTimeLineModel";
 import { formatLocalDate } from "@/lib/utils";
+import type { GetProfileFileRequestModel } from "./model/request/GetProfileFileRequestModel";
+import type { GetProfileFileResponseModel } from "./model/response/GetProfileFileResponseModel";
 
 // HttpService instance
 const httpService = HttpService.getInstance();
@@ -86,10 +88,25 @@ class RequestHttpRepository implements IRequestRepository {
         formData.append("contractGuid", request.contractGuid || "");
 
       if (request.recommendedProfiles) {
-        formData.append(
-          "recommendedProfiles",
-          JSON.stringify(request.recommendedProfiles)
-        );
+        request.recommendedProfiles.forEach((profile, index) => {
+          if (profile.cvFile) {
+            formData.append(
+              `recommendedProfiles[${index}].cvFile`,
+              profile.cvFile
+            );
+          }
+          formData.append(
+            `recommendedProfiles[${index}].candidateFirstName`,
+            profile.candidateFirstName
+          );
+          formData.append(
+            `recommendedProfiles[${index}].candidateLastName`,
+            profile.candidateLastName
+          );
+          if (profile.guid) {
+            formData.append(`recommendedProfiles[${index}].guid`, profile.guid);
+          }
+        });
       }
 
       await httpService.post(url, formData, {
@@ -121,6 +138,20 @@ class RequestHttpRepository implements IRequestRepository {
     });
     try {
       return httpService.get<RequestTimeLineModel[]>(url);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async GetProfileFile(
+    request: GetProfileFileRequestModel
+  ): Promise<GetProfileFileResponseModel> {
+    const url = generateUrl(`${base}${endpoints.getProfileFile}`, {
+      guid: request.guid,
+    });
+
+    try {
+      return httpService.get<GetProfileFileResponseModel>(url);
     } catch (error) {
       throw error;
     }

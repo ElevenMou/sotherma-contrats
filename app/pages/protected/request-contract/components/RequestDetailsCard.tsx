@@ -1,3 +1,4 @@
+import DownloadFile from "@/components/form/DownloadFile";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { RequestDetailsModel } from "@/data/requests/model/request/RequestDetailsModel";
 import { formatDateWithoutTime } from "@/lib/utils";
@@ -62,26 +63,32 @@ const RequestDetailsCard = ({
           </span>
         </div>
       </CardContent>
-      {requestDetails.candidateFirstName &&
-        requestDetails.candidateLastName && (
+      {requestDetails.recommendedProfiles &&
+        requestDetails.recommendedProfiles.length > 0 && (
           <>
             <CardHeader>
               <CardTitle>{t("requests.recommendation")}</CardTitle>
             </CardHeader>
-            <CardContent className="grid gap-4 grid-cols-1 md:grid-cols-3">
-              <div className="flex items-center gap-2">
-                <span>{t("common.firstName")}</span>
-                <span className="text-muted-foreground">
-                  {requestDetails.candidateFirstName}
-                </span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span>{t("common.lastName")}</span>
-                <span className="text-muted-foreground">
-                  {requestDetails.candidateLastName}
-                </span>
-              </div>
-            </CardContent>
+            {requestDetails.recommendedProfiles.map((recommendation) => (
+              <CardContent className="grid gap-4 grid-cols-1 md:grid-cols-3">
+                <div className="flex items-center gap-2">
+                  <span>{t("requests.candidateFirstName")}</span>
+                  <span className="text-muted-foreground">
+                    {recommendation.candidateFirstName}
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span>{t("requests.candidateLastName")}</span>
+                  <span className="text-muted-foreground">
+                    {recommendation.candidateLastName}
+                  </span>
+                </div>
+                <DownloadFile
+                  guid={recommendation.guid ?? ""}
+                  name={recommendation.fileName ?? ""}
+                />
+              </CardContent>
+            ))}
           </>
         )}
     </Card>

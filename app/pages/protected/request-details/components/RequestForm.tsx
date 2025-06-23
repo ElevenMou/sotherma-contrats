@@ -115,7 +115,11 @@ const RequestForm = ({}: {}) => {
       justification: values.justification,
       numberOfProfiles: Number(values.numberOfProfiles),
       contractGuid: contractId || undefined,
-      recommendedProfiles: [],
+      recommendedProfiles: values.recommendedProfiles?.map((profile) => ({
+        candidateFirstName: profile.candidateFirstName || "",
+        candidateLastName: profile.candidateLastName || "",
+        cvFile: profile.cvFile || null,
+      })),
     };
 
     await saveRequest({
@@ -166,6 +170,9 @@ const RequestForm = ({}: {}) => {
               desiredProfile: requestDetails?.desiredProfile || "",
               justification: requestDetails?.justification || "",
               numberOfProfiles: String(requestDetails?.numberOfProfiles || 1),
+              recommendedProfiles: requestDetails?.recommendedProfiles || [
+                { candidateFirstName: "", candidateLastName: "", cvFile: null },
+              ],
             });
           },
         },
@@ -382,7 +389,9 @@ const RequestForm = ({}: {}) => {
                           name={`recommendedProfiles.${index}.candidateFirstName`}
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>{t("requests.candidateFirstName")}</FormLabel>
+                              <FormLabel>
+                                {t("requests.candidateFirstName")}
+                              </FormLabel>
                               <FormControl>
                                 <Input {...field} />
                               </FormControl>
@@ -396,7 +405,9 @@ const RequestForm = ({}: {}) => {
                           name={`recommendedProfiles.${index}.candidateLastName`}
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel>{t("requests.candidateLastName")}</FormLabel>
+                              <FormLabel>
+                                {t("requests.candidateLastName")}
+                              </FormLabel>
                               <FormControl>
                                 <Input {...field} />
                               </FormControl>

@@ -18,7 +18,10 @@ const ProtecedAdminLayout = () => {
     );
   }
 
-  if (userInfo && userInfo.profile !== userRoles.admin) {
+  if (
+    userInfo &&
+    ![userRoles.admin, userRoles.hr].includes(userInfo.profile as string)
+  ) {
     return (
       <div className="flex flex-col items-center justify-center h-svh gap-4">
         <h1 className="text-2xl font-bold">Access Denied</h1>

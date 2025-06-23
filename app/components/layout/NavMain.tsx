@@ -63,19 +63,19 @@ export function NavMain() {
       title: t("menu.employees"),
       url: "/employees",
       icon: Users,
-      roles: [userRoles.admin],
+      roles: [userRoles.admin, userRoles.hr],
     },
     {
       title: t("menu.departments"),
       url: "/departments",
       icon: Building2,
-      roles: [userRoles.admin],
+      roles: [userRoles.admin, userRoles.hr],
     },
     {
       title: t("menu.sites"),
       url: "/sites",
       icon: MapPinned,
-      roles: [userRoles.admin],
+      roles: [userRoles.admin, userRoles.hr],
     },
   ];
 

@@ -11,11 +11,13 @@ const DesiredProfilSelect = ({
   value,
   disabled,
   defaultValue,
+  placeholder,
   onChange,
 }: {
   value?: string;
   defaultValue?: string;
   disabled?: boolean;
+  placeholder?: string;
   onChange: (value: string) => void;
 }) => {
   const { t } = useTranslation();
@@ -84,7 +86,11 @@ const DesiredProfilSelect = ({
         name="contractType"
       >
         <SelectTrigger className="w-full">
-          <SelectValue placeholder={t("requests.desiredProfile")} />
+          <SelectValue
+            placeholder={
+              placeholder ? placeholder : t("requests.desiredProfile")
+            }
+          />
         </SelectTrigger>
         <SelectContent>
           {profiles.map((profile) => (

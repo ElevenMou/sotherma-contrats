@@ -42,6 +42,45 @@ const RequestDetailsCard = ({
             })}
           </span>
         </div>
+
+        {requestDetails.departureFirstName && (
+          <div className="flex items-center gap-2">
+            <span>{t("requests.departureFirstName")}</span>
+            <span className="text-muted-foreground">
+              {requestDetails.departureFirstName}
+            </span>
+          </div>
+        )}
+
+        {requestDetails.departureLastName && (
+          <div className="flex items-center gap-2">
+            <span>{t("requests.departureLastName")}</span>
+            <span className="text-muted-foreground">
+              {requestDetails.departureLastName}
+            </span>
+          </div>
+        )}
+
+        {requestDetails.departurePosition && (
+          <div className="flex items-center gap-2">
+            <span>{t("requests.departurePosition")}</span>
+            <span className="text-muted-foreground">
+              {requestDetails.departurePosition}
+            </span>
+          </div>
+        )}
+
+        {requestDetails.departureReason && (
+          <div className="flex items-center gap-2">
+            <span>{t("requests.departureReason")}</span>
+            <span className="text-muted-foreground">
+              {t(`departureReasons.${requestDetails.departureReason}`, {
+                defaultValue: requestDetails.departureReason,
+              })}
+            </span>
+          </div>
+        )}
+
         <div className="flex items-center gap-2">
           <span>{t("common.startDate")}</span>
           <span className="text-muted-foreground">

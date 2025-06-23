@@ -54,6 +54,13 @@
     "active": "Actif",
     "closed": "Clôturé"
   },
+  "departureReason": {
+    "resignation": "Démission",
+    "retirement": "Retraite",
+    "FCO": "FCO",
+    "dismissal": "dismissal",
+    "other": "Autre"
+  },
   "login": {
     "title": "Connectez-vous à votre compte",
     "subtitle": "Bienvenue! Veuillez saisir vos identifiants pour vous connecter à votre compte.",
@@ -148,6 +155,11 @@
     "cvFile": "Fichier CV",
     "details": "Détails de la demande",
     "recommendation": "Recommandation",
+    "departureDetails": "Détails du départ",
+    "departureFirstName": "Prénom du départ",
+    "departureLastName": "Nom du départ",
+    "departurePosition": "Poste du départ",
+    "departureReason": "Raison du départ",
     "actions": {
       "Create": "Créé",
       "Approve": "Approuvé",
@@ -186,6 +198,10 @@
       "acceptRequest": {
         "title": "Erreur d'acceptation",
         "description": "Erreur lors de l'acceptation de la demande."
+      },
+      "downloadFile": {
+        "title": "Erreur de téléchargement",
+        "description": "Erreur lors du téléchargement du fichier CV."
       }
     },
     "success": {

@@ -34,6 +34,8 @@ import type { ContractDetailsModel } from "@/data/contracts/model/response/Contr
 import ContractDetialsCard from "../../contracts/components/ContractDetialsCard";
 import { addDays } from "date-fns";
 import DesiredProfilSelect from "@/components/form/DesiredProfilSelect";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import DepartureReasonSelect from "@/components/form/DepartureReasonSelect";
 
 const RequestForm = ({}: {}) => {
   const { t } = useTranslation();
@@ -75,6 +77,12 @@ const RequestForm = ({}: {}) => {
       1,
       `${t("requests.justification")} ${t("common.isRequired")}`
     ),
+
+    departureFirstName: z.string().optional(),
+    departureLastName: z.string().optional(),
+    departurePosition: z.string().optional(),
+    departureReason: z.string().optional(),
+
     numberOfProfiles: string().min(
       1,
       `${t("requests.numberOfProfiles")} ${t("common.isRequired")}`
@@ -98,6 +106,7 @@ const RequestForm = ({}: {}) => {
       ],
     },
   });
+  const justificationValue = form.watch("justification");
 
   const { fields, append, remove } = useFieldArray({
     control: form.control,
@@ -120,6 +129,10 @@ const RequestForm = ({}: {}) => {
         candidateLastName: profile.candidateLastName || "",
         cvFile: profile.cvFile || null,
       })),
+      departureFirstName: values.departureFirstName,
+      departureLastName: values.departureLastName,
+      departurePosition: values.departurePosition,
+      departureReason: values.departureReason,
     };
 
     await saveRequest({
@@ -173,6 +186,10 @@ const RequestForm = ({}: {}) => {
               recommendedProfiles: requestDetails?.recommendedProfiles || [
                 { candidateFirstName: "", candidateLastName: "", cvFile: null },
               ],
+              departureFirstName: requestDetails?.departureFirstName || "",
+              departureLastName: requestDetails?.departureLastName || "",
+              departurePosition: requestDetails?.departurePosition || "",
+              departureReason: requestDetails?.departureReason || "",
             });
           },
         },
@@ -276,6 +293,79 @@ const RequestForm = ({}: {}) => {
                 </FormItem>
               )}
             />
+
+            {justificationValue === "replace" && (
+              <Card className="col-span-1 md:col-span-full">
+                <CardContent className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                  <CardTitle className="col-span-1 md:col-span-full">
+                    {t("requests.departureDetails")}
+                  </CardTitle>
+                  <FormField
+                    control={form.control}
+                    name="departureFirstName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>
+                          {t("requests.departureFirstName")}
+                        </FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="departureLastName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t("requests.departureLastName")}</FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="departurePosition"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t("requests.departurePosition")}</FormLabel>
+                        <FormControl>
+                          <DesiredProfilSelect
+                            disabled={loading || state?.contractId}
+                            defaultValue={field.value}
+                            placeholder={t("requests.departurePosition")}
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="departureReason"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{t("requests.departureReason")}</FormLabel>
+                        <FormControl>
+                          <DepartureReasonSelect
+                            disabled={loading || state?.contractId}
+                            defaultValue={field.value}
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </CardContent>
+              </Card>
+            )}
 
             <FormField
               control={form.control}

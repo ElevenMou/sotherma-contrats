@@ -84,6 +84,20 @@ class RequestHttpRepository implements IRequestRepository {
       formData.append("desiredProfile", request.desiredProfile);
       formData.append("justification", request.justification);
       formData.append("numberOfProfiles", request.numberOfProfiles.toString());
+
+      if (request.departureFirstName) {
+        formData.append("departureFirstName", request.departureFirstName);
+      }
+      if (request.departureLastName) {
+        formData.append("departureLastName", request.departureLastName);
+      }
+      if (request.departurePosition) {
+        formData.append("departurePosition", request.departurePosition);
+      }
+      if (request.departureReason) {
+        formData.append("departureReason", request.departureReason);
+      }
+
       request.contractGuid &&
         formData.append("contractGuid", request.contractGuid || "");
 

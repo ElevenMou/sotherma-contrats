@@ -54,6 +54,13 @@
     "active": "Active",
     "closed": "Closed"
   },
+  "departureReason": {
+    "resignation": "Resignation",
+    "retirement": "Retirement",
+    "FCO": "FCO",
+    "dismissal": "Dismissal",
+    "other": "Other"
+  },
   "login": {
     "title": "Login to your account",
     "subtitle": "Welcome! Please enter your credentials to log in to your account.",
@@ -148,6 +155,11 @@
     "cvFile": "CV File",
     "details": "Request Details",
     "recommendation": "Recommendation",
+    "departureDetails": "Departure Details",
+    "departureFirstName": "Departure First Name",
+    "departureLastName": "Departure Last Name",
+    "departurePosition": "Departure Position",
+    "departureReason": "Departure Reason",
     "actions": {
       "Create": "Create",
       "Approve": "Approve",
@@ -186,6 +198,10 @@
       "acceptRequest": {
         "title": "Accept Error",
         "description": "Error accepting the request."
+      },
+      "downloadFile": {
+        "title": "Download Error",
+        "description": "Error downloading the file."
       }
     },
     "success": {

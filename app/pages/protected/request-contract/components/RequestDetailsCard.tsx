@@ -65,7 +65,9 @@ const RequestDetailsCard = ({
           <div className="flex items-center gap-2">
             <span>{t("requests.departurePosition")}</span>
             <span className="text-muted-foreground">
-              {requestDetails.departurePosition}
+              {t(`desiredProfil.${requestDetails.departurePosition}`, {
+                defaultValue: requestDetails.departurePosition,
+              })}
             </span>
           </div>
         )}

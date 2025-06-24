@@ -161,6 +161,7 @@
     "departureLastName": "Departure Last Name",
     "departurePosition": "Departure Position",
     "departureReason": "Departure Reason",
+    "notifyProvider": "Notify Provider",
     "actions": {
       "Create": "Create",
       "Approve": "Approve",
@@ -203,6 +204,10 @@
       "downloadFile": {
         "title": "Download Error",
         "description": "Error downloading the file."
+      },
+      "notifyProvider": {
+        "title": "Notification Error",
+        "description": "Error notifying the provider."
       }
     },
     "success": {

@@ -9,6 +9,7 @@ import type { RequestTimeLineModel } from "./model/response/RequestTimeLineModel
 import { formatLocalDate } from "@/lib/utils";
 import type { GetProfileFileRequestModel } from "./model/request/GetProfileFileRequestModel";
 import type { GetProfileFileResponseModel } from "./model/response/GetProfileFileResponseModel";
+import type { NotifyProviderRequestModel } from "./model/request/NotifyProviderRequestModel";
 
 // HttpService instance
 const httpService = HttpService.getInstance();
@@ -166,6 +167,15 @@ class RequestHttpRepository implements IRequestRepository {
 
     try {
       return httpService.get<GetProfileFileResponseModel>(url);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async NotifyProvider(request: NotifyProviderRequestModel): Promise<void> {
+    const url = `${base}${endpoints.notifyProvider}`;
+    try {
+      await httpService.post(url, request);
     } catch (error) {
       throw error;
     }

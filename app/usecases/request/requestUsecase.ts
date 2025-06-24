@@ -14,6 +14,7 @@ import type { ChangeRequestStatusModel } from "@/data/requests/model/request/Cha
 import type { RequestDetailsModel } from "@/data/requests/model/request/RequestDetailsModel";
 import type { GetProfileFileRequestModel } from "@/data/requests/model/request/GetProfileFileRequestModel";
 import { isAxiosError } from "axios";
+import type { NotifyProviderRequestModel } from "@/data/requests/model/request/NotifyProviderRequestModel";
 
 export const useRequestUsecase = (): RequestUseCaseInterface => {
   const { t } = useTranslation();
@@ -205,6 +206,28 @@ export const useRequestUsecase = (): RequestUseCaseInterface => {
     }
   };
 
+  const notifyProvider = async ({
+    request,
+    view,
+  }: {
+    request: NotifyProviderRequestModel;
+    view: GetRequestsListView;
+  }) => {
+    try {
+      view.setLoading(true);
+      await requestHttpRepository.NotifyProvider(request);
+      toast.success(t("requests.success.notifyProvider.title"), {
+        description: t("requests.success.notifyProvider.description"),
+      });
+    } catch (error) {
+      toast.error(t("requests.errors.notifyProvider.title"), {
+        description: t("requests.errors.notifyProvider.description"),
+      });
+    } finally {
+      view.setLoading(false);
+    }
+  };
+
   return {
     getRequestsList,
     getRequestsListToValidate,
@@ -214,5 +237,6 @@ export const useRequestUsecase = (): RequestUseCaseInterface => {
     getRequestDetails,
     getRequestTimeline,
     downloadProfileFile,
+    notifyProvider,
   };
 };

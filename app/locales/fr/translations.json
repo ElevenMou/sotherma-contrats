@@ -161,6 +161,7 @@
     "departureLastName": "Nom du départ",
     "departurePosition": "Poste du départ",
     "departureReason": "Raison du départ",
+    "notifyProvider": "Notifier le prestataire",
     "actions": {
       "Create": "Créé",
       "Approve": "Approuvé",
@@ -203,6 +204,10 @@
       "downloadFile": {
         "title": "Erreur de téléchargement",
         "description": "Erreur lors du téléchargement du fichier CV."
+      },
+      "notifyProvider": {
+        "title": "Erreur de notification",
+        "description": "Erreur lors de la notification du prestataire."
       }
     },
     "success": {

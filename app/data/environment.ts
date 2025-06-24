@@ -57,6 +57,7 @@ export const getEnvironment = () => {
         requestDetails: "/details?guid=<guid>",
         timeline: "/timeline?guid=<guid>",
         getProfileFile: "/getProfileFile?guid=<guid>",
+        notifyProvider: "/notifyProvider",
       },
     },
     ContractsAPI: {

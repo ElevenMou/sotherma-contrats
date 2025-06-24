@@ -20,6 +20,8 @@ import { Button } from "@/components/ui/button";
 import { routes } from "@/lib/router/routes";
 import { formatDateWithoutTime } from "@/lib/utils";
 import RequestHistory from "./RequestHistory";
+import NotifyProvider from "./NotifyProvider";
+import { FilePlus } from "lucide-react";
 
 const MAX_RECORDS = 14;
 
@@ -146,17 +148,20 @@ const MyRequestsList = () => {
               <TableCell>{request.requesterFullName}</TableCell>
               {userInfo?.profile === userRoles.hr &&
                 request.status === "Approved" && (
-                  <TableCell className="w-[100px]">
-                    <Button variant="link" onClick={() => {}} asChild>
+                  <TableCell>
+                    <Button variant="secondary" className="mr-2" asChild>
                       <Link
                         to={generatePath(routes.requestContract, {
                           requestId: request.guid,
                         })}
-                        className="w-full h-full flex items-center justify-center"
+                        title={t("contracts.add_contract")}
                       >
-                        {t("contracts.add_contract")}
+                        <FilePlus />
                       </Link>
                     </Button>
+                    {request.providerEmail && (
+                      <NotifyProvider requestGUID={request.guid} />
+                    )}
                   </TableCell>
                 )}
             </TableRow>

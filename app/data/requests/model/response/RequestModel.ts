@@ -8,4 +8,5 @@ export interface RequestListItemModel {
   justification: string;
   status: string;
   requesterFullName: string;
+  providerEmail?: string;
 }

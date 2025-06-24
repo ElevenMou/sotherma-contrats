@@ -222,6 +222,10 @@
       "acceptRequest": {
         "title": "Succès",
         "description": "La demande a été acceptée avec succès."
+      },
+      "notifyProvider": {
+        "title": "Succès",
+        "description": "Le prestataire a été notifié avec succès."
       }
     }
   },

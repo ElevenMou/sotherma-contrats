@@ -57,14 +57,12 @@ const DepartmentFormDialog = ({
     name: string().min(1, {
       message: `${t("departments.department_name")} ${t("common.isRequired")}`,
     }),
-    providerEmail: string().email().optional(),
   });
 
   const form = useForm<z.infer<typeof departmentDetailsSchema>>({
     resolver: zodResolver(departmentDetailsSchema),
     defaultValues: {
       name: "",
-      providerEmail: "",
     },
   });
 
@@ -78,7 +76,6 @@ const DepartmentFormDialog = ({
       request: {
         guid: departmentId ?? "",
         name: form.getValues("name"),
-        providerEmail: form.getValues("providerEmail"),
       },
       view: {
         onSuccess,
@@ -116,24 +113,6 @@ const DepartmentFormDialog = ({
                     <FormControl>
                       <Input
                         placeholder={t("departments.department_name")}
-                        disabled={loading}
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="providerEmail"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>{t("departments.provider_email")}</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder={t("departments.provider_email")}
                         disabled={loading}
                         {...field}
                       />

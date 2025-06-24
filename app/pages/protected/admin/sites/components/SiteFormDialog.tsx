@@ -46,6 +46,7 @@ const SiteFormDialog = ({
           setSiteDetails: (siteDetails) => {
             form.setValue("code", siteDetails.code);
             form.setValue("name", siteDetails.name);
+            form.setValue("providerEmail", siteDetails.providerEmail);
           },
         },
       });
@@ -59,6 +60,11 @@ const SiteFormDialog = ({
     name: string().min(1, {
       message: `${t("sites.site_name")} ${t("common.isRequired")}`,
     }),
+    providerEmail: string()
+      .email({
+        message: `${t("sites.provider_email")} ${t("common.isInvalid")}`,
+      })
+      .optional(),
   });
 
   const form = useForm<z.infer<typeof siteDetailsSchema>>({
@@ -66,6 +72,7 @@ const SiteFormDialog = ({
     defaultValues: {
       code: "",
       name: "",
+      providerEmail: "",
     },
   });
 
@@ -80,6 +87,7 @@ const SiteFormDialog = ({
         guid: siteId ?? "",
         code: form.getValues("code"),
         name: form.getValues("name"),
+        providerEmail: form.getValues("providerEmail"),
       },
       view: {
         onSaveSuccess,
@@ -91,7 +99,11 @@ const SiteFormDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <Button variant={variant} asChild>
+      <Button
+        variant={variant}
+        asChild
+        className={children ? "w-full justify-start" : undefined}
+      >
         <DialogTrigger>
           {children ? children : t("sites.add_site")}
         </DialogTrigger>
@@ -131,6 +143,24 @@ const SiteFormDialog = ({
                     <FormControl>
                       <Input
                         placeholder={t("sites.site_name")}
+                        disabled={loading}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="providerEmail"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t("sites.provider_email")}</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder={t("sites.provider_email")}
                         disabled={loading}
                         {...field}
                       />

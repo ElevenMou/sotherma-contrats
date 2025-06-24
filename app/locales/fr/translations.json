@@ -15,7 +15,8 @@
     "extend": "Prolonger",
     "pickDate": "Choisir une date",
     "define": "(Définir)",
-    "loadMore": "Charger plus"
+    "loadMore": "Charger plus",
+    "n/a": "N/A"
   },
   "roles": {
     "admin": "Administrateur",
@@ -292,6 +293,7 @@
     "save_site": "Enregistrer le site",
     "site_name": "Nom du site",
     "site_code": "Code du site",
+    "provider_email": "Email du prestataire",
     "errors": {
       "listFetch": {
         "title": "Erreur de récupération",
@@ -322,7 +324,6 @@
     "first_validator": "Premier validateur",
     "second_validator": "Deuxième validateur",
     "hr": "RH",
-    "provider_email": "Email du prestataire",
     "selectUser": "Sélectionner un utilisateur",
     "errors": {
       "listFetch": {

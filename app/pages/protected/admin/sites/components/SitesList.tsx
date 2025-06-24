@@ -8,7 +8,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useSiteUseCase } from "@/usecases/site/siteUsecase";
@@ -46,7 +46,7 @@ const SitesList = () => {
         <TableRow>
           <TableHead>{t("sites.site_code")}</TableHead>
           <TableHead>{t("sites.site_name")}</TableHead>
-          <TableHead></TableHead>
+          <TableHead>{t("sites.provider_email")}</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -65,15 +65,31 @@ const SitesList = () => {
           sites?.length > 0 &&
           sites.map((site) => (
             <TableRow className="hover:bg-muted/50">
-              <TableCell>{site.code}</TableCell>
-              <TableCell>{site.name}</TableCell>
-              <TableCell className="text-right">
+              <TableCell>
                 <SiteFormDialog
                   key={site.code}
                   siteId={site.guid}
                   variant="ghost"
                 >
-                  <Edit className="text-primary" />
+                  {site.code}
+                </SiteFormDialog>
+              </TableCell>
+              <TableCell>
+                <SiteFormDialog
+                  key={site.code}
+                  siteId={site.guid}
+                  variant="ghost"
+                >
+                  {site.name}
+                </SiteFormDialog>
+              </TableCell>
+              <TableCell>
+                <SiteFormDialog
+                  key={site.code}
+                  siteId={site.guid}
+                  variant="ghost"
+                >
+                  {site.providerEmail ? site.providerEmail : t("common.n/a")}
                 </SiteFormDialog>
               </TableCell>
             </TableRow>

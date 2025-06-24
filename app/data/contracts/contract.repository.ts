@@ -7,6 +7,8 @@ import type { ListResponseModel } from "../utils/GetUsersListResponseModel";
 import type { ContractListItemModel } from "./model/response/ContractListItemModel";
 import type { GetContractDetailsRequestModel } from "./model/request/GetContractDetailsRequestModel";
 import { formatLocalDate } from "@/lib/utils";
+import type { GetCvFileResponseModel } from "./model/response/GetCvFileResponseModel";
+import type { GetCvFileRequestModel } from "./model/request/GetCvFileRequestModel";
 
 // HttpService instance
 const httpService = HttpService.getInstance();
@@ -86,6 +88,22 @@ class ContractHttpRepository implements IContractRepository {
   ): Promise<ContractDetailsModel> {
     try {
       const url = generateUrl(`${base}${endpoints.details}`, {
+        guid: request.guid,
+      });
+      const response = await httpService.get(url);
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async GetCandidateCV({
+    request,
+  }: {
+    request: GetCvFileRequestModel;
+  }): Promise<GetCvFileResponseModel> {
+    try {
+      const url = generateUrl(`${base}${endpoints.getCandidateCV}`, {
         guid: request.guid,
       });
       const response = await httpService.get(url);

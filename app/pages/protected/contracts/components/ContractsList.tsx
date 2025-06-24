@@ -19,6 +19,7 @@ import ExtendContract from "./ExtendContract";
 import { useGlobalContext } from "@/contexts/GlobalContext";
 import { userRoles } from "@/data/users/model/response/CurrentUserInfoResponseModel";
 import { useNavigate } from "react-router";
+import DownloadCandidatContractFile from "@/components/form/DownloadCandidatContractFile";
 
 const MAX_RECORDS = 13;
 
@@ -86,7 +87,7 @@ const ContractsList = () => {
           <TableHead>{t("contracts.providerLastName")}</TableHead>
           <TableHead>{t("contracts.providerEmail")}</TableHead>
           <TableHead>{t("common.status")}</TableHead>
-          <TableHead className="w-[200px]" />
+          <TableHead />
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -114,8 +115,9 @@ const ContractsList = () => {
                   defaultValue: contract.statusLabel,
                 })}
               </TableCell>
-              <TableCell className="w-[200px]">
+              <TableCell>
                 <div className="flex justify-end gap-2">
+                  <DownloadCandidatContractFile guid={contract.guid || ""} />
                   {isHR && contract.statusLabel !== "Closed" && (
                     <Button
                       variant="destructive"

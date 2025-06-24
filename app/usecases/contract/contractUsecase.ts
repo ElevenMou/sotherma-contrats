@@ -13,6 +13,8 @@ import type { ContractDetailsModel } from "@/data/contracts/model/response/Contr
 import type { ListPaginationRequestModel } from "@/data/utils/ListPaginationRequestModel";
 import type { ExtendContractRequestModel } from "@/data/contracts/model/request/ExtendContractRequestModel";
 import type { GetContractDetailsRequestModel } from "@/data/contracts/model/request/GetContractDetailsRequestModel";
+import type { GetCvFileRequestModel } from "@/data/contracts/model/request/GetCvFileRequestModel";
+import downloadFile from "@/data/utils/DowloandFile";
 
 export const useContractUsecase = (): ContractUseCaseInterface => {
   const { t } = useTranslation();
@@ -120,11 +122,32 @@ export const useContractUsecase = (): ContractUseCaseInterface => {
     }
   };
 
+  const downloadCandidateCv = async ({
+    request,
+    view,
+  }: {
+    request: GetCvFileRequestModel;
+    view: LoadingView;
+  }) => {
+    try {
+      view.setLoading(true);
+      const response = await contractHttpRepository.GetCandidateCV({ request });
+      downloadFile(response.fileName, response.fileContent);
+    } catch (error) {
+      toast.error(t("requests.errors.downloadFile.title"), {
+        description: t("requests.errors.downloadFile.description"),
+      });
+    } finally {
+      view.setLoading(false);
+    }
+  };
+
   return {
     saveContract,
     getList,
     closeContract,
     extendContract,
     getContractDetails,
+    downloadCandidateCv,
   };
 };

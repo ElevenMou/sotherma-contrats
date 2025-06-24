@@ -69,6 +69,7 @@ export const getEnvironment = () => {
         close: "/close?guid=<guid>",
         extend: "/extend?guid=<guid>&newEndDate=<newEndDate>",
         details: "/getDetails?guid=<guid>",
+        getCandidateCV: "/getCandidateCV?guid=<guid>",
       },
     },
     NotificationsAPI: {

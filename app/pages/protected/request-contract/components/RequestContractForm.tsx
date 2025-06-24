@@ -32,21 +32,13 @@ const ContractContractForm = ({
   const navigate = useNavigate();
 
   const contractDetailsSchema = object({
-    endDate: z.coerce
-      .date({
-        required_error: `${t("contracts.endDate")} ${t("common.isRequired")}`,
-      })
-      .min(new Date(), {
-        message: `${t("requests.startDate")} ${t("common.isRequired")}`,
-      }),
+    endDate: z.coerce.date({
+      required_error: `${t("common.endDate")} ${t("common.isRequired")}`,
+    }),
 
-    startDate: z.coerce
-      .date({
-        required_error: `${t("common.startDate")} ${t("common.isRequired")}`,
-      })
-      .min(new Date(), {
-        message: `${t("requests.startDate")} ${t("common.isRequired")}`,
-      }),
+    startDate: z.coerce.date({
+      required_error: `${t("common.startDate")} ${t("common.isRequired")}`,
+    }),
 
     contractType: string({
       required_error: `${t("requests.contractType")} ${t("common.isRequired")}`,
@@ -73,19 +65,6 @@ const ContractContractForm = ({
       .min(1, `${t("contracts.providerEmail")} ${t("common.isRequired")}`),
 
     cvFile: z.instanceof(File).optional(),
-  }).refine((data) => {
-    const contractDetails: Omit<ContractDetailsModel, "guid"> = {
-      endDate: new Date(data.endDate),
-      startDate: new Date(data.startDate),
-      contractType: data.contractType,
-      contractedFirstName: data.providerFirstName,
-      contractedLastName: data.providerLastName,
-      contractedEmail: data.providerEmail,
-      cvFile: data.cvFile,
-
-      requestGuid: requestGuid,
-    };
-    return contractDetails;
   });
 
   const form = useForm<z.infer<typeof contractDetailsSchema>>({
@@ -94,6 +73,8 @@ const ContractContractForm = ({
   });
 
   async function onSubmit(values: z.infer<typeof contractDetailsSchema>) {
+    console.log("Submitting contract details:", values);
+
     const contractData: ContractDetailsModel = {
       guid: contractDetails?.guid || "",
       contractType: values.contractType,

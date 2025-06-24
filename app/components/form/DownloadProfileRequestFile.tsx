@@ -3,7 +3,7 @@ import { Button } from "../ui/button";
 import { useState } from "react";
 import Loading from "../layout/Loading";
 
-const DownloadFile = ({ name, guid }: { name: string; guid: string }) => {
+const DownloadProfileRequestFile = ({ name, guid }: { name: string; guid: string }) => {
   if (!guid || !name) {
     return null;
   }
@@ -26,4 +26,4 @@ const DownloadFile = ({ name, guid }: { name: string; guid: string }) => {
   );
 };
 
-export default DownloadFile;
+export default DownloadProfileRequestFile;

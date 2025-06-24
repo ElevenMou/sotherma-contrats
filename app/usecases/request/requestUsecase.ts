@@ -15,6 +15,7 @@ import type { RequestDetailsModel } from "@/data/requests/model/request/RequestD
 import type { GetProfileFileRequestModel } from "@/data/requests/model/request/GetProfileFileRequestModel";
 import { isAxiosError } from "axios";
 import type { NotifyProviderRequestModel } from "@/data/requests/model/request/NotifyProviderRequestModel";
+import downloadFile from "@/data/utils/DowloandFile";
 
 export const useRequestUsecase = (): RequestUseCaseInterface => {
   const { t } = useTranslation();
@@ -180,23 +181,7 @@ export const useRequestUsecase = (): RequestUseCaseInterface => {
     try {
       view.setLoading(true);
       const response = await requestHttpRepository.GetProfileFile(request);
-
-      const byteCharacters = atob(response.fileContent);
-      const byteNumbers = new Array(byteCharacters.length);
-      for (let i = 0; i < byteCharacters.length; i++) {
-        byteNumbers[i] = byteCharacters.charCodeAt(i);
-      }
-      const byteArray = new Uint8Array(byteNumbers);
-      const blob = new Blob([byteArray]);
-      const url = window.URL.createObjectURL(blob);
-
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = response.fileName;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
+      downloadFile(response.fileName, response.fileContent);
     } catch (error) {
       toast.error(t("requests.errors.downloadFile.title"), {
         description: t("requests.errors.downloadFile.description"),

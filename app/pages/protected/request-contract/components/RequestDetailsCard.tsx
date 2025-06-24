@@ -1,4 +1,4 @@
-import DownloadFile from "@/components/form/DownloadFile";
+import DownloadProfileRequestFile from "@/components/form/DownloadProfileRequestFile";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { RequestDetailsModel } from "@/data/requests/model/request/RequestDetailsModel";
 import { formatDateWithoutTime } from "@/lib/utils";
@@ -124,7 +124,7 @@ const RequestDetailsCard = ({
                     {recommendation.candidateLastName}
                   </span>
                 </div>
-                <DownloadFile
+                <DownloadProfileRequestFile
                   guid={recommendation.guid ?? ""}
                   name={recommendation.fileName ?? ""}
                 />

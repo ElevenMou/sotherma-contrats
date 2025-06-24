@@ -76,7 +76,7 @@ const RequestDetailsCard = ({
           <div className="flex items-center gap-2">
             <span>{t("requests.departureReason")}</span>
             <span className="text-muted-foreground">
-              {t(`departureReasons.${requestDetails.departureReason}`, {
+              {t(`departureReason.${requestDetails.departureReason}`, {
                 defaultValue: requestDetails.departureReason,
               })}
             </span>

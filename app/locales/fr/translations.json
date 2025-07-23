@@ -247,7 +247,6 @@
     "providerEmail": "Email du candidat",
     "details": "Détails du contrat",
     "type": {
-      "RED": "RED",
       "tectra": "Tectra",
       "anapec": "Anapec Stagiaire",
       "intern": "Stagiaire",
@@ -368,6 +367,7 @@
     "maintenance_technician": "Technicien de maintenance",
     "warehouse_worker": "Magasinier",
     "invoice_operator": "Facturier",
-    "other": "Autre"
+    "other": "Autre",
+    "specifyOther": "Veuillez préciser..."
   }
 }

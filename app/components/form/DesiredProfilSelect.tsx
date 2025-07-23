@@ -5,7 +5,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
 import { useTranslation } from "react-i18next";
+import { useState, useEffect } from "react";
 
 const DesiredProfilSelect = ({
   value,
@@ -21,10 +23,45 @@ const DesiredProfilSelect = ({
   onChange: (value: string) => void;
 }) => {
   const { t } = useTranslation();
+  const [selectedValue, setSelectedValue] = useState(
+    value || defaultValue || ""
+  );
+  const [otherValue, setOtherValue] = useState("");
 
-  const handleChange = (selectedLanguage: string) => {
-    onChange(selectedLanguage);
+  const handleSelectChange = (selectedProfile: string) => {
+    setSelectedValue(selectedProfile);
+
+    if (selectedProfile === "other") {
+      // When "other" is selected, we'll wait for the user to type in the input
+      setOtherValue("");
+    } else {
+      // For predefined values, call onChange immediately
+      setOtherValue("");
+      onChange(selectedProfile);
+    }
   };
+
+  const handleOtherInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    setOtherValue(inputValue);
+    // Pass the custom value to the parent component
+    onChange(inputValue);
+  };
+
+  // Update local state when value prop changes
+  useEffect(() => {
+    if (value !== undefined) {
+      const predefinedValues = profiles.map((p) => p.value);
+      if (predefinedValues.includes(value)) {
+        setSelectedValue(value);
+        setOtherValue("");
+      } else if (value) {
+        // This is a custom "other" value
+        setSelectedValue("other");
+        setOtherValue(value);
+      }
+    }
+  }, [value]);
 
   const profiles = [
     {
@@ -76,12 +113,11 @@ const DesiredProfilSelect = ({
   ];
 
   return (
-    <>
+    <div className="space-y-2">
       <Select
-        value={value}
-        onValueChange={handleChange}
+        value={selectedValue}
+        onValueChange={handleSelectChange}
         disabled={disabled}
-        defaultValue={defaultValue}
         i18nIsDynamicList={true}
         name="contractType"
       >
@@ -100,7 +136,18 @@ const DesiredProfilSelect = ({
           ))}
         </SelectContent>
       </Select>
-    </>
+
+      {selectedValue === "other" && (
+        <Input
+          type="text"
+          placeholder={t("desiredProfil.specifyOther") || "Please specify..."}
+          value={otherValue}
+          onChange={handleOtherInputChange}
+          disabled={disabled}
+          className="w-full"
+        />
+      )}
+    </div>
   );
 };
 

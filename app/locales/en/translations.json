@@ -246,7 +246,6 @@
     "providerEmail": "Candidate Email",
     "details": "Contract Details",
     "type": {
-      "RED": "RED",
       "tectra": "Tectra",
       "anapec": "Anapec Intern",
       "intern": "Intern",
@@ -347,6 +346,7 @@
     "maintenance_technician": "Maintenance Technician",
     "warehouse_worker": "Warehouse Worker",
     "invoice_operator": "Invoice Operator",
-    "other": "Other"
+    "other": "Other",
+    "specifyOther": "Please specify..."
   }
 }

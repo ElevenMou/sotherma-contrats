@@ -220,14 +220,6 @@ const RequestForm = ({}: {}) => {
     return () => subscription.unsubscribe?.();
   }, [form.watch, append, remove]);
 
-  useEffect(() => {
-    console.log("Department Profile Relations:", form.getValues("department"));
-    console.log(
-      "Department Profile Relations:",
-      form.getValues("desiredProfile")
-    );
-  }, [form.getValues("department"), form.getValues("desiredProfile")]);
-
   return (
     <>
       {contractDetails && (

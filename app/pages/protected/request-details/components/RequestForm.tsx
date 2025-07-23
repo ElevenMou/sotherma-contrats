@@ -220,6 +220,14 @@ const RequestForm = ({}: {}) => {
     return () => subscription.unsubscribe?.();
   }, [form.watch, append, remove]);
 
+  useEffect(() => {
+    console.log("Department Profile Relations:", form.getValues("department"));
+    console.log(
+      "Department Profile Relations:",
+      form.getValues("desiredProfile")
+    );
+  }, [form.getValues("department"), form.getValues("desiredProfile")]);
+
   return (
     <>
       {contractDetails && (
@@ -248,6 +256,7 @@ const RequestForm = ({}: {}) => {
                     <DesiredProfilSelect
                       disabled={loading || state?.contractId}
                       defaultValue={field.value}
+                      department={form.watch("department")}
                       {...field}
                     />
                   </FormControl>
@@ -394,6 +403,7 @@ const RequestForm = ({}: {}) => {
                     <DepartmentsSelect
                       disabled={loading || state?.contractId}
                       defaultValue={field.value}
+                      profile={form.watch("desiredProfile")}
                       {...field}
                     />
                   </FormControl>

@@ -73,8 +73,6 @@ const ContractContractForm = ({
   });
 
   async function onSubmit(values: z.infer<typeof contractDetailsSchema>) {
-    console.log("Submitting contract details:", values);
-
     const contractData: ContractDetailsModel = {
       guid: contractDetails?.guid || "",
       contractType: values.contractType,

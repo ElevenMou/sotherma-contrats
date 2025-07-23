@@ -10,7 +10,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { useGlobalContext } from "@/contexts/GlobalContext";
-import { use, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import type { NotificationListItemModel } from "@/data/notifications/model/response/NotificationListItemModel";
 import { notificationHttpRepository } from "@/data/notifications/notifications.repository";
 import Loading from "./Loading";
@@ -126,7 +126,9 @@ export function NotificationsDrawer() {
                 <div
                   key={index}
                   className={`p-2 py-4 border-b border-gray-200 ${
-                    notification.readed ? "bg-gray-50" : "bg-white"
+                    notification.readed
+                      ? "bg-gray-50 dark:bg-gray-900"
+                      : "bg-background"
                   }`}
                 >
                   <div className="flex items-center justify-between mb-1">

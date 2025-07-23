@@ -48,7 +48,7 @@ export const getEnvironment = () => {
       base: "request",
       endpoints: {
         listByUser:
-          "/getListByUser?startIndex=<startIndex>&maxRecords=<maxRecords>",
+          "/getListByUser?startIndex=<startIndex>&maxRecords=<maxRecords>&isCompleted=<isCompleted>",
         listToValidate:
           "/getListToValidateByUser?startIndex=<startIndex>&maxRecords=<maxRecords>",
         acceptRequest: "/accept",
@@ -85,8 +85,41 @@ export const getEnvironment = () => {
 
 export const generateUrl = (url: string, params: Record<string, string>) => {
   let generatedUrl = url;
+
+  // Replace provided params
   for (const key in params) {
-    generatedUrl = generatedUrl.replace(`<${key}>`, params[key]);
+    generatedUrl = generatedUrl.replace(
+      new RegExp(`<${key}>`, "g"),
+      params[key]
+    );
   }
+
+  // Remove any remaining <param> patterns
+  generatedUrl = generatedUrl.replace(/<[^>]+>/g, "");
+
+  // Clean up malformed query strings
+  // Remove empty parameters (e.g., "param1=&param2=" or "param1=")
+  generatedUrl = generatedUrl.replace(
+    /[?&]([^=&]*=(&|$))/g,
+    (match, p1, p2) => {
+      return p2 === "&" ? "&" : "";
+    }
+  );
+
+  // Remove duplicate & or ? characters
+  generatedUrl = generatedUrl.replace(/[&]{2,}/g, "&");
+  generatedUrl = generatedUrl.replace(/[?]{2,}/g, "?");
+
+  // Fix cases where & appears right after ?
+  generatedUrl = generatedUrl.replace(/\?&/, "?");
+
+  // Remove trailing ? or & characters
+  generatedUrl = generatedUrl.replace(/[?&]+$/, "");
+
+  // If we ended up with no query parameters but still have a ?, remove it
+  if (generatedUrl.endsWith("?")) {
+    generatedUrl = generatedUrl.slice(0, -1);
+  }
+
   return generatedUrl;
 };

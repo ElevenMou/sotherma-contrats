@@ -25,6 +25,9 @@ class RequestHttpRepository implements IRequestRepository {
     const url = generateUrl(`${base}${endpoints.listByUser}`, {
       startIndex: request.startIndex.toString(),
       maxRecords: request.maxRecords.toString(),
+      ...(request.isCompleted !== undefined
+        ? { isCompleted: request.isCompleted.toString() }
+        : {}),
     });
 
     try {

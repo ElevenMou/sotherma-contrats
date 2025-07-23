@@ -9,7 +9,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useRequestUsecase } from "@/usecases/request/requestUsecase";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type FC } from "react";
 import { useTranslation } from "react-i18next";
 import { generatePath, Link, useNavigate } from "react-router";
 import { useRequestsContext } from "../contexts/RequestsProvider";
@@ -25,7 +25,7 @@ import { FilePlus } from "lucide-react";
 
 const MAX_RECORDS = 14;
 
-const MyRequestsList = () => {
+const MyRequestsList: FC<{ isCompleted?: boolean }> = ({ isCompleted }) => {
   const { t } = useTranslation();
   const { getRequestsList } = useRequestUsecase();
   const { userInfo } = useGlobalContext();
@@ -50,6 +50,7 @@ const MyRequestsList = () => {
         request: {
           startIndex: startIndex,
           maxRecords: MAX_RECORDS,
+          isCompleted,
         },
         view: {
           setLoading,

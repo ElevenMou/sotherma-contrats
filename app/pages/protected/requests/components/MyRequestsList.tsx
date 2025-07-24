@@ -21,9 +21,9 @@ import { routes } from "@/lib/router/routes";
 import { formatDateWithoutTime } from "@/lib/utils";
 import RequestHistory from "./RequestHistory";
 import NotifyProvider from "./NotifyProvider";
-import { FilePlus } from "lucide-react";
+import { FilePlus, Pencil } from "lucide-react";
 
-const MAX_RECORDS = 14;
+const MAX_RECORDS = 13;
 
 const MyRequestsList: FC<{ isCompleted?: boolean }> = ({ isCompleted }) => {
   const { t } = useTranslation();
@@ -75,6 +75,9 @@ const MyRequestsList: FC<{ isCompleted?: boolean }> = ({ isCompleted }) => {
           <TableHead>{t("common.status")}</TableHead>
           <TableHead>{t("requests.requesterFullName")}</TableHead>
           {userInfo?.profile === userRoles.hr && (
+            <TableHead className="w-[100px]" />
+          )}
+          {requests.some((request) => request.canEdit) && (
             <TableHead className="w-[100px]" />
           )}
         </TableRow>
@@ -165,6 +168,21 @@ const MyRequestsList: FC<{ isCompleted?: boolean }> = ({ isCompleted }) => {
                     )}
                   </TableCell>
                 )}
+
+              {request.canEdit && (
+                <TableCell className="w-[100px]">
+                  <Button variant="secondary" className="mr-2" asChild>
+                    <Link
+                      to={generatePath(routes.requestEdit, {
+                        requestId: request.guid,
+                      })}
+                      title={t("requests.edit_request")}
+                    >
+                      <Pencil />
+                    </Link>
+                  </Button>
+                </TableCell>
+              )}
             </TableRow>
           ))}
       </TableBody>

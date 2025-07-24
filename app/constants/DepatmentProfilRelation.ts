@@ -4,18 +4,20 @@ export const departmentProfileRelations = {
     "driver_sales_assistant",
     "sales_assistant",
     "driver_sales",
+    "other",
   ],
   "3": [
     "forklift_operator",
     "warehouse_assistant",
     "material_handler",
     "warehouse_worker",
+    "other",
   ],
-  "4": ["operator", "machine_operator"],
-  "7": ["operator", "machine_operator"],
-  "5": ["maintenance_technician"],
-  "6": ["maintenance_technician"],
-  "8": ["invoice_operator"],
+  "4": ["operator", "machine_operator", "other"],
+  "7": ["operator", "machine_operator", "other"],
+  "5": ["maintenance_technician", "other"],
+  "6": ["maintenance_technician", "other"],
+  "8": ["invoice_operator", "other"],
 };
 
 /* [

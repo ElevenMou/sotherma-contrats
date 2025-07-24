@@ -37,7 +37,7 @@ import DesiredProfilSelect from "@/components/form/DesiredProfilSelect";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import DepartureReasonSelect from "@/components/form/DepartureReasonSelect";
 
-const RequestForm = ({}: {}) => {
+const RequestForm = ({ requestId }: { requestId: string }) => {
   const { t } = useTranslation();
   const { saveRequest, getRequestDetails } = useRequestUsecase();
   const { getContractDetails } = useContractUsecase();
@@ -56,13 +56,13 @@ const RequestForm = ({}: {}) => {
     ),
     startDate: z.coerce
       .date({
-        required_error: `${t("requests.startDate")} ${t("common.isRequired")}`,
+        required_error: `${t("common.startDate")} ${t("common.isRequired")}`,
       })
       .min(new Date(), {
-        message: `${t("requests.startDate")} ${t("common.isRequired")}`,
+        message: `${t("common.startDate")} ${t("common.isRequired")}`,
       }),
     endDate: z.coerce.date({
-      required_error: `${t("requests.endDate")} ${t("common.isRequired")}`,
+      required_error: `${t("common.endDate")} ${t("common.isRequired")}`,
     }),
     site: string().min(1, `${t("common.site")} ${t("common.isRequired")}`),
     department: string().min(
@@ -152,9 +152,9 @@ const RequestForm = ({}: {}) => {
   };
 
   useEffect(() => {
-    if (state?.contractId) {
+    if (contractId) {
       getContractDetails({
-        request: { guid: state?.contractId },
+        request: { guid: contractId },
         view: {
           setLoading: setLoading,
           setContractDetails,
@@ -164,20 +164,28 @@ const RequestForm = ({}: {}) => {
   }, [state?.contractId]);
 
   useEffect(() => {
-    if (contractDetails) {
+    if (requestId) {
       getRequestDetails({
-        requestGuid: contractDetails.requestGuid,
+        requestGuid: requestId,
         view: {
           setLoading,
-          setRequestDetails: (requestDetails) => {
+          setRequestDetails: (requestDetails: RequestDetailsModel) => {
+            let startD, endD: Date | undefined;
+
+            if (contractDetails) {
+              startD = addDays(contractDetails.startDate, 1);
+              endD = addDays(contractDetails.endDate, 2);
+            } else if (requestId !== "create") {
+              startD = requestDetails.startDate;
+              endD = requestDetails.endDate;
+            }
+
             form.reset({
               contractType: requestDetails?.contractType || "",
-              startDate: contractDetails?.endDate
-                ? addDays(contractDetails?.endDate, 1)
-                : new Date(),
-              endDate: contractDetails?.endDate
-                ? addDays(contractDetails?.endDate, 2)
-                : new Date(),
+
+              startDate: startD,
+              endDate: endD,
+
               site: String(requestDetails?.site || ""),
               department: String(requestDetails?.department || ""),
               desiredProfile: requestDetails?.desiredProfile || "",
@@ -195,7 +203,7 @@ const RequestForm = ({}: {}) => {
         },
       });
     }
-  }, [contractDetails]);
+  }, [requestId]);
 
   useEffect(() => {
     const subscription = form.watch((value) => {
@@ -219,6 +227,10 @@ const RequestForm = ({}: {}) => {
 
     return () => subscription.unsubscribe?.();
   }, [form.watch, append, remove]);
+
+  useEffect(() => {
+    console.log("Form values:", form.getValues());
+  }, [form.getValues]);
 
   return (
     <>

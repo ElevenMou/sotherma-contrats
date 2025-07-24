@@ -9,4 +9,6 @@ export interface RequestListItemModel {
   status: string;
   requesterFullName: string;
   providerEmail?: string;
+  canEdit?: boolean;
+  providerNotificationCounter?: number;
 }

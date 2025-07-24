@@ -79,7 +79,9 @@ export default function RequestDetails({ params }: Route.ComponentProps) {
           </div>
         )}
 
-        {!loading && requestId === "create" && <RequestForm />}
+        {!loading && requestId === "create" && (
+          <RequestForm requestId={requestId} />
+        )}
 
         {!loading && requestId !== "create" && requestDetails && (
           <RequestReview requestDetails={requestDetails} />

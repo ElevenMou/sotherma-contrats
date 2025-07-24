@@ -164,9 +164,23 @@ const RequestForm = ({ requestId }: { requestId: string }) => {
   }, [state?.contractId]);
 
   useEffect(() => {
-    if (requestId) {
+    if (
+      (requestId !== "create" && requestId) ||
+      (contractDetails?.requestGuid !== undefined &&
+        contractDetails?.requestGuid !== "")
+    ) {
+      console.log("Fetching request details...", {
+        requestGuid:
+          requestId !== "create"
+            ? requestId
+            : contractDetails?.requestGuid || "",
+      });
+
       getRequestDetails({
-        requestGuid: requestId,
+        requestGuid:
+          requestId !== "create"
+            ? requestId
+            : contractDetails?.requestGuid || "",
         view: {
           setLoading,
           setRequestDetails: (requestDetails: RequestDetailsModel) => {
@@ -203,7 +217,7 @@ const RequestForm = ({ requestId }: { requestId: string }) => {
         },
       });
     }
-  }, [requestId]);
+  }, [requestId, contractDetails]);
 
   useEffect(() => {
     const subscription = form.watch((value) => {

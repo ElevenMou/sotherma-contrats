@@ -16,10 +16,13 @@ import type { GetProfileFileRequestModel } from "@/data/requests/model/request/G
 import { isAxiosError } from "axios";
 import type { NotifyProviderRequestModel } from "@/data/requests/model/request/NotifyProviderRequestModel";
 import downloadFile from "@/data/utils/DowloandFile";
+import { useNavigate } from "react-router";
+import { routes } from "@/lib/router/routes";
 
 export const useRequestUsecase = (): RequestUseCaseInterface => {
   const { t } = useTranslation();
   const ctx = useRequestsContext();
+  const navigate = useNavigate();
 
   const getRequestsList = async ({
     request,
@@ -141,9 +144,10 @@ export const useRequestUsecase = (): RequestUseCaseInterface => {
       );
       view.setRequestDetails(response);
     } catch (error) {
-      toast.error(t("requests.errors.listFetch.title"), {
-        description: t("requests.errors.listFetch.description"),
+      toast.error(t("requests.errors.requestDetails.title"), {
+        description: t("requests.errors.requestDetails.description"),
       });
+      navigate(routes.requests);
     } finally {
       view.setLoading(false);
     }

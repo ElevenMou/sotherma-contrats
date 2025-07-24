@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { contractHttpRepository } from "@/data/contracts/contract.repository";
 import type {
   ContractUseCaseInterface,
+  GetClosingRequestsListView,
   GetContractDetailsView,
   GetListView,
   LoadingView,
@@ -158,6 +159,28 @@ export const useContractUsecase = (): ContractUseCaseInterface => {
     }
   };
 
+  const getClosingRequestsList = async ({
+    request,
+    view,
+  }: {
+    request: ListPaginationRequestModel;
+    view: GetClosingRequestsListView;
+  }) => {
+    try {
+      view.setLoading(true);
+      const response =
+        await contractHttpRepository.GetClosingContractsRequestsList(request);
+      view.setClosingRequestsList(response.closingContractRequestList);
+      view.setTotalCount(response.totalCount);
+    } catch (error) {
+      toast.error(t("contracts.errors.closingRequestsFetch.title"), {
+        description: t("contracts.errors.closingRequestsFetch.description"),
+      });
+    } finally {
+      view.setLoading(false);
+    }
+  };
+
   return {
     saveContract,
     getList,
@@ -165,5 +188,6 @@ export const useContractUsecase = (): ContractUseCaseInterface => {
     extendContract,
     getContractDetails,
     downloadCandidateCv,
+    getClosingRequestsList,
   };
 };

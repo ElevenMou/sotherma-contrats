@@ -171,7 +171,9 @@
     },
     "tab": {
       "activeRequests": "My Pending Requests",
-      "completedRequests": "My Validated Requests"
+      "completedRequests": "My Validated Requests",
+      "contractsRequests": "My Contract Requests",
+      "closeRequests": "My Closing contracts Requests"
     },
     "confirmReject": {
       "title": "Confirm Reject",
@@ -286,6 +288,10 @@
       "closeContractRequest": {
         "title": "Close Request Error",
         "description": "Error creating the close request for the contract."
+      },
+      "closingRequestsFetch": {
+        "title": "Fetch Error",
+        "description": "Error fetching the list of closing requests."
       }
     },
     "success": {

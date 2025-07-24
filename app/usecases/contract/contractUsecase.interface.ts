@@ -2,9 +2,9 @@ import type { CloseContractRequestModel } from "@/data/contracts/model/request/C
 import type { ExtendContractRequestModel } from "@/data/contracts/model/request/ExtendContractRequestModel";
 import type { GetContractDetailsRequestModel } from "@/data/contracts/model/request/GetContractDetailsRequestModel";
 import type { GetCvFileRequestModel } from "@/data/contracts/model/request/GetCvFileRequestModel";
+import type { ClosingContractRequestListItemModel } from "@/data/contracts/model/response/ClosingContractRequestListItemModel";
 import type { ContractDetailsModel } from "@/data/contracts/model/response/ContractDetailsModel";
 import type { ContractListItemModel } from "@/data/contracts/model/response/ContractListItemModel";
-import type { GetCvFileResponseModel } from "@/data/contracts/model/response/GetCvFileResponseModel";
 import type { ListPaginationRequestModel } from "@/data/utils/ListPaginationRequestModel";
 
 export interface SaveContractView {
@@ -13,6 +13,14 @@ export interface SaveContractView {
 
 export interface GetListView {
   setContractsList: (contracts: ContractListItemModel[]) => void;
+  setTotalCount: (totalCount: number) => void;
+  setLoading: (loading: boolean) => void;
+}
+
+export interface GetClosingRequestsListView {
+  setClosingRequestsList: (
+    closingRequestList: ClosingContractRequestListItemModel[]
+  ) => void;
   setTotalCount: (totalCount: number) => void;
   setLoading: (loading: boolean) => void;
 }
@@ -74,5 +82,13 @@ export interface ContractUseCaseInterface {
   }: {
     request: GetCvFileRequestModel;
     view: LoadingView;
+  }) => Promise<void>;
+
+  getClosingRequestsList: ({
+    request,
+    view,
+  }: {
+    request: ListPaginationRequestModel;
+    view: GetClosingRequestsListView;
   }) => Promise<void>;
 }

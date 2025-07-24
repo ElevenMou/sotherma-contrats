@@ -4,6 +4,7 @@ import type { CloseContractRequestModel } from "./model/request/CloseContractReq
 import type { ExtendContractRequestModel } from "./model/request/ExtendContractRequestModel";
 import type { GetContractDetailsRequestModel } from "./model/request/GetContractDetailsRequestModel";
 import type { GetCvFileRequestModel } from "./model/request/GetCvFileRequestModel";
+import type { ClosingContractRequestListItemModel } from "./model/response/ClosingContractRequestListItemModel";
 import type { ContractDetailsModel } from "./model/response/ContractDetailsModel";
 import type { ContractListItemModel } from "./model/response/ContractListItemModel";
 import type { GetCvFileResponseModel } from "./model/response/GetCvFileResponseModel";
@@ -17,9 +18,7 @@ export interface IContractRepository {
 
   CloseContract: (request: CloseContractRequestModel) => Promise<void>;
 
-  CloseContractRequest: (
-    request: CloseContractRequestModel
-  ) => Promise<void>;
+  CloseContractRequest: (request: CloseContractRequestModel) => Promise<void>;
 
   ExtendContract: (request: ExtendContractRequestModel) => Promise<void>;
 
@@ -32,4 +31,10 @@ export interface IContractRepository {
   }: {
     request: GetCvFileRequestModel;
   }) => Promise<GetCvFileResponseModel>;
+
+  GetClosingContractsRequestsList: (
+    request: ListPaginationRequestModel
+  ) => Promise<
+    ListResponseModel<ClosingContractRequestListItemModel, "closingContractRequestList">
+  >;
 }

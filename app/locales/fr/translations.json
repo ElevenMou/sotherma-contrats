@@ -171,7 +171,9 @@
     },
     "tab": {
       "activeRequests": "Mes demandes en cours",
-      "completedRequests": "Mes demandes traitées"
+      "completedRequests": "Mes demandes traitées",
+      "contractsRequests": "Mes demandes de contrats",
+      "closeRequests": "Mes demandes de résiliation"
     },
     "confirmReject": {
       "title": "Confirmer le rejet",
@@ -287,6 +289,10 @@
       "closeContractRequest": {
         "title": "Erreur de fermeture",
         "description": "Erreur lors de la création de la demande de fermeture du contrat."
+      },
+      "closingRequestsFetch": {
+        "title": "Erreur de récupération",
+        "description": "Erreur lors de la récupération de la liste des demandes de clôture."
       }
     },
     "success": {

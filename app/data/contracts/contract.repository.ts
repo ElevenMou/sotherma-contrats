@@ -11,6 +11,7 @@ import type { GetCvFileResponseModel } from "./model/response/GetCvFileResponseM
 import type { GetCvFileRequestModel } from "./model/request/GetCvFileRequestModel";
 import type { CloseContractRequestModel } from "./model/request/CloseContractRequestModel";
 import type { ExtendContractRequestModel } from "./model/request/ExtendContractRequestModel";
+import type { ClosingContractRequestListItemModel } from "./model/response/ClosingContractRequestListItemModel";
 
 // HttpService instance
 const httpService = HttpService.getInstance();
@@ -122,6 +123,26 @@ class ContractHttpRepository implements IContractRepository {
     try {
       const url = generateUrl(`${base}${endpoints.getCandidateCV}`, {
         guid: request.guid,
+      });
+      const response = await httpService.get(url);
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async GetClosingContractsRequestsList(
+    request: ListPaginationRequestModel
+  ): Promise<
+    ListResponseModel<
+      ClosingContractRequestListItemModel,
+      "closingContractRequestList"
+    >
+  > {
+    try {
+      const url = generateUrl(`${base}${endpoints.closingRequests}`, {
+        maxRecords: request.maxRecords.toString(),
+        startIndex: request.startIndex.toString(),
       });
       const response = await httpService.get(url);
       return response;

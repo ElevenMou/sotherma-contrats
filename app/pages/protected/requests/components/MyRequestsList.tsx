@@ -61,7 +61,11 @@ const MyRequestsList: FC<{ isCompleted?: boolean }> = ({ isCompleted }) => {
     fetchRequests();
   }, [startIndex, MAX_RECORDS]);
 
-  const COLS_NUMBER = userInfo?.profile === userRoles.hr ? 9 : 8;
+  const COLS_NUMBER =
+    userInfo?.profile === userRoles.hr ||
+    requests.some((request) => request.canEdit)
+      ? 9
+      : 8;
   return (
     <Table>
       <TableHeader>

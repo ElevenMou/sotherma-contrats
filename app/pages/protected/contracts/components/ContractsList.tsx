@@ -71,6 +71,7 @@ const ContractsList = () => {
   }, [startIndex, MAX_RECORDS]);
 
   const isHR = userInfo?.profile === userRoles.hr;
+  const isRequester = userInfo?.profile === userRoles.requester;
   return (
     <Table>
       <TableHeader>
@@ -112,7 +113,14 @@ const ContractsList = () => {
               <TableCell>
                 <div className="flex justify-end gap-2">
                   <DownloadCandidatContractFile guid={contract.guid || ""} />
-                  {isHR &&
+                  {contract.extendable && isRequester && (
+                    <Button
+                      onClick={() => handleExtendContract(contract.guid || "")}
+                    >
+                      {t("common.extend")}
+                    </Button>
+                  )}
+                  {(isHR || isRequester) &&
                     contract.statusLabel !== "Closed" &&
                     contract.closable && (
                       <CloseContract
@@ -120,13 +128,6 @@ const ContractsList = () => {
                         onClose={handleCloseContract}
                       />
                     )}
-                  {contract.extendable && (
-                    <Button
-                      onClick={() => handleExtendContract(contract.guid || "")}
-                    >
-                      {t("common.extend")}
-                    </Button>
-                  )}
                 </div>
               </TableCell>
             </TableRow>

@@ -16,9 +16,12 @@ import type { GetContractDetailsRequestModel } from "@/data/contracts/model/requ
 import type { GetCvFileRequestModel } from "@/data/contracts/model/request/GetCvFileRequestModel";
 import downloadFile from "@/data/utils/DowloandFile";
 import type { CloseContractRequestModel } from "@/data/contracts/model/request/CloseContractRequestModel";
+import { userRoles } from "@/data/users/model/response/CurrentUserInfoResponseModel";
+import { useGlobalContext } from "@/contexts/GlobalContext";
 
 export const useContractUsecase = (): ContractUseCaseInterface => {
   const { t } = useTranslation();
+  const { userInfo } = useGlobalContext();
 
   const saveContract = async ({
     request,
@@ -71,11 +74,23 @@ export const useContractUsecase = (): ContractUseCaseInterface => {
     };
   }) => {
     try {
-      await contractHttpRepository.CloseContract(request);
-      toast.success(t("contracts.success.closeContract.title"), {
-        description: t("contracts.success.closeContract.description"),
-      });
-      view.onSuccess();
+      const isHR = userInfo?.profile === userRoles.hr;
+      const isRequester = userInfo?.profile === userRoles.requester;
+      if (isHR) {
+        await contractHttpRepository.CloseContract(request);
+        toast.success(t("contracts.success.closeContract.title"), {
+          description: t("contracts.success.closeContract.description"),
+        });
+        view.onSuccess();
+      }
+
+      if (isRequester) {
+        await contractHttpRepository.CloseContractRequest(request);
+        toast.success(t("contracts.success.closeContractRequest.title"), {
+          description: t("contracts.success.closeContractRequest.description"),
+        });
+        view.onSuccess();
+      }
     } catch (error) {
       toast.error(t("contracts.errors.closeContract.title"), {
         description: t("contracts.errors.closeContract.description"),

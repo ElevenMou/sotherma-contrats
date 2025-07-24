@@ -17,6 +17,10 @@ export interface IContractRepository {
 
   CloseContract: (request: CloseContractRequestModel) => Promise<void>;
 
+  CloseContractRequest: (
+    request: CloseContractRequestModel
+  ) => Promise<void>;
+
   ExtendContract: (request: ExtendContractRequestModel) => Promise<void>;
 
   GetContractDetails: (

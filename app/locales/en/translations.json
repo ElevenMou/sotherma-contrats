@@ -53,7 +53,8 @@
     "in_progress": "In Progress",
     "completed": "Completed",
     "active": "Active",
-    "closed": "Closed"
+    "closed": "Closed",
+    "under closing review": "Under Closing Review"
   },
   "departureReason": {
     "resignation": "Resignation",
@@ -265,16 +266,44 @@
         "title": "Fetch Error",
         "description": "Error fetching the list of contracts."
       },
+      "contractDetails": {
+        "title": "Fetch Error",
+        "description": "Error fetching contract details."
+      },
       "saveContract": {
         "title": "Save Error",
         "description": "Error saving contract details."
       },
-      "endDate": "New end date must be after the current end date."
+      "extendContract": {
+        "title": "Extend Error",
+        "description": "Error extending the contract."
+      },
+      "closeContract": {
+        "title": "Close Error",
+        "description": "Error closing the contract."
+      },
+      "endDate": "New end date must be after the current end date.",
+      "closeContractRequest": {
+        "title": "Close Request Error",
+        "description": "Error creating the close request for the contract."
+      }
     },
     "success": {
       "saveContract": {
         "title": "Success",
         "description": "Contract details saved successfully."
+      },
+      "extendContract": {
+        "title": "Success",
+        "description": "Contract extended successfully."
+      },
+      "closeContract": {
+        "title": "Success",
+        "description": "Contract closed successfully."
+      },
+      "closeContractRequest": {
+        "title": "Success",
+        "description": "Close request for the contract created successfully."
       }
     }
   },

@@ -53,7 +53,8 @@
     "in_progress": "En cours",
     "completed": "Complété",
     "active": "Actif",
-    "closed": "Clôturé"
+    "closed": "Clôturé",
+    "under closing review": "En révision de clôture"
   },
   "departureReason": {
     "resignation": "Démission",
@@ -282,7 +283,11 @@
         "title": "Erreur de fermeture",
         "description": "Erreur lors de la fermeture du contrat."
       },
-      "endDate": "La nouvelle date de fin doit être postérieure à la date de fin actuelle."
+      "endDate": "La nouvelle date de fin doit être postérieure à la date de fin actuelle.",
+      "closeContractRequest": {
+        "title": "Erreur de fermeture",
+        "description": "Erreur lors de la création de la demande de fermeture du contrat."
+      }
     },
     "success": {
       "saveContract": {
@@ -296,6 +301,10 @@
       "closeContract": {
         "title": "Succès",
         "description": "Le contrat a été fermé avec succès."
+      },
+      "closeContractRequest": {
+        "title": "Succès",
+        "description": "La demande de fermeture du contrat a été créée avec succès."
       }
     }
   },

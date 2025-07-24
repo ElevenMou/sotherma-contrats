@@ -247,6 +247,10 @@
     "providerEmail": "Email du candidat",
     "contractedPhone": "Téléphone du candidat",
     "details": "Détails du contrat",
+    "confirmClose": {
+      "title": "Confirmer la résiliation",
+      "description": "Êtes-vous sûr de vouloir fermer ce contrat ?"
+    },
     "type": {
       "tectra": "Tectra",
       "anapec": "Anapec Stagiaire",

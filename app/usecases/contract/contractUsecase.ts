@@ -15,6 +15,7 @@ import type { ExtendContractRequestModel } from "@/data/contracts/model/request/
 import type { GetContractDetailsRequestModel } from "@/data/contracts/model/request/GetContractDetailsRequestModel";
 import type { GetCvFileRequestModel } from "@/data/contracts/model/request/GetCvFileRequestModel";
 import downloadFile from "@/data/utils/DowloandFile";
+import type { CloseContractRequestModel } from "@/data/contracts/model/request/CloseContractRequestModel";
 
 export const useContractUsecase = (): ContractUseCaseInterface => {
   const { t } = useTranslation();
@@ -61,24 +62,24 @@ export const useContractUsecase = (): ContractUseCaseInterface => {
   };
 
   const closeContract = async ({
-    guid,
+    request,
     view,
   }: {
-    guid: string;
-    view: LoadingView;
+    request: CloseContractRequestModel;
+    view: {
+      onSuccess: () => void;
+    };
   }) => {
     try {
-      view.setLoading(true);
-      await contractHttpRepository.CloseContract(guid);
+      await contractHttpRepository.CloseContract(request);
       toast.success(t("contracts.success.closeContract.title"), {
         description: t("contracts.success.closeContract.description"),
       });
+      view.onSuccess();
     } catch (error) {
       toast.error(t("contracts.errors.closeContract.title"), {
         description: t("contracts.errors.closeContract.description"),
       });
-    } finally {
-      view.setLoading(false);
     }
   };
 
@@ -88,10 +89,10 @@ export const useContractUsecase = (): ContractUseCaseInterface => {
     request: ExtendContractRequestModel;
   }) => {
     try {
-      await contractHttpRepository.ExtendContract(
-        request.guid,
-        request.newEndDate
-      );
+      await contractHttpRepository.ExtendContract({
+        guid: request.guid,
+        newEndDate: request.newEndDate,
+      });
       toast.success(t("contracts.success.extendContract.title"), {
         description: t("contracts.success.extendContract.description"),
       });

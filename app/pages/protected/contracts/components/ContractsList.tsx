@@ -15,11 +15,11 @@ import { Button } from "@/components/ui/button";
 import { formatDateWithoutTime } from "@/lib/utils";
 import { useContractUsecase } from "@/usecases/contract/contractUsecase";
 import type { ContractListItemModel } from "@/data/contracts/model/response/ContractListItemModel";
-import ExtendContract from "./ExtendContract";
 import { useGlobalContext } from "@/contexts/GlobalContext";
 import { userRoles } from "@/data/users/model/response/CurrentUserInfoResponseModel";
 import { useNavigate } from "react-router";
 import DownloadCandidatContractFile from "@/components/form/DownloadCandidatContractFile";
+import CloseContract from "./CloseContract";
 
 const MAX_RECORDS = 13;
 
@@ -62,13 +62,7 @@ const ContractsList = () => {
     setStartIndex((page - 1) * MAX_RECORDS);
   };
 
-  const handleCloseContract = async (contractId: string) => {
-    await closeContract({
-      guid: contractId,
-      view: {
-        setLoading,
-      },
-    });
+  const handleCloseContract = async () => {
     fetchContracts();
   };
 
@@ -118,14 +112,14 @@ const ContractsList = () => {
               <TableCell>
                 <div className="flex justify-end gap-2">
                   <DownloadCandidatContractFile guid={contract.guid || ""} />
-                  {isHR && contract.statusLabel !== "Closed" && (
-                    <Button
-                      variant="destructive"
-                      onClick={() => handleCloseContract(contract.guid || "")}
-                    >
-                      {t("common.close")}
-                    </Button>
-                  )}
+                  {isHR &&
+                    contract.statusLabel !== "Closed" &&
+                    contract.closable && (
+                      <CloseContract
+                        contractId={contract.guid || ""}
+                        onClose={handleCloseContract}
+                      />
+                    )}
                   {contract.extendable && (
                     <Button
                       onClick={() => handleExtendContract(contract.guid || "")}

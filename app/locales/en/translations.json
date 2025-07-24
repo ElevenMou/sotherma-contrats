@@ -246,6 +246,10 @@
     "providerEmail": "Candidate Email",
     "contractedPhone": "Candidate Phone",
     "details": "Contract Details",
+    "confirmClose": {
+      "title": "Confirm close",
+      "description": "Are you sure you want to close this contract?"
+    },
     "type": {
       "tectra": "Tectra",
       "anapec": "Anapec Intern",

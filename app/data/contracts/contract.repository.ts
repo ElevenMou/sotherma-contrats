@@ -9,6 +9,8 @@ import type { GetContractDetailsRequestModel } from "./model/request/GetContract
 import { formatLocalDate } from "@/lib/utils";
 import type { GetCvFileResponseModel } from "./model/response/GetCvFileResponseModel";
 import type { GetCvFileRequestModel } from "./model/request/GetCvFileRequestModel";
+import type { CloseContractRequestModel } from "./model/request/CloseContractRequestModel";
+import type { ExtendContractRequestModel } from "./model/request/ExtendContractRequestModel";
 
 // HttpService instance
 const httpService = HttpService.getInstance();
@@ -60,10 +62,11 @@ class ContractHttpRepository implements IContractRepository {
     }
   }
 
-  async CloseContract(guid: string): Promise<void> {
+  async CloseContract(request: CloseContractRequestModel): Promise<void> {
     try {
       const url = generateUrl(`${base}${endpoints.close}`, {
-        guid,
+        guid: request.contractGuid,
+        closingReason: request.closingReason,
       });
       await httpService.post(url);
     } catch (error) {
@@ -71,11 +74,11 @@ class ContractHttpRepository implements IContractRepository {
     }
   }
 
-  async ExtendContract(guid: string, newEndDate: string): Promise<void> {
+  async ExtendContract(request: ExtendContractRequestModel): Promise<void> {
     try {
       const url = generateUrl(`${base}${endpoints.extend}`, {
-        guid,
-        newEndDate: new Date(newEndDate).toISOString().split("T")[0],
+        guid: request.guid,
+        newEndDate: new Date(request.newEndDate).toISOString().split("T")[0],
       });
       await httpService.post(url);
     } catch (error) {

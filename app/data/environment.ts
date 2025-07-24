@@ -66,7 +66,7 @@ export const getEnvironment = () => {
         list: "/getList?startIndex=<startIndex>&maxRecords=<maxRecords>",
         contractDetails: "/getDetails?guid=<guid>",
         save: "/save",
-        close: "/close?guid=<guid>",
+        close: "/close?guid=<guid>&closingReason=<closingReason>",
         extend: "/extend?guid=<guid>&newEndDate=<newEndDate>",
         details: "/getDetails?guid=<guid>",
         getCandidateCV: "/getCandidateCV?guid=<guid>",

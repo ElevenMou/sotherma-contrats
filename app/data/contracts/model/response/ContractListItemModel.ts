@@ -7,4 +7,5 @@ export interface ContractListItemModel {
   contractedPhone: string;
   statusLabel?: string;
   extendable: boolean;
+  closable: boolean;
 }

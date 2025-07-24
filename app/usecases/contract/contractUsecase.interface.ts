@@ -1,3 +1,4 @@
+import type { CloseContractRequestModel } from "@/data/contracts/model/request/CloseContractRequestModel";
 import type { ExtendContractRequestModel } from "@/data/contracts/model/request/ExtendContractRequestModel";
 import type { GetContractDetailsRequestModel } from "@/data/contracts/model/request/GetContractDetailsRequestModel";
 import type { GetCvFileRequestModel } from "@/data/contracts/model/request/GetCvFileRequestModel";
@@ -18,6 +19,7 @@ export interface GetListView {
 
 export interface LoadingView {
   setLoading: (loading: boolean) => void;
+  onFinish?: () => void;
 }
 
 export interface GetContractDetailsView {
@@ -43,11 +45,13 @@ export interface ContractUseCaseInterface {
   }) => Promise<void>;
 
   closeContract: ({
-    guid,
+    request,
     view,
   }: {
-    guid: string;
-    view: LoadingView;
+    request: CloseContractRequestModel;
+    view: {
+      onSuccess: () => void;
+    };
   }) => Promise<void>;
 
   extendContract: ({

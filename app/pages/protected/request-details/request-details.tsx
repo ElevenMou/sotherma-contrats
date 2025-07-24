@@ -12,6 +12,8 @@ import RequestForm from "./components/RequestForm";
 import { useRequestUsecase } from "@/usecases/request/requestUsecase";
 import type { RequestDetailsModel } from "@/data/requests/model/request/RequestDetailsModel";
 import RequestReview from "./components/RequestReview";
+import type { ContractDetailsModel } from "@/data/contracts/model/response/ContractDetailsModel";
+import { useContractUsecase } from "@/usecases/contract/contractUsecase";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -22,19 +24,40 @@ export function meta({}: Route.MetaArgs) {
 
 export default function RequestDetails({ params }: Route.ComponentProps) {
   const { t } = useTranslation();
+  const { getContractDetails } = useContractUsecase();
+
   const [loading, setLoading] = useState<boolean>(true);
+
   const { requestId } = params;
   const { state } = useLocation();
   const { contractId } = state || {};
 
   const [requestDetails, setRequestDetails] = useState<RequestDetailsModel>();
+  const [contractDetails, setContractDetails] =
+    useState<ContractDetailsModel>();
 
   const { getRequestDetails } = useRequestUsecase();
 
   useEffect(() => {
-    if (requestId !== "create") {
+    if (contractId) {
+      getContractDetails({
+        request: { guid: contractId },
+        view: {
+          setLoading: setLoading,
+          setContractDetails,
+        },
+      });
+    }
+  }, [contractId]);
+
+  useEffect(() => {
+    const requestGuid =
+      requestId !== "create" && !contractId
+        ? requestId
+        : contractDetails?.requestGuid;
+    if (requestGuid) {
       getRequestDetails({
-        requestGuid: requestId,
+        requestGuid,
         view: {
           setLoading,
           setRequestDetails,
@@ -43,7 +66,7 @@ export default function RequestDetails({ params }: Route.ComponentProps) {
     } else {
       setLoading(false);
     }
-  }, [requestId]);
+  }, [requestId, contractId, contractDetails]);
   return (
     <>
       <header className="flex h-16 shrink-0 items-center gap-2">
@@ -80,7 +103,10 @@ export default function RequestDetails({ params }: Route.ComponentProps) {
         )}
 
         {!loading && requestId === "create" && (
-          <RequestForm requestId={requestId} />
+          <RequestForm
+            requestDetails={requestDetails}
+            contractDetails={contractDetails}
+          />
         )}
 
         {!loading && requestId !== "create" && requestDetails && (

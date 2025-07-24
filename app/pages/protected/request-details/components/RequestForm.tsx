@@ -29,28 +29,26 @@ import { useLocation, useNavigate } from "react-router";
 import { routes } from "@/lib/router/routes";
 import { DatePicker } from "@/components/form/DatePicker";
 import { useEffect, useState } from "react";
-import { useContractUsecase } from "@/usecases/contract/contractUsecase";
-import type { ContractDetailsModel } from "@/data/contracts/model/response/ContractDetailsModel";
 import ContractDetialsCard from "../../contracts/components/ContractDetialsCard";
 import { addDays } from "date-fns";
 import DesiredProfilSelect from "@/components/form/DesiredProfilSelect";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import DepartureReasonSelect from "@/components/form/DepartureReasonSelect";
+import type { ContractDetailsModel } from "@/data/contracts/model/response/ContractDetailsModel";
 
 const RequestForm = ({
   requestDetails,
+  contractDetails,
 }: {
   requestDetails?: RequestDetailsModel;
+  contractDetails?: ContractDetailsModel;
 }) => {
   const { t } = useTranslation();
   const { saveRequest } = useRequestUsecase();
-  const { getContractDetails } = useContractUsecase();
   const navigate = useNavigate();
   const { state } = useLocation();
   const { contractId } = state || {};
 
-  const [contractDetails, setContractDetails] =
-    useState<ContractDetailsModel>();
   const [loading, setLoading] = useState<boolean>(false);
 
   const requestDetailsSchema = object({
@@ -156,18 +154,6 @@ const RequestForm = ({
   };
 
   useEffect(() => {
-    if (contractId) {
-      getContractDetails({
-        request: { guid: contractId },
-        view: {
-          setLoading: setLoading,
-          setContractDetails,
-        },
-      });
-    }
-  }, [state?.contractId]);
-
-  useEffect(() => {
     let startD, endD: Date | undefined;
 
     if (contractDetails) {
@@ -177,6 +163,11 @@ const RequestForm = ({
       startD = requestDetails.startDate;
       endD = requestDetails.endDate;
     }
+
+    console.log("Setting form default values:", {
+      requestDetails,
+      contractDetails,
+    });
 
     form.reset({
       contractType: requestDetails?.contractType || "",

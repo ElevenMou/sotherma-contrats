@@ -6,7 +6,10 @@ import { BellRing } from "lucide-react";
 import { useState, type FC } from "react";
 import { useTranslation } from "react-i18next";
 
-const NotifyProvider: FC<NotifyProviderRequestModel> = (request) => {
+const NotifyProvider: FC<NotifyProviderRequestModel> = ({
+  requestGUID,
+  providerNotificationCounter,
+}) => {
   const { t } = useTranslation();
   const { notifyProvider } = useRequestUsecase();
   const [loading, setLoading] = useState<boolean>(false);
@@ -15,7 +18,7 @@ const NotifyProvider: FC<NotifyProviderRequestModel> = (request) => {
     e.preventDefault();
     setLoading(true);
     try {
-      await notifyProvider({ request, view: { setLoading } });
+      await notifyProvider({ request: { requestGUID }, view: { setLoading } });
     } catch (error) {
       console.error("Error notifying provider:", error);
     } finally {
@@ -29,7 +32,15 @@ const NotifyProvider: FC<NotifyProviderRequestModel> = (request) => {
       onClick={notify}
       title={t("requests.notifyProvider")}
     >
-      {loading ? <Loading /> : <BellRing />}
+      {loading && <Loading />}
+      {!loading && (
+        <>
+          <BellRing />
+          {providerNotificationCounter && (
+            <span>{providerNotificationCounter}</span>
+          )}
+        </>
+      )}
     </Button>
   );
 };

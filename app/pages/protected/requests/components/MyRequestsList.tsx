@@ -164,7 +164,12 @@ const MyRequestsList: FC<{ isCompleted?: boolean }> = ({ isCompleted }) => {
                       </Link>
                     </Button>
                     {request.providerEmail && (
-                      <NotifyProvider requestGUID={request.guid} />
+                      <NotifyProvider
+                        requestGUID={request.guid}
+                        providerNotificationCounter={
+                          request.providerNotificationCounter
+                        }
+                      />
                     )}
                   </TableCell>
                 )}

@@ -16,7 +16,7 @@ export interface RequestDetailsModel {
   departureReason?: string;
 
   contractGuid?: string;
-  isChangeable?: boolean;
+  canEdit?: boolean;
 
   recommendedProfiles?: RecommendedProfile[];
 }

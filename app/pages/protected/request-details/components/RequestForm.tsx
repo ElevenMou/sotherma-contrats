@@ -37,9 +37,13 @@ import DesiredProfilSelect from "@/components/form/DesiredProfilSelect";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import DepartureReasonSelect from "@/components/form/DepartureReasonSelect";
 
-const RequestForm = ({ requestId }: { requestId: string }) => {
+const RequestForm = ({
+  requestDetails,
+}: {
+  requestDetails?: RequestDetailsModel;
+}) => {
   const { t } = useTranslation();
-  const { saveRequest, getRequestDetails } = useRequestUsecase();
+  const { saveRequest } = useRequestUsecase();
   const { getContractDetails } = useContractUsecase();
   const navigate = useNavigate();
   const { state } = useLocation();
@@ -164,60 +168,36 @@ const RequestForm = ({ requestId }: { requestId: string }) => {
   }, [state?.contractId]);
 
   useEffect(() => {
-    if (
-      (requestId !== "create" && requestId) ||
-      (contractDetails?.requestGuid !== undefined &&
-        contractDetails?.requestGuid !== "")
-    ) {
-      console.log("Fetching request details...", {
-        requestGuid:
-          requestId !== "create"
-            ? requestId
-            : contractDetails?.requestGuid || "",
-      });
+    let startD, endD: Date | undefined;
 
-      getRequestDetails({
-        requestGuid:
-          requestId !== "create"
-            ? requestId
-            : contractDetails?.requestGuid || "",
-        view: {
-          setLoading,
-          setRequestDetails: (requestDetails: RequestDetailsModel) => {
-            let startD, endD: Date | undefined;
-
-            if (contractDetails) {
-              startD = addDays(contractDetails.startDate, 1);
-              endD = addDays(contractDetails.endDate, 2);
-            } else if (requestId !== "create") {
-              startD = requestDetails.startDate;
-              endD = requestDetails.endDate;
-            }
-
-            form.reset({
-              contractType: requestDetails?.contractType || "",
-
-              startDate: startD,
-              endDate: endD,
-
-              site: String(requestDetails?.site || ""),
-              department: String(requestDetails?.department || ""),
-              desiredProfile: requestDetails?.desiredProfile || "",
-              justification: requestDetails?.justification || "",
-              numberOfProfiles: String(requestDetails?.numberOfProfiles || 1),
-              recommendedProfiles: requestDetails?.recommendedProfiles || [
-                { candidateFirstName: "", candidateLastName: "", cvFile: null },
-              ],
-              departureFirstName: requestDetails?.departureFirstName || "",
-              departureLastName: requestDetails?.departureLastName || "",
-              departurePosition: requestDetails?.departurePosition || "",
-              departureReason: requestDetails?.departureReason || "",
-            });
-          },
-        },
-      });
+    if (contractDetails) {
+      startD = addDays(contractDetails.startDate, 1);
+      endD = addDays(contractDetails.endDate, 2);
+    } else if (requestDetails) {
+      startD = requestDetails.startDate;
+      endD = requestDetails.endDate;
     }
-  }, [requestId, contractDetails]);
+
+    form.reset({
+      contractType: requestDetails?.contractType || "",
+
+      startDate: startD,
+      endDate: endD,
+
+      site: String(requestDetails?.site || ""),
+      department: String(requestDetails?.department || ""),
+      desiredProfile: requestDetails?.desiredProfile || "",
+      justification: requestDetails?.justification || "",
+      numberOfProfiles: String(requestDetails?.numberOfProfiles || 1),
+      recommendedProfiles: requestDetails?.recommendedProfiles || [
+        { candidateFirstName: "", candidateLastName: "", cvFile: null },
+      ],
+      departureFirstName: requestDetails?.departureFirstName || "",
+      departureLastName: requestDetails?.departureLastName || "",
+      departurePosition: requestDetails?.departurePosition || "",
+      departureReason: requestDetails?.departureReason || "",
+    });
+  }, [requestDetails, contractDetails]);
 
   useEffect(() => {
     const subscription = form.watch((value) => {

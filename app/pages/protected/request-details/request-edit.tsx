@@ -1,5 +1,5 @@
 import { Separator } from "@radix-ui/react-separator";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { ArrowLeftCircle } from "lucide-react";
 import { routes } from "@/lib/router/routes";
 import { useTranslation } from "react-i18next";
@@ -26,6 +26,8 @@ export default function RequestDetails({ params }: Route.ComponentProps) {
   const { state } = useLocation();
   const { contractId } = state || {};
 
+  const navigate = useNavigate();
+
   const [requestDetails, setRequestDetails] = useState<RequestDetailsModel>();
 
   const { getRequestDetails } = useRequestUsecase();
@@ -43,6 +45,13 @@ export default function RequestDetails({ params }: Route.ComponentProps) {
       setLoading(false);
     }
   }, [requestId]);
+
+  useEffect(() => {
+    if (requestDetails && !requestDetails.canEdit) {
+      navigate(routes.requests);
+    }
+  }, [requestDetails]);
+
   return (
     <>
       <header className="flex h-16 shrink-0 items-center gap-2">
@@ -76,7 +85,7 @@ export default function RequestDetails({ params }: Route.ComponentProps) {
           </div>
         )}
 
-        {!loading && <RequestForm requestId={requestId} />}
+        {!loading && <RequestForm requestDetails={requestDetails} />}
       </div>
     </>
   );

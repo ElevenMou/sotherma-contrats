@@ -54,12 +54,9 @@ export default function RequestContract({ params }: Route.ComponentProps) {
             {loading ? (
               <Skeleton className="h-8 w-40" />
             ) : (
-              `${requestDetails?.desiredProfile} ${t(
-                `contracts.type.${requestDetails?.contractType}`,
-                {
-                  defaultValue: requestDetails?.contractType,
-                }
-              )}`
+              t(`desiredProfil.${requestDetails?.desiredProfile}`, {
+                defaultValue: requestDetails?.desiredProfile,
+              })
             )}
           </h1>
         </div>

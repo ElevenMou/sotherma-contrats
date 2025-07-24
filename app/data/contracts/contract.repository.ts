@@ -30,7 +30,7 @@ class ContractHttpRepository implements IContractRepository {
       formData.append("contractType", contract.contractType);
       formData.append("contractedFirstName", contract.contractedFirstName);
       formData.append("contractedLastName", contract.contractedLastName);
-      formData.append("contractedEmail", contract.contractedEmail);
+      formData.append("contractedPhone", contract.contractedPhone);
       if (contract.cvFile) {
         formData.append("cvFile", contract.cvFile);
       }

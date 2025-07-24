@@ -6,7 +6,7 @@ export interface ContractDetailsModel {
   contractType: string;
   contractedFirstName: string;
   contractedLastName: string;
-  contractedEmail: string;
+  contractedPhone: string;
   providerEmail?: string;
   statusLabel?: string;
   cvFile?: File;

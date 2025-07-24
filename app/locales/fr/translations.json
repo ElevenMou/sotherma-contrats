@@ -245,6 +245,7 @@
     "providerFirstName": "Prénom du candidat",
     "providerLastName": "Nom du candidat",
     "providerEmail": "Email du candidat",
+    "contractedPhone": "Téléphone du candidat",
     "details": "Détails du contrat",
     "type": {
       "tectra": "Tectra",

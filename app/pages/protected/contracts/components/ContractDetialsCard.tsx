@@ -28,9 +28,9 @@ const ContractDetialsCard = ({
           </span>
         </div>
         <div className="flex items-center gap-2">
-          <span>{t("contracts.providerEmail")}</span>
+          <span>{t("contracts.contractedPhone")}</span>
           <span className="text-muted-foreground">
-            {contractDetails.contractedEmail}
+            {contractDetails.contractedPhone}
           </span>
         </div>
 

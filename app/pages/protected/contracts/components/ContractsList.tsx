@@ -85,7 +85,7 @@ const ContractsList = () => {
           <TableHead>{t("common.endDate")}</TableHead>
           <TableHead>{t("contracts.providerFirstName")}</TableHead>
           <TableHead>{t("contracts.providerLastName")}</TableHead>
-          <TableHead>{t("contracts.providerEmail")}</TableHead>
+          <TableHead>{t("contracts.contractedPhone")}</TableHead>
           <TableHead>{t("common.status")}</TableHead>
           <TableHead />
         </TableRow>
@@ -109,7 +109,7 @@ const ContractsList = () => {
               <TableCell>{formatDateWithoutTime(contract.endDate)}</TableCell>
               <TableCell>{contract.contractedFirstName}</TableCell>
               <TableCell>{contract.contractedLastName}</TableCell>
-              <TableCell>{contract.contractedEmail}</TableCell>
+              <TableCell>{contract.contractedPhone}</TableCell>
               <TableCell>
                 {t(`status.${contract?.statusLabel?.toLocaleLowerCase()}`, {
                   defaultValue: contract.statusLabel,

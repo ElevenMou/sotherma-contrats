@@ -56,13 +56,11 @@ const ContractContractForm = ({
       )}`,
     }).min(1),
 
-    providerEmail: string({
-      required_error: `${t("contracts.providerEmail")} ${t(
+    contractedPhone: string({
+      required_error: `${t("contracts.contractedPhone")} ${t(
         "common.isRequired"
       )}`,
-    })
-      .email(`${t("contracts.providerEmail")} ${t("common.isRequired")}`)
-      .min(1, `${t("contracts.providerEmail")} ${t("common.isRequired")}`),
+    }).min(1, `${t("contracts.contractedPhone")} ${t("common.isRequired")}`),
 
     cvFile: z.instanceof(File).optional(),
   });
@@ -80,7 +78,7 @@ const ContractContractForm = ({
       startDate: new Date(values.startDate),
       contractedFirstName: values.providerFirstName,
       contractedLastName: values.providerLastName,
-      contractedEmail: values.providerEmail,
+      contractedPhone: values.contractedPhone,
       requestGuid: requestGuid,
       cvFile: values.cvFile,
     };
@@ -121,7 +119,6 @@ const ContractContractForm = ({
               <FormLabel>{t("common.startDate")}</FormLabel>
               <FormControl>
                 <DatePicker
-                  minDate={new Date()}
                   date={field.value}
                   setDate={field.onChange}
                 />
@@ -185,14 +182,14 @@ const ContractContractForm = ({
 
         <FormField
           control={form.control}
-          name="providerEmail"
+          name="contractedPhone"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t("contracts.providerEmail")}</FormLabel>
+              <FormLabel>{t("contracts.contractedPhone")}</FormLabel>
               <FormControl>
                 <Input
-                  type="email"
-                  defaultValue={contractDetails?.contractedEmail}
+                  type="tel"
+                  defaultValue={contractDetails?.contractedPhone}
                   {...field}
                 />
               </FormControl>

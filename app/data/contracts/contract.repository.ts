@@ -150,6 +150,28 @@ class ContractHttpRepository implements IContractRepository {
       throw error;
     }
   }
+
+  async ApproveClosingContractRequest(guid: string): Promise<void> {
+    try {
+      const url = generateUrl(`${base}${endpoints.approveRequest}`, {
+        guid,
+      });
+      await httpService.post(url);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async RejectClosingContractRequest(guid: string): Promise<void> {
+    try {
+      const url = generateUrl(`${base}${endpoints.rejectRequest}`, {
+        guid,
+      });
+      await httpService.post(url);
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export const contractHttpRepository = new ContractHttpRepository();

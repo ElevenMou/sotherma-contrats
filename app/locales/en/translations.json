@@ -292,6 +292,14 @@
       "closingRequestsFetch": {
         "title": "Fetch Error",
         "description": "Error fetching the list of closing requests."
+      },
+      "approveClosingRequest": {
+        "title": "Approve Error",
+        "description": "Error approving the closing request."
+      },
+      "rejectClosingRequest": {
+        "title": "Reject Error",
+        "description": "Error rejecting the closing request."
       }
     },
     "success": {
@@ -310,6 +318,14 @@
       "closeContractRequest": {
         "title": "Success",
         "description": "Close request for the contract created successfully."
+      },
+      "approveClosingRequest": {
+        "title": "Success",
+        "description": "Closing request approved successfully."
+      },
+      "rejectClosingRequest": {
+        "title": "Success",
+        "description": "Closing request rejected successfully."
       }
     }
   },

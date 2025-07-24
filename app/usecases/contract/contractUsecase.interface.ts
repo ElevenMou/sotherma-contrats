@@ -91,4 +91,20 @@ export interface ContractUseCaseInterface {
     request: ListPaginationRequestModel;
     view: GetClosingRequestsListView;
   }) => Promise<void>;
+
+  approveClosingContractRequest: ({
+    guid,
+    view,
+  }: {
+    guid: string;
+    view: LoadingView;
+  }) => Promise<void>;
+
+  rejectClosingContractRequest: ({
+    guid,
+    view,
+  }: {
+    guid: string;
+    view: LoadingView;
+  }) => Promise<void>;
 }

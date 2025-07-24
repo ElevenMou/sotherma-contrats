@@ -73,6 +73,8 @@ export const getEnvironment = () => {
         getCandidateCV: "/getCandidateCV?guid=<guid>",
         closingRequests:
           "/getClosingContractRequestList?startIndex=<startIndex>&maxRecords=<maxRecords>",
+        approveRequest: "/approveClosingContract?guid=<guid>",
+        rejectRequest: "/rejectClosingContract?guid=<guid>",
       },
     },
     NotificationsAPI: {

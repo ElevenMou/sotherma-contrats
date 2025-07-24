@@ -35,6 +35,13 @@ export interface IContractRepository {
   GetClosingContractsRequestsList: (
     request: ListPaginationRequestModel
   ) => Promise<
-    ListResponseModel<ClosingContractRequestListItemModel, "closingContractRequestList">
+    ListResponseModel<
+      ClosingContractRequestListItemModel,
+      "closingContractRequestList"
+    >
   >;
+
+  ApproveClosingContractRequest: (guid: string) => Promise<void>;
+
+  RejectClosingContractRequest: (guid: string) => Promise<void>;
 }

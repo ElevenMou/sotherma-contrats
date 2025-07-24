@@ -181,6 +181,50 @@ export const useContractUsecase = (): ContractUseCaseInterface => {
     }
   };
 
+  const approveClosingContractRequest = async ({
+    guid,
+    view,
+  }: {
+    guid: string;
+    view: LoadingView;
+  }) => {
+    try {
+      view.setLoading(true);
+      await contractHttpRepository.ApproveClosingContractRequest(guid);
+      toast.success(t("contracts.success.approveClosingRequest.title"), {
+        description: t("contracts.success.approveClosingRequest.description"),
+      });
+    } catch (error) {
+      toast.error(t("contracts.errors.approveClosingRequest.title"), {
+        description: t("contracts.errors.approveClosingRequest.description"),
+      });
+    } finally {
+      view.setLoading(false);
+    }
+  };
+
+  const rejectClosingContractRequest = async ({
+    guid,
+    view,
+  }: {
+    guid: string;
+    view: LoadingView;
+  }) => {
+    try {
+      view.setLoading(true);
+      await contractHttpRepository.RejectClosingContractRequest(guid);
+      toast.success(t("contracts.success.rejectClosingRequest.title"), {
+        description: t("contracts.success.rejectClosingRequest.description"),
+      });
+    } catch (error) {
+      toast.error(t("contracts.errors.rejectClosingRequest.title"), {
+        description: t("contracts.errors.rejectClosingRequest.description"),
+      });
+    } finally {
+      view.setLoading(false);
+    }
+  };
+
   return {
     saveContract,
     getList,
@@ -189,5 +233,7 @@ export const useContractUsecase = (): ContractUseCaseInterface => {
     getContractDetails,
     downloadCandidateCv,
     getClosingRequestsList,
+    approveClosingContractRequest,
+    rejectClosingContractRequest,
   };
 };

@@ -17,13 +17,23 @@ import { formatDateWithoutTime } from "@/lib/utils";
 import { useNavigate } from "react-router";
 import { useContractUsecase } from "@/usecases/contract/contractUsecase";
 import type { ClosingContractRequestListItemModel } from "@/data/contracts/model/response/ClosingContractRequestListItemModel";
+import Loading from "@/components/layout/Loading";
 
 const MAX_RECORDS = 13;
 
 const ContractClosingRequestsList = () => {
   const { t } = useTranslation();
-  const { getClosingRequestsList } = useContractUsecase();
+  const {
+    getClosingRequestsList,
+    approveClosingContractRequest,
+    rejectClosingContractRequest,
+  } = useContractUsecase();
+
   const [loading, setLoading] = useState(true);
+
+  const [approveLoading, setApproveLoading] = useState(false);
+  const [rejectLoading, setRejectLoading] = useState(false);
+
   const [closingRequestsList, setClosingRequestsList] = useState<
     ClosingContractRequestListItemModel[]
   >([]);
@@ -45,8 +55,24 @@ const ContractClosingRequestsList = () => {
     });
   };
 
-  const handleAcceptRequest = async (requestId: string) => {
-    fetchRequests();
+  const handleAcceptRequest = async (contractGuid: string) => {
+    await approveClosingContractRequest({
+      guid: contractGuid,
+      view: {
+        setLoading: setApproveLoading,
+      },
+    });
+    await fetchRequests();
+  };
+
+  const handleRejectRequest = async (contractGuid: string) => {
+    await rejectClosingContractRequest({
+      guid: contractGuid,
+      view: {
+        setLoading: setRejectLoading,
+      },
+    });
+    await fetchRequests();
   };
 
   const handlePageChange = (page: number) => {
@@ -97,11 +123,13 @@ const ContractClosingRequestsList = () => {
                 <Button
                   onClick={(e) => {
                     e.stopPropagation();
+                    handleRejectRequest(request.contractGuid ?? "");
                   }}
                   size="icon"
                   variant="destructive"
                 >
-                  <X className="h-4 w-4" />
+                  {!rejectLoading && <X className="h-4 w-4" />}
+                  {rejectLoading && <Loading />}
                 </Button>
                 <Button
                   size="icon"
@@ -109,9 +137,11 @@ const ContractClosingRequestsList = () => {
                   className="ml-2"
                   onClick={(e) => {
                     e.stopPropagation();
+                    handleAcceptRequest(request.contractGuid ?? "");
                   }}
                 >
-                  <Check className="h-4 w-4" />
+                  {!approveLoading && <Check className="h-4 w-4" />}
+                  {approveLoading && <Loading />}
                 </Button>
               </TableCell>
             </TableRow>

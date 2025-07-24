@@ -293,6 +293,14 @@
       "closingRequestsFetch": {
         "title": "Erreur de récupération",
         "description": "Erreur lors de la récupération de la liste des demandes de clôture."
+      },
+      "approveClosingRequest": {
+        "title": "Erreur d'approbation",
+        "description": "Erreur lors de l'approbation de la demande de clôture."
+      },
+      "rejectClosingRequest": {
+        "title": "Erreur de rejet",
+        "description": "Erreur lors du rejet de la demande de clôture."
       }
     },
     "success": {
@@ -311,6 +319,14 @@
       "closeContractRequest": {
         "title": "Succès",
         "description": "La demande de fermeture du contrat a été créée avec succès."
+      },
+      "approveClosingRequest": {
+        "title": "Succès",
+        "description": "La demande de clôture a été approuvée avec succès."
+      },
+      "rejectClosingRequest": {
+        "title": "Succès",
+        "description": "La demande de clôture a été rejetée avec succès."
       }
     }
   },

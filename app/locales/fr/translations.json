@@ -170,7 +170,7 @@
     },
     "tab": {
       "activeRequests": "Mes demandes en cours",
-      "completedRequests": "Mes demandes validées"
+      "completedRequests": "Mes demandes traitées"
     },
     "confirmReject": {
       "title": "Confirmer le rejet",

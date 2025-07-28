@@ -167,7 +167,8 @@
       "Create": "Create",
       "Approve": "Approve",
       "Reject": "Reject",
-      "Create Contract": "Create Contract"
+      "Create Contract": "Create Contract",
+      "Notify Provider": "Notify Provider"
     },
     "tab": {
       "activeRequests": "My Pending Requests",
@@ -335,6 +336,7 @@
     "edit_site": "Edit Site",
     "save_site": "Save Site",
     "site_name": "Site Name",
+    "agent": "Agency",
     "site_code": "Site Code",
     "provider_email": "Provider Email",
     "errors": {

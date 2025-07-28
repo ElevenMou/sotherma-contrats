@@ -46,6 +46,7 @@ const SiteFormDialog = ({
           setSiteDetails: (siteDetails) => {
             form.setValue("code", siteDetails.code);
             form.setValue("name", siteDetails.name);
+            form.setValue("agent", siteDetails.agent);
             form.setValue("providerEmail", siteDetails.providerEmail);
           },
         },
@@ -60,6 +61,9 @@ const SiteFormDialog = ({
     name: string().min(1, {
       message: `${t("sites.site_name")} ${t("common.isRequired")}`,
     }),
+    agent: string().min(1, {
+      message: `${t("sites.agent")} ${t("common.isRequired")}`,
+    }),
     providerEmail: string()
       .email({
         message: `${t("sites.provider_email")} ${t("common.isInvalid")}`,
@@ -72,6 +76,7 @@ const SiteFormDialog = ({
     defaultValues: {
       code: "",
       name: "",
+      agent: "",
       providerEmail: "",
     },
   });
@@ -87,6 +92,7 @@ const SiteFormDialog = ({
         guid: siteId ?? "",
         code: form.getValues("code"),
         name: form.getValues("name"),
+        agent: form.getValues("agent"),
         providerEmail: form.getValues("providerEmail"),
       },
       view: {
@@ -143,6 +149,24 @@ const SiteFormDialog = ({
                     <FormControl>
                       <Input
                         placeholder={t("sites.site_name")}
+                        disabled={loading}
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="agent"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t("sites.agent")}</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder={t("sites.agent")}
                         disabled={loading}
                         {...field}
                       />

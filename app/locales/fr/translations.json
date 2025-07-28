@@ -167,7 +167,8 @@
       "Create": "Créé",
       "Approve": "Approuvé",
       "Reject": "Rejeté",
-      "Create Contract": "Créer un contrat"
+      "Create Contract": "Créer un contrat",
+      "Notify Provider": "Notifier le prestataire"
     },
     "tab": {
       "activeRequests": "Mes demandes en cours",
@@ -337,6 +338,7 @@
     "save_site": "Enregistrer le site",
     "site_name": "Nom du site",
     "site_code": "Code du site",
+    "agent": "Agent",
     "provider_email": "Email du prestataire",
     "errors": {
       "listFetch": {

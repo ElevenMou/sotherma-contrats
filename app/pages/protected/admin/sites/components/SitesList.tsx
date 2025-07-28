@@ -46,6 +46,7 @@ const SitesList = () => {
         <TableRow>
           <TableHead>{t("sites.site_code")}</TableHead>
           <TableHead>{t("sites.site_name")}</TableHead>
+          <TableHead>{t("sites.agent")}</TableHead>
           <TableHead>{t("sites.provider_email")}</TableHead>
         </TableRow>
       </TableHeader>
@@ -89,6 +90,15 @@ const SitesList = () => {
                   siteId={site.guid}
                   variant="ghost"
                 >
+                  {site.agent}
+                </SiteFormDialog>
+              </TableCell>
+              <TableCell>
+                <SiteFormDialog
+                  key={site.code}
+                  siteId={site.guid}
+                  variant="ghost"
+                >
                   {site.providerEmail ? site.providerEmail : t("common.n/a")}
                 </SiteFormDialog>
               </TableCell>
@@ -97,7 +107,7 @@ const SitesList = () => {
       </TableBody>
       <TableFooter>
         <TableRow>
-          <TableCell colSpan={3}>
+          <TableCell colSpan={4}>
             <Pagination
               totalItems={totalCount}
               itemsPerPage={SITES_MAX_RECORDS}

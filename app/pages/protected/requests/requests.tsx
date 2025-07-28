@@ -40,7 +40,7 @@ export default function Requests() {
             className="mr-2 h-4 w-[1px] bg-ring"
           />
           <h1 className="w-full">{t("menu.requests")}</h1>
-          {(isRequester || isManager) && (
+          {(isRequester || isManager || isHR) && (
             <Button asChild className="!w-fit">
               <Link to="/requests/create" className="w-full">
                 {t("requests.add_request")}

@@ -1,6 +1,5 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useState } from "react";
-import RequestsList from "./RequestsList";
 import MyRequestsList from "./MyRequestsList";
 import { useTranslation } from "react-i18next";
 import ContractClosingRequestsList from "./ContractClosingRequestsList";
@@ -18,12 +17,18 @@ const HRRequests = () => {
         <TabsTrigger value="contractsRequests">
           {t("requests.tab.contractsRequests")}
         </TabsTrigger>
+        <TabsTrigger value="completedRequests">
+          {t("requests.tab.completedRequests")}
+        </TabsTrigger>
         <TabsTrigger value="closeRequests">
           {t("requests.tab.closeRequests")}
         </TabsTrigger>
       </TabsList>
       <TabsContent value="contractsRequests">
         <MyRequestsList />
+      </TabsContent>
+      <TabsContent value="completedRequests">
+        <MyRequestsList isCompleted={true} />
       </TabsContent>
       <TabsContent value="closeRequests">
         <ContractClosingRequestsList />

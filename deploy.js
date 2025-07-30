@@ -18,7 +18,7 @@ if (!SSH_HOST || !SSH_USER || !SSH_PASSWORD) {
 }
 
 const cmd = isWindows
-  ? `plink -batch -pw ${SSH_PASSWORD} ${SSH_USER}@${SSH_HOST} "bash ${DEPLOY_SCRIPT_PATH}"`
+  ? `plink -batch -pw ${SSH_PASSWORD} -hostkey "ssh-ed25519 255 SHA256:neMoN9/8BM3UqvdNCzZLYIqqA6a4RlbBQspr76zwiAg" ${SSH_USER}@${SSH_HOST} "bash ${DEPLOY_SCRIPT_PATH}"`
   : `SSHPASS='${SSH_PASSWORD}' sshpass -e ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${SSH_USER}@${SSH_HOST} "bash ${DEPLOY_SCRIPT_PATH}"`;
 
 console.log(`🚀 Connecting to ${SSH_USER}@${SSH_HOST} to run deploy.sh...\n`);

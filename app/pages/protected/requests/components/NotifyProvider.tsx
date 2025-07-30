@@ -13,12 +13,16 @@ const NotifyProvider: FC<NotifyProviderRequestModel> = ({
   const { t } = useTranslation();
   const { notifyProvider } = useRequestUsecase();
   const [loading, setLoading] = useState<boolean>(false);
+  const [counter, setCounter] = useState<number>(
+    providerNotificationCounter || 0
+  );
 
   const notify = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setLoading(true);
     try {
       await notifyProvider({ request: { requestGUID }, view: { setLoading } });
+      setCounter((prev) => prev + 1);
     } catch (error) {
       console.error("Error notifying provider:", error);
     } finally {
@@ -36,9 +40,7 @@ const NotifyProvider: FC<NotifyProviderRequestModel> = ({
       {!loading && (
         <>
           <BellRing />
-          {providerNotificationCounter && (
-            <span>{providerNotificationCounter}</span>
-          )}
+          {counter && <span>{counter}</span>}
         </>
       )}
     </Button>

@@ -13,7 +13,7 @@ import { userHttpRepository } from "@/data/users/user.repository";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Login" },
+    { title: "Sotherma Contracts" },
     { name: "description", content: "Welcome to login!" },
   ];
 }

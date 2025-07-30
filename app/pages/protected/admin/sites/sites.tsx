@@ -6,10 +6,9 @@ import SitesList from "./components/SitesList";
 import SiteFormDialog from "./components/SiteFormDialog";
 
 export function meta({}: Route.MetaArgs) {
-  const { t } = useTranslation();
   return [
-    { title: t("menu.sites") },
-    { name: "description", content: "Welcome to departments!" },
+    { title: "Sotherma Contracts" },
+    { name: "description", content: "Welcome to sites!" },
   ];
 }
 

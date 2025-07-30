@@ -14,7 +14,7 @@ import HRRequests from "./components/HRRequests";
 export function meta({}: Route.MetaArgs) {
   const { t } = useTranslation();
   return [
-    { title: t("menu.requests") },
+    { title: "Sotherma Contracts" },
     { name: "description", content: "Welcome to requests!" },
   ];
 }

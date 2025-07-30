@@ -6,7 +6,7 @@ import ContractsList from "./components/ContractsList";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Contracts" },
+    { title: "Sotherma Contracts" },
     { name: "description", content: "Welcome to contracts!" },
   ];
 }

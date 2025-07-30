@@ -13,7 +13,7 @@ import DepartmentManagementForm from "./components/DepartmentManagementForm";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export function meta({}: Route.MetaArgs) {
-  return [{ title: "Department management" }];
+  return [{ title: "Sotherma Contracts" }];
 }
 
 export default function EmployeeDetails({ params }: Route.ComponentProps) {

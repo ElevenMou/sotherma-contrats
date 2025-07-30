@@ -14,7 +14,7 @@ import type { RequestDetailsModel } from "@/data/requests/model/request/RequestD
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Request edit" },
+    { title: "Sotherma Contracts" },
     { name: "description", content: "Welcome to requests!" },
   ];
 }

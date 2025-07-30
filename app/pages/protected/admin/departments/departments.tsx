@@ -7,7 +7,7 @@ import DepartmentFormDialog from "./components/DepartmentFormDialog";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Departments" },
+    { title: "Sotherma Contracts" },
     { name: "description", content: "Welcome to departments!" },
   ];
 }

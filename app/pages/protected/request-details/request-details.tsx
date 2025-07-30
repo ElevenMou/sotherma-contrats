@@ -17,7 +17,7 @@ import { useContractUsecase } from "@/usecases/contract/contractUsecase";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Request details" },
+    { title: "Sotherma Contracts" },
     { name: "description", content: "Welcome to requests!" },
   ];
 }

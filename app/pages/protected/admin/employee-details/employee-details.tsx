@@ -14,7 +14,7 @@ import EmployeeForm from "./components/EmployeeForm";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "Employee details" },
+    { title: "Sotherma Contracts" },
     { name: "description", content: "Welcome to employees!" },
   ];
 }

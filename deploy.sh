@@ -1,16 +1,9 @@
 #!/bin/bash
-
-# Wait 10s to be sure network + Git is ready
 sleep 10
-
 cd /home/sotherma/sotherma-contrats
-
-# Pull code
 git pull origin main
-
-# Remove old container
 docker rm -f react-ui
 
-# Rebuild and run
-docker build -t sotherma-contracts .
+# Clear cache and rebuild
+docker build --no-cache -t sotherma-contracts .
 docker run -d -p 3010:3000 --restart always --name react-ui sotherma-contracts

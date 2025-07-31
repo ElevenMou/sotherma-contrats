@@ -23,7 +23,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <Logo className="w-full" />
+        <Logo className="w-full" height={90} />
       </SidebarHeader>
       <SidebarContent>
         <NavMain />

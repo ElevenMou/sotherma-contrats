@@ -60,7 +60,7 @@ export default function Login() {
       )}
       {!isNavigating && (
         <div className="rounded-lg bg-background shadow-md max-w-lg">
-          <div className="p-8 col-span-2 m-2 bg-primary rounded-sm">
+          <div className="p-8 col-span-2 m-2 bg-blue-50 rounded-sm">
             <a href="https://www.moussasaidi.com" target="_blank">
               <Logo className="mx-auto max-w-60 w-full" fill="white" />
             </a>

@@ -16,6 +16,7 @@ export const getEnvironment = () => {
         delegationUsers: "/get-delegation-users",
         setDelegated: "/set-is-delegated",
         setActiveStatus: "/set-is-active",
+        changePassword: "/changePassword",
       },
     },
     DepartmentsAPI: {

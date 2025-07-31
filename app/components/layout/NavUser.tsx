@@ -20,6 +20,7 @@ import ChangeLanguage from "@/lib/localization/components/ChangeLanguage";
 import { useAuthUsecase } from "@/usecases/auth/authUsecase";
 import { useTranslation } from "react-i18next";
 import { useGlobalContext } from "@/contexts/GlobalContext";
+import ChangePasswordFormDialog from "../form/ChangePasswordDialog";
 
 export function NavUser() {
   const { isMobile } = useSidebar();
@@ -31,7 +32,7 @@ export function NavUser() {
     userInfo && (
       <SidebarMenu>
         <SidebarMenuItem>
-          <DropdownMenu>
+          <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild>
               <SidebarMenuButton
                 size="lg"
@@ -77,6 +78,10 @@ export function NavUser() {
                   </div>
                 </div>
               </DropdownMenuLabel>
+              <DropdownMenuSeparator />
+
+              <ChangePasswordFormDialog className="w-full" />
+
               <DropdownMenuSeparator />
               <DropdownMenuItem className="p-0">
                 <ChangeLanguage />

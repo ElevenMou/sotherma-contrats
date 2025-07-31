@@ -9,6 +9,7 @@ import type { UserDetailsModel } from "./model/response/UserDetailsModel";
 import type { DelegationUserModel } from "./model/response/DelegationUserModel";
 import type { SetIsDelegetedRequestModel } from "./model/request/SetIsDelegetedRequestModel";
 import type { SetActiveStatusRequestModel } from "./model/request/SetActiveStatusRequestModel";
+import type { ChangePasswordRequestModel } from "./model/request/ChangePasswordRequestModel";
 
 // HttpService instance
 const httpService = HttpService.getInstance();
@@ -88,6 +89,15 @@ class UserHttpRepository implements IUserRepository {
 
   SetActiveStatus(request: SetActiveStatusRequestModel): Promise<void> {
     const url = `${base}${endpoints.setActiveStatus}`;
+    try {
+      return httpService.post<void>(url, request);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  ChangePassword(request: ChangePasswordRequestModel): Promise<void> {
+    const url = `${base}${endpoints.changePassword}`;
     try {
       return httpService.post<void>(url, request);
     } catch (error) {

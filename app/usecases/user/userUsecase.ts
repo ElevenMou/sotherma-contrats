@@ -1,6 +1,7 @@
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
 import type {
+  ChangePasswordView,
   GetDelegationUsersView,
   GetUserDetailsView,
   SaveUserDetailsView,
@@ -16,6 +17,7 @@ import type { UserDetailsModel } from "@/data/users/model/response/UserDetailsMo
 import type { SetIsDelegetedRequestModel } from "@/data/users/model/request/SetIsDelegetedRequestModel";
 import { useGlobalContext } from "@/contexts/GlobalContext";
 import type { SetActiveStatusRequestModel } from "@/data/users/model/request/SetActiveStatusRequestModel";
+import type { ChangePasswordRequestModel } from "@/data/users/model/request/ChangePasswordRequestModel";
 
 export const useUserAdminUsecase = (): UserAdminUseCaseInterface => {
   const { t } = useTranslation();
@@ -169,7 +171,31 @@ export const useUserPublicUsecase = (): UserPublicUseCaseInterface => {
     }
   };
 
+  const changePassword = async ({
+    request,
+    view,
+  }: {
+    request: ChangePasswordRequestModel;
+    view: ChangePasswordView;
+  }) => {
+    try {
+      if (request.newPassword !== request.confirmNewPassword) {
+        toast.error(t("changePassword.errors.passwordMismatch"));
+        return;
+      }
+
+      await userHttpRepository.ChangePassword(request);
+      toast.success(t("changePassword.success.title"), {
+        description: t("changePassword.success.description"),
+      });
+      view.onSuccess();
+    } catch (error) {
+      toast.error(t("changePassword.errors.passwordChangeFailed"));
+    }
+  };
+
   return {
     setIsDelegated,
+    changePassword,
   };
 };

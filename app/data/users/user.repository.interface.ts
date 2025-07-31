@@ -6,6 +6,7 @@ import type { ListResponseModel } from "../utils/GetUsersListResponseModel";
 import type { DelegationUserModel } from "./model/response/DelegationUserModel";
 import type { SetIsDelegetedRequestModel } from "./model/request/SetIsDelegetedRequestModel";
 import type { SetActiveStatusRequestModel } from "./model/request/SetActiveStatusRequestModel";
+import type { ChangePasswordRequestModel } from "./model/request/ChangePasswordRequestModel";
 
 export interface IUserRepository {
   GetCurrentUserInfo(): Promise<CurrentUserInfoModel>;
@@ -25,4 +26,6 @@ export interface IUserRepository {
   SetIsDelegated(request: SetIsDelegetedRequestModel): Promise<void>;
 
   SetActiveStatus(request: SetActiveStatusRequestModel): Promise<void>;
+
+  ChangePassword(request: ChangePasswordRequestModel): Promise<void>;
 }

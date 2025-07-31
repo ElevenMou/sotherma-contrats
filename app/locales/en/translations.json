@@ -406,5 +406,19 @@
     "invoice_operator": "Invoice Operator",
     "other": "Other",
     "specifyOther": "Please specify..."
+  },
+  "changePassword": {
+    "title": "Change Password",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "confirmNewPassword": "Confirm New Password",
+    "errors": {
+      "passwordMismatch": "New password and confirmation do not match.",
+      "passwordChangeFailed": "Failed to change password. Please try again."
+    },
+    "success": {
+      "title": "Password Changed Successfully",
+      "description": "Your password has been changed successfully."
+    }
   }
 }

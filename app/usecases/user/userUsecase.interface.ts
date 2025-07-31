@@ -5,6 +5,7 @@ import type React from "react";
 import type { DelegationUserModel } from "@/data/users/model/response/DelegationUserModel";
 import type { SetIsDelegetedRequestModel } from "@/data/users/model/request/SetIsDelegetedRequestModel";
 import type { SetActiveStatusRequestModel } from "@/data/users/model/request/SetActiveStatusRequestModel";
+import type { ChangePasswordRequestModel } from "@/data/users/model/request/ChangePasswordRequestModel";
 
 export interface GetUserDetailsView {
   setLoading: (loading: boolean) => void;
@@ -64,6 +65,10 @@ export interface UserAdminUseCaseInterface {
   }) => Promise<void>;
 }
 
+export interface ChangePasswordView {
+  onSuccess: () => void;
+}
+
 export interface UserPublicUseCaseInterface {
   setIsDelegated: ({
     request,
@@ -71,5 +76,13 @@ export interface UserPublicUseCaseInterface {
   }: {
     request: SetIsDelegetedRequestModel;
     view: SetIsDelegetedView;
+  }) => Promise<void>;
+
+  changePassword: ({
+    request,
+    view,
+  }: {
+    request: ChangePasswordRequestModel;
+    view: ChangePasswordView;
   }) => Promise<void>;
 }

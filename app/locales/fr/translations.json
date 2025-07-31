@@ -407,5 +407,19 @@
     "invoice_operator": "Facturier",
     "other": "Autre",
     "specifyOther": "Veuillez préciser..."
+  },
+  "changePassword": {
+    "title": "Changer le mot de passe",
+    "currentPassword": "Mot de passe actuel",
+    "newPassword": "Nouveau mot de passe",
+    "confirmNewPassword": "Confirmer le nouveau mot de passe",
+    "errors": {
+      "passwordMismatch": "Les mots de passe ne correspondent pas.",
+      "passwordChangeFailed": "Échec du changement de mot de passe."
+    },
+    "success": {
+      "title": "Succès",
+      "description": "Votre mot de passe a été changé avec succès."
+    }
   }
 }

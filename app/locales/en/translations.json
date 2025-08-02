@@ -162,7 +162,7 @@
     "departureLastName": "Departure Last Name",
     "departurePosition": "Departure Position",
     "departureReason": "Departure Reason",
-    "notifyProvider": "Notify Provider",
+    "notifyProvider": "Provider notified",
     "actions": {
       "Create": "Create",
       "Approve": "Approve",

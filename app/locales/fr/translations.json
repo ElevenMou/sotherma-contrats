@@ -162,7 +162,7 @@
     "departureLastName": "Nom du départ",
     "departurePosition": "Poste du départ",
     "departureReason": "Raison du départ",
-    "notifyProvider": "Notifier le prestataire",
+    "notifyProvider": "Prestataire Notifié",
     "actions": {
       "Create": "Créé",
       "Approve": "Approuvé",
@@ -338,7 +338,7 @@
     "save_site": "Enregistrer le site",
     "site_name": "Nom du site",
     "site_code": "Code du site",
-    "agent": "Agent",
+    "agent": "Agence",
     "provider_email": "Email du prestataire",
     "errors": {
       "listFetch": {
